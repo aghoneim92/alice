@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react'
 
-import Menu from './Menu'
+import Menu from '../Menu'
 
 import './logo.scss'
 
-const handleLogoClick = ({ onClick }) => () => onClick()
+import handleLogoClick from './handleLogoClick'
+
+export const cssPrefix = 'os_logo'
 
 const Logo = ({ onClick, menuVisible }) => (
-  <div className="os_logo">
+  <div className={cssPrefix}>
     <div onClick={handleLogoClick({ onClick })}>OS</div>
     <Menu visible={menuVisible}/>
   </div>

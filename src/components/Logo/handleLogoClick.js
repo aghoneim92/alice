@@ -1,0 +1,1 @@
+export default ({ onClick }) => () => onClick()

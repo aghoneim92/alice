@@ -1,6 +1,6 @@
 import React, { PropTypes} from 'react'
 
-import Logo from './Logo'
+import Logo from './Logo/Logo'
 
 import './navbar.scss'
 

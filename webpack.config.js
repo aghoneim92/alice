@@ -7,7 +7,7 @@ const {
   // optimize: { CommonsChunkPlugin },
 } = require('webpack')
 
-const DEV = process.env.NODE_ENV === 'development'
+const PROD = process.env.NODE_ENV === 'production'
 
 module.exports = {
   devServer: {
@@ -15,20 +15,20 @@ module.exports = {
   },
   devtool: 'source-map',
   entry: {
-    main: DEV ? [
+    main: PROD ? [
+      './src/index.js',
+    ] : [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      './src/index.js',
-    ] : [
       './src/index.js',
     ],
   },
   output: {
     filename: '[name].js',
     path: resolve('./dist'),
-    publicPath: './dist/',
-    libraryTarget: DEV ? 'umd' : 'commonjs2',
+    publicPath: PROD ? './dist/' : '/dist/',
+    libraryTarget: PROD ? 'commonjs2' : 'umd',
   },
   module: {
     rules: [
@@ -86,7 +86,7 @@ module.exports = {
       {
         host: 'localhost',
         port: 3000,
-        proxy: 'http://localhost:8080/dist/main',
+        proxy: 'http://localhost:8080/webpack-dev-server/dist/main',
       },
       {
         reload: false,

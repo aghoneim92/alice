@@ -60,7 +60,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bd149939c2ea1d4488d3"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "17c253867f45e40bee3a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -712,7 +712,7 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/logo.scss":
+/***/ "./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/Logo/logo.scss":
 /***/ function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")();
@@ -720,7 +720,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, ".os_logo {\n  color: black;\n  margin-left: 1vw;\n  cursor: default;\n  line-height: 20px;\n  position: absolute;\n  top: 0; }\n", "", {"version":3,"sources":["/./src/components/src/components/logo.scss"],"names":[],"mappings":"AAEA;EACI,aAAY;EACZ,iBAAgB;EAChB,gBAAe;EACf,kBAAiB;EACjB,mBAAkB;EAClB,OACJ,EAAE","file":"logo.scss","sourcesContent":[".os {\n}\n.os_logo {\n    color: black;\n    margin-left: 1vw;\n    cursor: default;\n    line-height: 20px;\n    position: absolute;\n    top: 0\n}\n"],"sourceRoot":"webpack://"}]);
+exports.push([module.i, ".os_logo {\n  color: black;\n  margin-left: 1vw;\n  cursor: default;\n  line-height: 20px;\n  position: absolute;\n  top: 0; }\n", "", {"version":3,"sources":["/./src/components/Logo/src/components/Logo/logo.scss"],"names":[],"mappings":"AAEA;EACI,aAAY;EACZ,iBAAgB;EAChB,gBAAe;EACf,kBAAiB;EACjB,mBAAkB;EAClB,OACJ,EAAE","file":"logo.scss","sourcesContent":[".os {\n}\n.os_logo {\n    color: black;\n    margin-left: 1vw;\n    cursor: default;\n    line-height: 20px;\n    position: absolute;\n    top: 0\n}\n"],"sourceRoot":"webpack://"}]);
 
 // exports
 
@@ -22848,7 +22848,7 @@ function updateLink(linkElement, obj) {
 
 /***/ },
 
-/***/ "./src/components/Logo.js":
+/***/ "./src/components/Logo/Logo.js":
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22857,6 +22857,7 @@ function updateLink(linkElement, obj) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.cssPrefix = undefined;
 
 var _react = __webpack_require__("./node_modules/react/react.js");
 
@@ -22866,26 +22867,25 @@ var _Menu = __webpack_require__("./src/components/Menu.js");
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
-__webpack_require__("./src/components/logo.scss");
+__webpack_require__("./src/components/Logo/logo.scss");
+
+var _handleLogoClick = __webpack_require__("./src/components/Logo/handleLogoClick.js");
+
+var _handleLogoClick2 = _interopRequireDefault(_handleLogoClick);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var handleLogoClick = function handleLogoClick(_ref) {
-  var onClick = _ref.onClick;
-  return function () {
-    return onClick();
-  };
-};
+var cssPrefix = exports.cssPrefix = 'os_logo';
 
-var Logo = function Logo(_ref2) {
-  var onClick = _ref2.onClick,
-      menuVisible = _ref2.menuVisible;
+var Logo = function Logo(_ref) {
+  var onClick = _ref.onClick,
+      menuVisible = _ref.menuVisible;
   return _react2.default.createElement(
     'div',
-    { className: 'os_logo' },
+    { className: cssPrefix },
     _react2.default.createElement(
       'div',
-      { onClick: handleLogoClick({ onClick: onClick }) },
+      { onClick: (0, _handleLogoClick2.default)({ onClick: onClick }) },
       'OS'
     ),
     _react2.default.createElement(_Menu2.default, { visible: menuVisible })
@@ -22898,6 +22898,52 @@ Logo.propTypes = {
 };
 
 exports.default = Logo;
+
+/***/ },
+
+/***/ "./src/components/Logo/handleLogoClick.js":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (_ref) {
+  var onClick = _ref.onClick;
+  return function () {
+    return onClick();
+  };
+};
+
+/***/ },
+
+/***/ "./src/components/Logo/logo.scss":
+/***/ function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/Logo/logo.scss");
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/style-loader/addStyles.js")(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/Logo/logo.scss", function() {
+			var newContent = __webpack_require__("./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/Logo/logo.scss");
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ },
 
@@ -22960,7 +23006,7 @@ var _react = __webpack_require__("./node_modules/react/react.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Logo = __webpack_require__("./src/components/Logo.js");
+var _Logo = __webpack_require__("./src/components/Logo/Logo.js");
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
@@ -23136,33 +23182,6 @@ exports.default = OS;
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "409859d4d34b1aa1aa1806a465f70ea4.jpg";
-
-/***/ },
-
-/***/ "./src/components/logo.scss":
-/***/ function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/logo.scss");
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/style-loader/addStyles.js")(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/logo.scss", function() {
-			var newContent = __webpack_require__("./node_modules/css-loader/index.js?importLoaders=1&sourceMap!./node_modules/sass-loader/index.js?sourceMap!./node_modules/postcss-loader/index.js?sourceMap!./src/components/logo.scss");
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
 
 /***/ },
 

@@ -1,0 +1,14 @@
+.os {
+  &_menu {
+    display: none;
+    background: rgba(255, 255, 255, 0.5);
+    width: 25vw;
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    &-visible {
+      display: block;
+    }
+  }
+}

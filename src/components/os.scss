@@ -1,0 +1,28 @@
+@import "~normalize.css";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.os {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  &_wallpaper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+  }
+}

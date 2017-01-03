@@ -1,0 +1,20 @@
+{
+  "extends": ["standard", "plugin:react/recommended"],
+  "installedESLint": true,
+  "parser": "babel-eslint",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "plugins" :["react","standard","promise"],
+  "rules":{
+    "semi":["error","never"],
+    "quotes":["error","single"],
+    "comma-dangle":["error","always-multiline"],
+    "prefer-const":"error",
+    "no-var":"error",
+    "no-return-assign":0,
+    "operator-linebreak":0,
+    "camelcase":0
+  }
+}

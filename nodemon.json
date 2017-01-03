@@ -1,0 +1,10 @@
+{
+  "ext": "js",
+  "watch": [
+    "webpack.config.js",
+    "postcss.config.js",
+    "package.json",
+    "node_modules",
+    ".babelrc"
+  ]
+}

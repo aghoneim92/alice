@@ -1,0 +1,10 @@
+.os {
+  &_navbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    height: 20px;
+    width: 100%;
+  }
+}

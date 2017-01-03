@@ -8,7 +8,8 @@
     "build": "webpack",
     "dev": "nodemon --exec webpack-dev-server",
     "test": "ava",
-    "tdd": "ava --watch"
+    "tdd": "ava --watch",
+    "gulp-task": "gulp"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -38,6 +39,7 @@
     "chai-enzyme": "^0.6.1",
     "chai-sinon": "^2.8.1",
     "cheerio": "^0.22.0",
+    "coveralls": "^2.11.15",
     "css-loader": "^0.26.1",
     "electron": "^1.4.13",
     "electron-reload": "^1.1.0",
@@ -48,6 +50,8 @@
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
     "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.2",
     "ignore-styles": "^5.0.1",
     "it": "^1.1.1",
     "jsdom": "^9.9.1",
@@ -56,6 +60,7 @@
     "less-loader": "^2.2.3",
     "node-sass": "^4.1.1",
     "nodemon": "^1.11.0",
+    "nyc": "^10.0.0",
     "postcss-cssnext": "^2.9.0",
     "postcss-loader": "^1.2.1",
     "postcss-modules": "^0.5.2",
@@ -81,7 +86,22 @@
       "babel-register",
       "ignore-styles"
     ],
-    "babel": "inherit",
     "source": "**/*.js"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-class-properties"
+    ],
+    "ignore": "**/**/__tests__/*.js",
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    }
   }
 }

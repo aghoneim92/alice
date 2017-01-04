@@ -9,6 +9,8 @@ const {
 
 const PROD = process.env.NODE_ENV === 'production'
 
+require('./src/lib/gen-readme.js')
+
 module.exports = {
   devServer: {
     hot: true,
@@ -23,6 +25,9 @@ module.exports = {
       'webpack/hot/only-dev-server',
       './src/index.js',
     ],
+  },
+  externals: {
+    'react-electron-web-view': 'react-electron-web-view',
   },
   output: {
     filename: '[name].js',
@@ -69,11 +74,15 @@ module.exports = {
         ],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        test: /\.(eot|svg|ttf|woff|woff2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader',
         options: {
           name: 'fonts/[name].[ext]',
         },
+      },
+      {
+        test: /.md$/,
+        loader: 'url-loader',
       },
     ],
   },

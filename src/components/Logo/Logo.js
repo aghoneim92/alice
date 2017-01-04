@@ -10,7 +10,12 @@ export const cssPrefix = 'os_logo'
 
 const Logo = ({ onClick, menuVisible }) => (
   <div className={cssPrefix}>
-    <div onClick={handleLogoClick({ onClick })}>OS</div>
+    <div
+      className={`${cssPrefix}_text`}
+      onClick={handleLogoClick({ onClick })}
+    >
+      OS
+    </div>
     <Menu visible={menuVisible}/>
   </div>
 )

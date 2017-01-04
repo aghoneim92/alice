@@ -6,5 +6,19 @@
     top: 0;
     height: 20px;
     width: 100%;
+    &_children {
+      position: relative;
+      .joyride {
+        &-beacon {
+          z-index: 5;
+          margin-left: 1vw;
+          $width: 40px;
+          $height: 40px;
+          transform: translate3d(calc(-100vw - 2.5px), calc(-100vh - 1.75 * 40px), 0);
+          width: $width;
+          height: $height;
+        }
+      }
+    }
   }
 }

@@ -1,5 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
+if (!window.localStorage) {
+  window.localStorage = require('localstorage')
+}
 
 import OS from './components/OS'
 

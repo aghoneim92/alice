@@ -11,7 +11,7 @@
     "semi":["error","never"],
     "quotes":["error","single"],
     "comma-dangle":["error","always-multiline"],
-    "prefer-const":"error",
+    "prefer-const": "error",
     "no-var":"error",
     "no-return-assign":0,
     "operator-linebreak":0,

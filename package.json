@@ -1,5 +1,5 @@
 {
-  "name": "os.js",
+  "name": "alice",
   "version": "1.0.0",
   "description": "React Web OS",
   "main": "main.js",
@@ -58,6 +58,8 @@
     "jsdom-global": "^2.1.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "markdown-it": "^8.2.2",
+    "markdown-it-loader": "^0.5.0",
     "node-sass": "^4.1.1",
     "nodemon": "^1.11.0",
     "nyc": "^10.0.0",
@@ -65,6 +67,7 @@
     "postcss-loader": "^1.2.1",
     "postcss-modules": "^0.5.2",
     "postcss-scss": "^0.4.0",
+    "randomstring": "^1.1.5",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "3.0.0-beta.6",
     "sass-loader": "^4.1.1",
@@ -75,12 +78,24 @@
     "webpack-dev-server": "2.2.0-rc.0"
   },
   "dependencies": {
+    "fetch": "^1.1.0",
+    "focus-trap-react": "^3.0.1",
+    "font-awesome": "^4.7.0",
+    "highlight.js": "^9.9.0",
+    "localstorage": "^0.1.0",
     "normalize.css": "5.0.0",
     "ramda": "^0.23.0",
     "react": "15.4.1",
     "react-addons-css-transition-group": "15.4.1",
-    "react-dom": "15.4.1"
+    "react-dom": "15.4.1",
+    "react-electron-web-view": "^2.0.0",
+    "react-embedded-browser": "^0.1.1",
+    "react-joyride": "^1.6.0",
+    "react-markdown": "^2.4.2"
   },
+  "ignoreModules": [
+    ".md$"
+  ],
   "ava": {
     "require": [
       "babel-register",

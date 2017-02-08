@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+    "applyImmediately": true,
+    "statics": {
+      "match": { "extension": ["js", "css"] },
+      "apply": {
+        "cache": {
+          "name": "static-files",
+          "version": "1"
+        }
+      }
+    }
+}

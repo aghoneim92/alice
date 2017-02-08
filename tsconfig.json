@@ -1,0 +1,44 @@
+{
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true
+  },
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowJs": false,
+    "alwaysStrict": true,
+    "baseUrl": ".",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "module": "es6",
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "ESNext",
+    "jsx": "react",
+    "lib": [
+      "DOM",
+      "ES6"
+    ],
+    "moduleResolution": "Node"
+  },
+  "fileGlobs": [
+    "src/**/*",
+    "!node_modules/**"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

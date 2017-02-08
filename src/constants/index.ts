@@ -1,0 +1,47 @@
+// import { last } from 'ramda'
+// import { PROD, DEV, TEST } from './nodeEnv'
+//
+// const {
+//   env: {
+//     BROWSERSYNC_PORT,
+//     KOA_PORT,
+//   },
+// } = process
+//
+// export const APP_URL = PROD ? 'http://alice.services' : 'http://localhost:3000'
+//
+// export const DEFAULT_EMOJI = '👸'
+//
+// export { BROWSERSYNC_PORT, KOA_PORT, PROD, DEV, TEST }
+//
+// const windowCheck = 'typeof window === "object"'
+// const processCheck = 'typeof window.process === "object"'
+// export const ELECTRON = eval(`${windowCheck} && ${processCheck}`)
+//
+// export const FB_APP_ID = '111618562682872'
+//
+// export const FIREBASE_API_KEY = 'AIzaSyAPTAo5gRc9wLSzZ9KztwZnqdZ_zWwb1C4'
+// export const FIREBASE_PROJECT_ID = 'alice-155621'
+//
+// // export const GOOGLE_ACCESS_TOKEN = 'ya29.El_ZA9hFSioUuYAA_-uwKzL7XJmoOMA7d_Xj8Q_ptbEXrUBqd0V-cafs3Y7wRU9uUDJbEZoJ5z2DtaBtU6FxsrXJzB-lqi3dKTdJW5QPq-TFn-oRhlRUjFqy1avEb-vHdg'
+// export const GOOGLE_SPEECH_RECOGNIZE_URL = 'https://speech.googleapis.com/v1beta1/speech:syncrecognize'
+//
+// export const IDLE_TIME = 30000
+//
+// const { languages } = <any> navigator;
+//
+// export const BS_CONFIG = 'config/bs-config.js'
+// export const BS_PORT = 3000
+//
+// export const DIST = 'dist'
+//
+// export const LANGUAGE = navigator.language
+// export const LANGUAGE2 = last(languages)
+//
+// export const PORT = PROD ? 80 : 8080
+//
+// export const REACT_COMPONENT = 'REACT_COMPONENT'
+//
+// export const SAMPLE_RATE = 16000
+//
+// export const WIT_AI_TOKEN = 'L5HFNE352IVEA7GRKRDQTMOIHCWJI33A'

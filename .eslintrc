@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "standard",
+    "plugin:react/recommended",
+  ],
+  "installedESLint": true,
+  "parser": "typescript-eslint-parser",
+  "env": {
+    "node": true,
+    "mocha": true,
+    "browser": true,
+  },
+  "plugins" :["react","standard","promise"],
+  "rules":{
+    "camelcase": 0,
+    "comma-dangle": ["error","always-multiline"],
+    "no-console": 0,
+    "no-eval": 0,
+    "no-return-assign": 0,
+    "no-var": "error",
+    "operator-linebreak": 0,
+    "prefer-const": "error",
+    "semi": ["error","never"],
+    "space-before-function-paren": ["error", "never"],
+    "quotes": ["error","single"]
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  }
+}

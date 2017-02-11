@@ -1,0 +1,30 @@
+@import "~normalize.css";
+@import "../z-indexes";
+// @import "~v86/v86.css";
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+// @import '~font-awesome/css/font-awesome.css';
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.os {
+  position: absolute;
+  background-size: cover;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+#skitt-ui {
+  display: block;
+  position: absolute;
+  z-index: $z-index-speechKITT;
+}

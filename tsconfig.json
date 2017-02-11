@@ -5,7 +5,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "allowJs": false,
+    "allowJs": true,
     "alwaysStrict": true,
     "baseUrl": ".",
     "emitDecoratorMetadata": true,
@@ -27,7 +27,8 @@
     "jsx": "react",
     "lib": [
       "DOM",
-      "ES6"
+      "ES6",
+      "ES2015"
     ],
     "moduleResolution": "Node"
   },

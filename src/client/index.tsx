@@ -1,17 +1,37 @@
 /// <reference path="../index.d.ts"/>
-import * as React from 'react'
+import React from 'react'
 import { render } from 'react-dom'
-import getHotReloadStore from '../lib/getHotReloadStore'
+import { AppContainer } from 'react-hot-loader'
+import { Provider, Router, Route } from 'react-redux'
 
-import { OS } from '../components/OS'
+import store from '../store/index'
+import history from '../history'
 
-const state = getHotReloadStore('state', () => ({
-  div: document.createElement('div'),
-}))
+const div = document.createElement('div')
 
-document.querySelector('body')!.appendChild(state.div)
+document.querySelector('body')!.appendChild(div)
 
-render(
-  <OS/>,
-  state.div
+System.import('../components/OS').then(
+  (m: { default: any; }) => {
+    const { default: OS  } = m;
+
+    doRender(OS)
+
+    if (module.hot) {
+      module.hot.accept('../components/OS', () =>
+        doRender(OS)
+      );
+    }
+  }
+)
+
+const doRender = (OS: any) => render(
+  <AppContainer>
+    <Provider {...{store}}>
+      <Router history={history}>
+        <Route path='/' component={OS}/>
+      </Router>
+    </Provider>
+  </AppContainer>,
+  div,
 )

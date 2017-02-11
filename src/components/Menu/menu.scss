@@ -1,0 +1,27 @@
+.os {
+  &_menu {
+    display: none;
+    background: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 20px;
+    left: 1vw;
+    padding: 5px;
+    .fb {
+      &-login-button {
+        * {
+          width: initial !important;
+        }
+      }
+    }
+    &_readme {
+
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    &-visible {
+      display: block;
+    }
+  }
+}

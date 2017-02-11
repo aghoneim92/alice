@@ -1,14 +1,14 @@
 const nodemon = require('nodemon')
 
 nodemon({
-  'exec': 'webpack --watch webpack.config.js',
+  'exec': 'webpack-dev-server --watch webpack.config.js',
   'watch': [
     'index.ts',
     'index.d.ts',
+    "node_modules",
     'tsconfig.json',
     '.babelrc',
     'bs-config.js',
-    'typings.json',
     'package.json',
     'postcss.config.js',
   ],

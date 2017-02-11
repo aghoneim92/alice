@@ -1,21 +1,43 @@
-/* eslint-disable */
+/// <reference path="../node_modules/@types/node/index.d.ts" />
+/// <reference path="../node_modules/immutable/type-definitions/immutable.d.ts" />
+
+type Id = string;
+
+interface Kernel {
+  fs?: any;
+}
+
+interface NodeModule {
+  hot?: {
+    accept: Function;
+  };
+}
+
+interface NodeRequire {
+  context: (regex: RegExp) => (
+    ((value: string, index: number, array: string[]) => Object)
+  & { keys: string[]; });
+  ensure: (
+    arr: string[],
+    cb: (require: NodeRequire) => void,
+    name?: string
+  ): void;
+}
+
+declare module "react-bash"
+declare module "react-click-outside"
+declare module "react-derive"
+declare module "react-markdown"
+declare module "react-tiles"
+
+declare module "redux-immutable"
+
+declare var System: {
+  import: (module: string) => Promise<any>;
+};
+
 declare module "winston" {
   export function debug(...args: any[]): void;
   export function log(...args: any[]): void;
   export function error(...args: any[]): void;
-}
-
-// declare module "inline-worker" {
-//   export default class InlineWorker {
-//     constructor(
-//       fn: (self: { onmessage: Function, bark: Function }) => void,
-//       ctx: {}
-//     );
-//     onmessage: Function;
-//     postMessage: Function;
-//   }
-// }
-
-declare module "browsix" {
-  export const Boot: Function;
 }

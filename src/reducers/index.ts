@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux-immutable'
 import { routerReducer } from 'react-router-redux'
 
+import firebaseReducer from './firebaseReducer'
 import locationChange from './locationChange'
 import windowChange from './windowChange'
 import State from '../types/State'
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers({
   locationChange,
   windowChange,
   routing: routerReducer,
+  firebase: firebaseStateReducer,
 });

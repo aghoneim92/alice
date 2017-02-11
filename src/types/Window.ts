@@ -8,7 +8,7 @@ export interface IWindow extends Iterable<any> {
 
 export type WindowRecord = TypedRecord<IWindow>
 
-export const Window: TypedRecord<IWindow> = createRecord<IWindow>(
+export const Window: { new(): TypedRecord<IWindow>; } = createRecord<IWindow>(
   new Map(),
   'Window'
 )

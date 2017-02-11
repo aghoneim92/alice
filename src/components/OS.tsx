@@ -2,32 +2,63 @@
 // import traverseDir from '../lib/traverseDir'
 // import GitHubApi from 'github'
 // import { Boot } from 'browsix'
-/// <reference path='../index.d.ts'/>
+/// <reference path='../../index.d.ts'/>
 import React, { PureComponent } from 'react'
+import { firebaseConnect } from 'react-redux-firebase'
 import Helmet from 'react-helmet'
 import resolver from 'react-tiles/src/react-router-resovler'
 import Tiles from 'react-tiles'
+import { WindowManager } from 'ventus'
+
 import connect from '../lib/connect'
 import derive from '../lib/derive'
+import { log } from '../lib/logging'
 import './os.scss'
 
 import { APP_NAME, APP_URL } from '../constants/index'
 
+// const { isLoaded, isEmpty, dataToJS } = helpers
+
 export interface OSProps {
   currentWindow?: Window;
+  auth?: any;
+  authError?: any;
+  profile?: any;
 }
 
 export const cssPrefix = 'os'
 
+@firebaseConnect([
+  '/'
+])
 @derive
 class OS extends PureComponent<OSProps, undefined>{
   // ps1 = '$ ';
   // github: {};
+  //
+  tilesRef?: any;
+
+  componentDidMount() {
+    // const wm = new WindowManager()
+  }
+
+  componentDidUpdate({ layout }) {
+    const { state, tilesRef } = this
+    if(!layout && state.layout && tilesRef) {
+      log(tilesRef)
+      // wm.createWindow()
+    }
+  }
+
+  handleTilesRef = ref => this.tilesRef = ref
 
   render() {
     const {
       props: {
+        auth,
+        authError,
         currentWindow,
+        profile,
       },
     } = this;
 
@@ -49,7 +80,7 @@ class OS extends PureComponent<OSProps, undefined>{
         <Helmet
           title={`${APP_NAME}${currentWindow ? `| ${currentWindow.name}` : ''}`}
         />
-        <Tiles resolver = { resolver }/>
+        <Tiles ref={handleTilesRef} resolver = { resolver } {...this.props}/>
       </div>
     )
   }

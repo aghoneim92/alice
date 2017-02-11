@@ -4,17 +4,9 @@ export interface Payload {
   window?: WindowRecord
 }
 
-export class Action {
-
+export interface Action {
   readonly window?: WindowRecord;
-
-  constructor(
-    readonly type: string,
-    readonly payload: Payload,
-  ) {
-    const { window } = payload
-    if(window) {
-      this.window = window
-    }
-  }
+  readonly type: string;
+  readonly payload?: Payload;
+  readonly data: any;
 }

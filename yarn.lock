@@ -80,6 +80,10 @@ Base64@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/Base64/-/Base64-0.2.1.tgz#ba3a4230708e186705065e66babdd4c35cf60028"
 
+Ventus@rlamana/Ventus:
+  version "0.2.1"
+  resolved "https://codeload.github.com/rlamana/Ventus/tar.gz/53462b7a5bb9e4bc4d88890d0044ed4a2abf8d0e"
+
 abbrev@1:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
@@ -225,6 +229,10 @@ arrify@^1.0.0:
 asap@~2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.5.tgz#522765b50c3510490e52d7dcfe085ef9ba96958f"
+
+"ascii-json@>= 0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ascii-json/-/ascii-json-0.2.0.tgz#10ddb361fd48f72595309fd10a6ea2e7bf2c9218"
 
 asn1.js@^4.0.0:
   version "4.9.1"
@@ -2089,6 +2097,16 @@ find-versions@^1.0.0:
 firebase@3.6.5:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.6.5.tgz#e321da57c9c5b66e436432a3e15f1cf6d3b2f9a9"
+  dependencies:
+    dom-storage "2.0.2"
+    faye-websocket "0.9.3"
+    jsonwebtoken "7.1.9"
+    rsvp "3.2.1"
+    xmlhttprequest "1.8.0"
+
+firebase@^3.6.9:
+  version "3.6.9"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.6.9.tgz#26ad0f6adf2cd829a91e52e44f4867050f3cd2ad"
   dependencies:
     dom-storage "2.0.2"
     faye-websocket "0.9.3"
@@ -3962,6 +3980,10 @@ object-assign@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.0.tgz#7a3b3d0e98063d43f4c03f2e8ae6cd51a86883a0"
 
+"object-assign@>= 4.1.0", object-assign@^4.0.0, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+
 object-assign@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-2.1.1.tgz#43c36e5d569ff8e4816c4efa8be02d26967c18aa"
@@ -3969,10 +3991,6 @@ object-assign@^2.0.0:
 object-assign@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-3.0.0.tgz#9bedd5ca0897949bca47e7ff408062d549f587f2"
-
-object-assign@^4.0.0, object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
 
 object-component@0.0.3:
   version "0.0.3"
@@ -4952,9 +4970,9 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react-redux-firebase@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-1.2.4.tgz#ca2d2102211e1e9e8131528e8991d6eb1f073171"
+react-redux-firebase@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-1.2.5.tgz#a93a94884b00d8d3c7e3c591ed43a16c15d15931"
   dependencies:
     es6-promise "^4.0.5"
     firebase "3.6.5"
@@ -5000,6 +5018,13 @@ react-tiles@^0.4.1:
     object-assign "^4.1.0"
     qs "^6.2.0"
     rc-animate "^2.0.3"
+
+react-transmit@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-transmit/-/react-transmit-3.2.0.tgz#be34984394e9761848b81734da0e718e1fbfefb8"
+  dependencies:
+    ascii-json ">= 0.2.0"
+    object-assign ">= 4.1.0"
 
 react@^15.4.2:
   version "15.4.2"

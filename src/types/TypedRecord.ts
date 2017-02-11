@@ -1,17 +1,20 @@
 import { Record } from 'immutable'
 
-export interface IRecord {
-  ( value: (T | undefined) ) => Immutable.Map<string, any>;
+export interface IRecord<T> {
+  ( value: (T | undefined) ): Immutable.Map<string, any>;
 }
 
 export class TypedRecord<T> {
+
+  prototype?: TypedRecord<T>;
+
   constructor(
     readonly value: (T | undefined),
-    readonly record: IRecord
+    readonly record: IRecord<T>
   ) {
     Object.assign(
       this,
-      ( value ? record(value) : record() ),
+      record(value),
     )
   }
 }
@@ -21,8 +24,15 @@ export const createRecord =
     initialValue: Iterable<any>,
     name: string,
   ) => {
-    const record: IRecord = Record(initialValue, name)
+    const record: IRecord<T> = Record(initialValue, name)
 
-    return (value: (T | undefined) ): TypedRecord<T> =>
-      new TypedRecord<T>(value, record)
+    const ret: { new(): TypedRecord<T>; } = function( value: (T | undefined) ) {
+      TypedRecord<T>.call(this, value, record)
+    }
+
+    ret.name = name
+
+    ret.prototype = TypedRecord<T>!.prototype
+
+    return ret
   }

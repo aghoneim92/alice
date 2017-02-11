@@ -1,4 +1,4 @@
-import React, { ReactElement, PropTypes } from 'react'
+import React, { ReactElement } from 'react'
 import { once, dissoc } from 'ramda'
 import { Link } from 'react-tiles'
 import ClickOutside from 'react-click-outside'
@@ -17,21 +17,13 @@ const getReadme = once(
   )
 )
 
-export interface MenuProps {
-  children?: PropTypes.node;
-  FB?: any;
-  onClickOutside: () => void;
-  onFacebookLogin: () => void;
-  visible?: boolean;
-}
-
 const Menu = ({
   children,
   FB,
   onClickOutside,
-  onFacebookLogin,
+  // onFacebookLogin,
   visible,
-}: MenuProps): ReactElement => {
+}: MenuProps): (ReactElement<MenuProps> | null) => {
   if(!TEST) {
     getReadme()
   }
@@ -73,6 +65,13 @@ const Menu = ({
         }
     </ClickOutside>
   )
+}
+
+export interface MenuProps extends React.Props<Menu> {
+  FB?: any;
+  onClickOutside: () => void;
+  // onFacebookLogin: () => void;
+  visible?: boolean;
 }
 
 export default Menu

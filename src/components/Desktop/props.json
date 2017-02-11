@@ -1,0 +1,10 @@
+{
+  "deps": [
+    "react",
+    "focus-trap-react",
+    "ramda",
+    "components/Window/Window.js",
+    "components/WebView/WebView.js",
+    "components/Desktop/desktop.scss"
+  ]
+}

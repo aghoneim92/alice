@@ -12,7 +12,6 @@ const RESOLVE_EXTENSIONS = ['*', '.ts', '.tsx', '.js', '.scss', '.css', '.json']
 const main = PROD ? [
   MAIN,
 ] : [
-  'react-hot-loader/patch',
   'webpack-dev-server/client?http://localhost:8080',
   'webpack/hot/only-dev-server',
   MAIN,
@@ -79,15 +78,7 @@ const LOADERS = [
 const WEBPACK_PLUGINS = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
-  new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest'],
-      minChunks: module =>
-        module.context
-     && module.context
-              .indexOf('node_modules') !== -1,
-  }),
 ]
-
 
 const devtool = DEV_TOOL
 const extensions = RESOLVE_EXTENSIONS

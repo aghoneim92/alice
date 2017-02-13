@@ -1,26 +1,33 @@
-/// <reference path="./os.d.ts" />
 // import { WindowManager } from 'ventus'
 import React, { PureComponent } from 'react'
 import { firebaseConnect } from 'react-redux-firebase/dist/index'
 import Helmet from 'react-helmet'
-// import resolver from 'react-tiles/src/react-router-resovler'
 import Tiles from 'react-tiles'
+import resolver from '../lib/react-router-resolver'
 
 import connect from '../lib/connect'
 import derive from '../lib/derive'
-import { log } from '../lib/logging'
+import { debug } from '../lib/logging'
 import './os.scss'
 
 import { APP_NAME, APP_URL } from '../constants/index'
 
 // const { isLoaded, isEmpty, dataToJS } = helpers
 
+interface Auth {
+  currentUser?: any;
+}
+
+interface Firebase {
+  auth?: Auth;
+  authError?: any;
+  profile?: any;
+}
+
 export interface OSProps {
   currentWindow?: Window;
-  auth?: any;
-  authError?: any;
+  firebase: Firebase;
   layout?: any;
-  profile?: any;
 }
 
 export const cssPrefix = 'os'
@@ -39,7 +46,7 @@ class OS extends PureComponent<OSProps, undefined>{
   componentDidUpdate({ layout }: { layout: any; }) {
     const { props, tilesRef } = this
     if(!layout && props.layout && tilesRef) {
-      log(tilesRef)
+      debug(tilesRef)
       // wm.createWindow()
     }
   }
@@ -50,14 +57,16 @@ class OS extends PureComponent<OSProps, undefined>{
     const {
       handleTilesRef,
       props: {
-        auth,
-        authError,
+        firebase: {
+          auth,
+          authError,
+          profile,
+        },
         currentWindow,
-        profile,
       },
     } = this;
 
-    log('auth', auth, 'authError', authError, 'currentWindow', currentWindow, 'profile', profile)
+    debug('auth', auth, 'authError', authError, 'currentWindow', currentWindow, 'profile', profile)
 
     return (
       <div
@@ -75,7 +84,7 @@ class OS extends PureComponent<OSProps, undefined>{
         <Helmet
           title={`${APP_NAME}${currentWindow ? `| ${currentWindow.name}` : ''}`}
         />
-        <Tiles ref={handleTilesRef} resolver = {null} {...this.props}/>
+        <Tiles ref={handleTilesRef} resolver = { resolver } {...this.props}/>
       </div>
     )
   }

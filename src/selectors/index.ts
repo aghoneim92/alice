@@ -1,15 +1,14 @@
 import { createSelector } from 'reselect'
-import { call, curry, flip } from 'ramda'
-import { prop } from '../lib/immutableHelpers'
-import { helpers } from 'react-redux-firebase/dist/index'
+import { prop, unary } from 'ramda'
+import { applyArray, safeCall } from '../lib/functional'
 import { Map } from 'immutable'
-
-const pathToJS = flip( curry( helpers.pathToJS ) )
 
 const currentWindowIdSelector = prop('currentWindowId')
 const windowsSelector = prop('windows')
 const firebaseSelector = prop('firebase')
-const firebasePaths = ['auth', 'authError', 'profile'].map(pathToJS)
+const firebasePaths = ['auth', 'authError', 'profile'].map(unary(prop))
+
+const applyFirebasePathsTo = applyArray(firebasePaths)
 
 export default {
   currentWindow: createSelector(
@@ -22,8 +21,8 @@ export default {
   ),
   firebase: createSelector(
     firebaseSelector,
-    (firebase: any) => {
-      const [ auth, authError, profile ] = firebasePaths.map(call(firebase))
+    (firebase: KeyedObject) => {
+      const [ auth, authError, profile ] = applyFirebasePathsTo(firebase).map(unary(safeCall))
 
       return {
         auth,

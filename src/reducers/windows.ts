@@ -1,9 +1,10 @@
-import { merge } from '../lib/immutableHelpers'
+import { initialState } from './index';
+import { merge } from 'ramda'
+import { mergeImmutable } from '../lib/immutableHelpers'
 import { WINDOW_CHANGE } from '../constants/ActionTypes'
-import { Map } from 'immutable'
 
-const windowReducer: Reducer = (
-  state = Map<string, any>(),
+export const windowsReducer: Reducer = (
+  state = initialState,
   action,
 ) => {
   const { type, payload } = action
@@ -12,14 +13,12 @@ const windowReducer: Reducer = (
   return type === WINDOW_CHANGE && newWindow ?
     merge(
       state,
-      state.updateIn([
-        'windows',
-        newWindow.get('id')
-      ],
-        (window: ImMap) => window.merge(newWindow)
-      )
+      {
+        windows: state.windows.update(
+          newWindow.get('id'),
+          mergeImmutable(newWindow)
+        )
+      }
     )
   : state
 }
-
-export default windowReducer

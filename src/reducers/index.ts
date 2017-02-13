@@ -1,15 +1,14 @@
-import { combineReducers } from 'redux-immutable'
-import { routerReducer } from 'react-router-redux'
-
-import firebase from './firebase'
-import location from './location'
-import windows from './windows'
-import currentWindowId from './currentWindowId'
+import { windowsReducer } from './windows';
+import { currentWindowIdReducer } from './currentWindowId';
+import { firebaseStateReducer } from 'react-redux-firebase/dist/index';
+import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux'
 
 export const rootReducer = combineReducers({
-  currentWindowId,
-  location,
-  windows,
+  currentWindowId: currentWindowIdReducer,
+  windows: windowsReducer,
   routing: routerReducer,
-  firebase,
-});
+  firebase: firebaseStateReducer,
+})
+
+export { INITIAL_STATE as initialState } from '../constants/index'

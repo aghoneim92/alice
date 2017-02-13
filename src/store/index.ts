@@ -1,3 +1,4 @@
+import { identity } from 'ramda'
 import { reactReduxFirebase } from 'react-redux-firebase/dist/index'
 import { browserHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
@@ -5,10 +6,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createLogger from 'redux-logger'
 import { persistState } from 'redux-devtools'
 import winston from 'winston'
+
 import DevTools from '../components/DevTools/index'
+import { FIREBASE_CONFIG, INITIAL_STATE } from '../constants/index'
 import { rootReducer } from '../reducers/index'
-import { INITIAL_STATE, FIREBASE_CONFIG } from '../constants/index'
-import { fromJS } from 'immutable'
 
 const createStoreWithFirebase = compose(
   reactReduxFirebase(FIREBASE_CONFIG, { userProfile: 'users' }),
@@ -16,8 +17,10 @@ const createStoreWithFirebase = compose(
 
 function getDebugSessionKey() {
   const matches = window.location.href.match(/[?&]debug_session=([^&#]+)\b/);
-  return (matches && matches.length > 0)? matches[1] : 'default';
+  return (matches && matches.length > 0)? matches[1] : null;
 }
+
+const debugSessionKey = getDebugSessionKey()
 
 const enhancer = compose(
   applyMiddleware(
@@ -29,11 +32,13 @@ const enhancer = compose(
     })
   ),
   DevTools.instrument(),
-  persistState(getDebugSessionKey())
+  debugSessionKey ?
+    persistState(debugSessionKey)
+  : identity
 )
 
 function configureStore() {
-  const store = createStoreWithFirebase(rootReducer, fromJS(INITIAL_STATE), enhancer);
+  const store = createStoreWithFirebase(rootReducer, INITIAL_STATE, enhancer);
 
   if (module.hot) {
     module.hot.accept('../reducers/index', () =>

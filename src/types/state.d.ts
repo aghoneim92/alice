@@ -1,10 +1,11 @@
 /// <reference path="./window.d.ts" />
+import { Map } from 'immutable'
 
-interface IState {
-  currentWindowId: (Id | null);
-  windows: {
-    [key: string]: IWindow;
-  };
+declare global {
+  interface State {
+    currentWindowId: (Id | null);
+    windows: Map<string, Map<string, any>>;
+    firebase: any;
+    routing: any;
+  }
 }
-
-type State = ImMap

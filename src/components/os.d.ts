@@ -1,1 +1,0 @@
-declare module 'react-tiles/src/react-router-resovler'

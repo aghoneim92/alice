@@ -10,6 +10,10 @@ declare global {
   type Id = string;
   type ImMap = Map<string, any>
 
+  interface KeyedObject {
+    [key: string]: any;
+  }
+
   interface Reducer {
     (
       state: State,

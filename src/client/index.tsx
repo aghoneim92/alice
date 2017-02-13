@@ -1,8 +1,10 @@
-/// <reference path="./index.d.ts" />
+require('react-hot-loader/patch')
+
 import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import { Provider, Router, Route } from 'react-redux'
+import { Provider } from 'react-redux'
+import { Router, Route } from 'react-router'
 
 import store from '../store/index'
 import history from '../history'

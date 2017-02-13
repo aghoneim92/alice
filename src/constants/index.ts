@@ -1,5 +1,6 @@
 import { last } from 'ramda'
 import { PROD, DEV, TEST } from './nodeEnv'
+import { Map } from 'immutable'
 
 const {
   env: {
@@ -8,9 +9,11 @@ const {
   },
 } = process
 
-export const INITIAL_STATE: IState = {
-  windows: {},
+export const INITIAL_STATE: State = {
+  windows: Map<string, Map<string, any>>(),
   currentWindowId: null,
+  firebase: {},
+  routing: { locationBeforeTransitions: null },
 }
 
 export const APP_NAME = 'Alice'

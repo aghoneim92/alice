@@ -14,32 +14,26 @@
     "importHelpers": true,
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "module": "es6",
     "preserveConstEnums": true,
-    "sourceMap": true,
     "strictNullChecks": true,
     "target": "ESNext",
     "jsx": "react",
     "lib": [
-      "DOM",
-      "ES6",
-      "ES2015"
+      "dom",
+      "es6",
+      "es2015"
     ],
     "moduleResolution": "Node"
   },
   "fileGlobs": [
-    "src/**/*",
-    "!node_modules/**"
+    "src/**/*"
   ],
   "include": [
     "src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }

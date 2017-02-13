@@ -1,4 +1,5 @@
-import React, { ReactElement } from 'react'
+/// <reference path="./menu.d.ts" />
+import React, { ReactElement, StatelessComponent } from 'react'
 import { once, dissoc } from 'ramda'
 import { Link } from 'react-tiles'
 import ClickOutside from 'react-click-outside'
@@ -17,13 +18,28 @@ const getReadme = once(
   )
 )
 
-const Menu = ({
+interface LinkProps {
+  [key:string]: any;
+  href: string;
+}
+
+const MyLink: StatelessComponent<LinkProps> = props => (
+  <Link
+    to={props.href}
+    wrapper="floating"
+    {...dissoc('href', props)}
+  />
+)
+
+type MenuContainer = (props: MenuProps) => (ReactElement<MenuProps> | null);
+
+const Menu: MenuContainer = ({
   children,
   FB,
   onClickOutside,
   // onFacebookLogin,
   visible,
-}: MenuProps): (ReactElement<MenuProps> | null) => {
+}) => {
   if(!TEST) {
     getReadme()
   }
@@ -37,13 +53,7 @@ const Menu = ({
         className={`${cssPrefix}_readme`}
         source={README}
         renderers={{
-          Link: (props: { [key:string]: any; href: string; }) => (
-            <Link
-              to={props.href}
-              wrapper="floating"
-              {...dissoc('href', props)}
-            />
-          ),
+          Link: MyLink,
         }}
         sourcePos
       />
@@ -67,7 +77,7 @@ const Menu = ({
   )
 }
 
-export interface MenuProps extends React.Props<Menu> {
+export interface MenuProps extends React.Props<MenuContainer> {
   FB?: any;
   onClickOutside: () => void;
   // onFacebookLogin: () => void;

@@ -1,34 +1,35 @@
 import { createSelector } from 'reselect'
-import { curry, flip, merge } from 'ramda'
-import { getIn, prop } from '../lib/immutableHelpers'
-import { helpers } from 'react-redux-firebase'
+import { call, curry, flip } from 'ramda'
+import { prop } from '../lib/immutableHelpers'
+import { helpers } from 'react-redux-firebase/dist/index'
+import { Map } from 'immutable'
 
 const pathToJS = flip( curry( helpers.pathToJS ) )
-const flippedMap = flip(map)
 
-const currentWindowSelectors = ['currentWindowId', 'windows'].map(prop)
 const currentWindowIdSelector = prop('currentWindowId')
-const propSelectors = ['windows'].map(prop)
-const firebaseSelector = getIn(['firebase', 'firebaseMutable'])
-const mapFirebaseProps = flippedMap(['auth', 'authError', 'profile'])
-const firebasePropsToPathToJS = mapFirebaseProps(pathToJS)
-const mapPathToJSTo = flippedMap(firebasePropsToPathToJS)
-const firebaseSelectors = compose(mapPathToJSTo, call)
+const windowsSelector = prop('windows')
+const firebaseSelector = prop('firebase')
+const firebasePaths = ['auth', 'authError', 'profile'].map(pathToJS)
 
 export default {
   currentWindow: createSelector(
-    currentWindowSelectors,
-    (currentWindowId, windows) => windows.get(currentWindowId)
+    currentWindowIdSelector,
+    windowsSelector,
+    (
+      currentWindowId: string,
+      windows: Map<string, any>
+    ) => windows.get(currentWindowId)
   ),
   firebase: createSelector(
-    firebaseSelectors,
-    (auth, authError, profile) => merge(
-      firebase,
-      {
+    firebaseSelector,
+    (firebase: any) => {
+      const [ auth, authError, profile ] = firebasePaths.map(call(firebase))
+
+      return {
         auth,
         authError,
         profile,
       }
-    )
+    }
   )
 }

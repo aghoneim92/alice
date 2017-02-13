@@ -6,8 +6,7 @@ const history = syncHistoryWithStore(
   browserHistory,
   store,
   {
-    selectLocationState: (state: Map<string, any>) =>
-    state.get('routing').toJS(),
+    selectLocationState: (state: Map<string, any>) => state.get('routing'),
   },
 )
 

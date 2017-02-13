@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { createContainer } from 'react-transmit'
+import { Map } from 'immutable'
 
 import Windows from '../Windows/Windows'
 
@@ -11,26 +12,20 @@ export interface DesktopPropTypes {
 }
 
 export interface IDesktop {
-  (props: DesktopPropTypes): (ReactElement<DesktopPropTypes> | null);
+  (props: DesktopPropTypes): ReactNode;
 }
 
 const Desktop: IDesktop = ({
   windows,
 }) => (
   <div className={cssPrefix} >
-    <Windows {...windows} />
+    <Windows windows={windows} />
   </div>
 )
 
 export default createContainer(
   Desktop, {
-    fragments: {
-      windows: ({ windows }) => Promise.all(
-        windows.map(
-          window => Window.getFragment('id', { id: window.get('id')} )
-        )
-      ),
-    }
+    fragments: {}
   }
 )
 //

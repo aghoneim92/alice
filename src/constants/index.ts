@@ -8,6 +8,11 @@ const {
   },
 } = process
 
+export const INITIAL_STATE: IState = {
+  windows: {},
+  currentWindowId: null,
+}
+
 export const APP_NAME = 'Alice'
 export const APP_URL = PROD ? 'http://alice.services' : 'http://localhost:8080'
 

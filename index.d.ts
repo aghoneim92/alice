@@ -1,30 +1,7 @@
-/// <reference path="./node_modules/@types/node/index.d.ts" />
-/// <reference path="./node_modules/immutable/type-definitions/immutable.d.ts" />
+/// <reference path="node_modules/@types/node/index.d.ts" />
+/// <reference path="src/types/index.d.ts" />
 
-type Id = string;
-
-interface Kernel {
-  fs?: any;
-}
-
-interface NodeModule {
-  hot?: {
-    accept: Function;
-  };
-}
-
-interface NodeRequire {
-  context: (regex: RegExp) => (
-    ((value: string, index: number, array: string[]) => Object)
-  & { keys: string[]; });
-  ensure: (
-    arr: string[],
-    cb: (require: NodeRequire) => void,
-    name?: string
-  ) => void;
-}
-
-declare module "react-bash"
+declare module "react-bash/src/component"
 declare module "react-click-outside"
 declare module "react-derive"
 declare module "react-markdown"
@@ -32,12 +9,11 @@ declare module "react-redux"
 declare module "react-redux-firebase"
 declare module "react-tiles"
 declare module "react-tiles/src/react-router-resovler"
+declare module "react-transmit"
 
+declare module "redux-devtools-log-monitor"
+declare module "redux-devtools-dock-monitor"
 declare module "redux-immutable"
-
-declare var System: {
-  import: (module: string) => Promise<any>;
-};
 
 declare module "ventus"
 

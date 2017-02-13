@@ -1,19 +1,15 @@
 import { combineReducers } from 'redux-immutable'
 import { routerReducer } from 'react-router-redux'
 
-import firebaseReducer from './firebaseReducer'
-import locationChange from './locationChange'
-import windowChange from './windowChange'
-import State from '../types/State'
-
-export const initialState = new State()
-
-const initReducer = (state = initialState) => state
+import firebase from './firebase'
+import location from './location'
+import windows from './windows'
+import currentWindowId from './currentWindowId'
 
 export const rootReducer = combineReducers({
-  initReducer,
-  locationChange,
-  windowChange,
+  currentWindowId,
+  location,
+  windows,
   routing: routerReducer,
-  firebase: firebaseStateReducer,
+  firebase,
 });

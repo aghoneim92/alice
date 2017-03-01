@@ -1,0 +1,15 @@
+[submodule "react-tiles"]
+	path = react-tiles
+	url = git@github.com:arqex/react-tiles.git
+[submodule "redux-tetris"]
+	path = redux-tetris
+	url = git@github.com:slugo/redux-tetris.git
+[submodule "nes"]
+	path = nes
+	url = git@github.com:fredericcambon/nes.git
+[submodule "jsnes"]
+	path = jsnes
+	url = git@github.com:bfirsh/jsnes.git
+[submodule "react-solitaire"]
+	path = react-solitaire
+	url = git@github.com:pl12133/react-solitaire.git

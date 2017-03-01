@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import * as React from 'react';
 
 // Exported from redux-devtools
 import { createDevTools } from 'redux-devtools';
@@ -23,7 +23,7 @@ const DevTools = createDevTools(
         theme='tomorrow'
        />
     </DockMonitor>
-  ) as ReactElement<any>
+  ) as React.ReactElement<any>
 );
 
 export default DevTools;

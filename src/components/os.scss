@@ -2,7 +2,8 @@
 @import "../z-indexes";
 // @import "~v86/v86.css";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-// @import '~font-awesome/css/font-awesome.css';
+@import '~react-clockwall/src/styles/main.css';
+@import '~font-awesome/css/font-awesome.css';
 
 * {
   font-family: 'Source Sans Pro', sans-serif;
@@ -21,6 +22,17 @@ html, body {
   left: 0;
   right: 0;
   overflow: hidden;
+  .clock {
+    color: rgba(0,0,0,0.3);
+    padding: 0;
+    min-width: initial;
+    margin-left: auto;
+    .time {
+      font-size: 1.4em;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 #skitt-ui {

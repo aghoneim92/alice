@@ -1,0 +1,36 @@
+@import '../z-indexes';
+@import '../config';
+
+$clickHaloDiam: 25px;
+
+.os {
+  &_logo {
+    margin-left: 1vw;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    &_clickHalo {
+      width: $clickHaloDiam;
+      height: $clickHaloDiam;
+      overflow: hidden;
+      position: absolute;
+      left: -($clickHaloDiam - $fontSize) / 2;
+      top: -($clickHaloDiam - $navBarHeight) / 2;
+    }
+
+    &_text {
+      height: 20px;
+      user-select: none;
+      overflow: visible;
+      position: relative;
+      p {
+        margin: 0;
+      }
+      span {
+        vertical-align: middle;
+      }
+    }
+  }
+}

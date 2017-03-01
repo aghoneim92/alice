@@ -1,0 +1,10 @@
+@import '../z-indexes';
+
+.os {
+  &_wallpaperBlur {
+    position: absolute;
+    z-index: $z-index-wallpaperBlur;
+    top: 0;
+    // overflow: auto;
+  }
+}

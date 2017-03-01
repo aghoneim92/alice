@@ -1,14 +1,19 @@
-import { windowsReducer } from './windows';
-import { currentWindowIdReducer } from './currentWindowId';
-import { firebaseStateReducer } from 'react-redux-firebase/dist/index';
-import { routerReducer } from 'react-router-redux';
+import { firebaseStateReducer } from 'react-redux-firebase/dist/index'
 import { combineReducers } from 'redux'
 
+import { currentWindowId } from './currentWindowId'
+import { menuOpen } from './menuOpen'
+import { windows } from './windows'
+import { documentTitle } from './documentTitle'
+
+import { emoji } from './emoji'
+
 export const rootReducer = combineReducers({
-  currentWindowId: currentWindowIdReducer,
-  windows: windowsReducer,
-  routing: routerReducer,
+  currentWindowId,
+  documentTitle,
+  emoji,
   firebase: firebaseStateReducer,
+  menuOpen,
+  windows,
 })
 
-export { INITIAL_STATE as initialState } from '../constants/index'

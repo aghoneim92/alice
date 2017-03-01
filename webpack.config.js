@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const StatsPlugin = require('stats-webpack-plugin')
 const { resolve } = require('path')
 
 const { env } = process
@@ -23,7 +24,7 @@ const OUTPUT_FILENAME_PATTERN = '[name].js'
 const OUTPUT_PATH = resolve(`./${DIST}`)
 const PUBLIC_PATH = `/${DIST}/`
 const FILE_LOADER = {
-  test: /\.(png|jpg|eot|svg|ttf|woff|woff2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+  test: /\.(png|jpg|eot|svg|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
   loaders: ['file-loader'],
 }
 const TYPESCRIPT_LOADER = {
@@ -68,7 +69,22 @@ const SOURCEMAPS_LOADER = {
   enforce: 'pre',
   exclude: /node_modules/,
 }
+const MARKDOWN_LOADER = {
+  test: /\.md$/,
+  use: [
+    {
+      loader: "html-loader"
+    },
+    {
+      loader: "markdown-loader",
+      options: {
+        /* your options here */
+      }
+    }
+  ]
+}
 const LOADERS = [
+  MARKDOWN_LOADER,
   TYPESCRIPT_LOADER,
   SOURCEMAPS_LOADER,
   CSS_LOADER,
@@ -78,6 +94,10 @@ const LOADERS = [
 const WEBPACK_PLUGINS = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
+  new StatsPlugin('stats.json', {
+    chunkModules: true,
+    exclude: [/node_modules/]
+  })
 ]
 
 const devtool = DEV_TOOL
@@ -113,4 +133,4 @@ module.exports = {
   resolve: RESOLVE,
   module: MODULE,
   plugins,
-};
+}

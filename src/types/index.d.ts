@@ -7,39 +7,48 @@ import { Map } from 'immutable'
 import { ReactElement } from 'react'
 
 declare global {
-  type Id = string;
+
+  interface Auth {
+    currentUser?: any
+  }
+
+  interface GlobalWindow {
+    isJsDOM?: boolean;
+  }
+
+  type Id = string
+  
   type ImMap = Map<string, any>
 
   interface KeyedObject {
-    [key: string]: any;
+    [key: string]: any
   }
-
-  interface Reducer {
-    (
-      state: State,
-      action: Action,
-    ): State;
-  }
-
-  var System: {
-    import: (module: string) => Promise<any>;
-  };
 
   interface NodeModule {
     hot?: {
-      accept: Function;
+      accept: Function
     };
+    default?: any
   }
 
   interface NodeRequire {
     context: (regex: RegExp) => (
       ((value: string, index: number, array: string[]) => Object)
-    & { keys: string[]; });
+    & { keys: string[]; })
     ensure: (
       arr: string[],
       cb: (require: NodeRequire) => void,
       name?: string
-    ) => void;
+    ) => void
+  }
+
+  var speechSynthesis: {
+    speak: Function
+  }
+  var SpeechSynthesisUtterance: any;
+
+  var System: {
+    import: (module: string) => Promise<any>
   }
 
 }

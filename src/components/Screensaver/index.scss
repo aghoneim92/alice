@@ -1,0 +1,24 @@
+@import "../z-indexes";
+
+.os {
+  &_screensaver {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $z-index-screensaver;
+    &-visible {
+      opacity: 1;
+    }
+    &-entered {
+      transition: opacity 2s;
+      opacity: 1;
+    }
+    &-invisible {
+      opacity: 0;
+      transition: none;
+    }
+  }
+}

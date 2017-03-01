@@ -1,39 +1,43 @@
-require('react-hot-loader/patch')
+/// <reference path="./index.d.ts" />
+import 'react-hot-loader/patch'
 
-import React from 'react'
+import { prop } from 'ramda'
+
+import * as React from 'react'
+import { StatelessComponent } from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import { Provider } from 'react-redux'
-import { Router, Route } from 'react-router'
 
-import store from '../store/index'
-import history from '../history'
+import { error } from '../lib/logging'
 
-const div = document.createElement('div')
+const root = document.getElementById('Alice')
 
-document.querySelector('body')!.appendChild(div)
+type Renderer = (Alice: StatelessComponent<any>) => void
 
-System.import('../components/OS').then(
-  (m: { default: any; }) => {
-    const { default: OS  } = m;
+const doRender: Renderer = Alice => {
+  const el = (
+    <AppContainer>
+      <Alice/>
+    </AppContainer>
+  )
 
-    doRender(OS)
-
-    if (module.hot) {
-      module.hot.accept('../components/OS', () =>
-        doRender(OS)
-      );
-    }
+  if(el) {
+    render(el, root)
   }
-)
+}
 
-const doRender = (OS: any) => render(
-  <AppContainer>
-    <Provider {...{store}}>
-      <Router history={history}>
-        <Route path='/' component={OS}/>
-      </Router>
-    </Provider>
-  </AppContainer>,
-  div,
-)
+const getRoutes: (() => Promise<any>) = () =>
+  System.import('../components/Alice')
+        .then(prop('getAlice'))
+        .then( (getAlice: Function) => getAlice() )
+
+if (module.hot) {
+  module.hot.accept(
+    '../components/Alice',
+    () =>
+      getRoutes().then(doRender)
+                 .catch(error)
+  )
+}
+
+getRoutes().then(doRender)

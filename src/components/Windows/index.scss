@@ -1,0 +1,7 @@
+@import '../config';
+
+.os {
+  &_windows {
+    margin-top: $navBarHeight;
+  }
+}

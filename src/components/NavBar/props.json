@@ -1,0 +1,10 @@
+{
+  "deps": [
+    "react",
+    "components/Logo/Logo.js",
+    "components/EmojiPicker/EmojiPicker.js",
+    "components/WallpaperBlur/WallpaperBlur.js",
+    "components/WindowControls/WindowControls.js",
+    "components/NavBar/navbar.scss"
+  ]
+}

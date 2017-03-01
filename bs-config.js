@@ -19,13 +19,10 @@ module.exports = {
             "port": 8080
         }
     },
-    "files": false,
-    "watchOptions": {},
     "server": false,
     "proxy": false,
     "port": 3000,
     "middleware": false,
-    "serveStatic": [],
     "ghostMode": {
         "clicks": true,
         "scroll": true,
@@ -41,7 +38,7 @@ module.exports = {
     "logFileChanges": true,
     "logSnippet": true,
     "rewriteRules": [],
-    "open": "local",
+    "open": false,
     "browser": "default",
     "cors": false,
     "xip": false,
@@ -98,4 +95,4 @@ module.exports = {
         "gif": "img",
         "js": "script"
     }
-};
+}

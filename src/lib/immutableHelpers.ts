@@ -9,5 +9,5 @@ export const propImmutable = (propName: string) =>
     map.get(propName)
 
 export const mergeImmutable = curry(
-  (obj1: any, obj2: any) => obj1.merge(obj2)
+  (obj2: any, obj1: any) => obj1.merge(obj2)
 )

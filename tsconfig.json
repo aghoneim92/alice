@@ -1,6 +1,8 @@
 {
   "awesomeTypescriptLoaderOptions": {
-    "useCache": true
+    "useCache": true,
+    "useTranspileModule": true,
+    "usePrecompiledFiles": true
   },
   "compileOnSave": false,
   "compilerOptions": {

@@ -1,28 +1,54 @@
+/// <reference path="./index.d.ts" />
+
 import React, { StatelessComponent } from 'react'
 
-import { Window } from '../Window/index'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
+import { decorate } from './decorator'
+
+import { Window } from '../Window'
 
 System.import('./index.scss')
 
-export interface WindowsProps {
-  windows: ImMap;
-}
-
-export interface WindowsFragments {
-  windows: DocumentFragment;
-}
-
-export const Windows: StatelessComponent<WindowsProps> = ({
+export const WindowsComponent: StatelessComponent<CombinedProps> = ({
   windows,
+  handlers,
 }) => (
   <div className='os_windows'>
-  {
-    windows.map(
-      window => (
-        <Window key={window.get('id')} window={window}/>
+    <ReactCSSTransitionGroup
+      transitionName="fade"
+      transitionAppearTimeout={5000}
+      transitionEnterTimeout={5000}
+      transitionLeaveTimeout={5000}
+      transitionAppear
+    >
+    {
+      windows.map(
+        window => ({
+          key: window.get('id'),
+          window,
+        })
       )
-    ).toArray()
-  }
+      .map(
+        ({
+          key,
+          window,
+        }) => ({
+          key,
+          window,
+          handlers: handlers.get(key),
+        })
+      )
+      .map(
+        props => (
+          <div key={props.key} className="os_window_wrapper">
+            <Window {...props}/>
+          </div>
+        )
+      ).toArray()
+    }
+    </ReactCSSTransitionGroup>
   </div>
 )
 
+export const Windows: StatelessComponent<WindowsProps> = decorate(WindowsComponent) as any

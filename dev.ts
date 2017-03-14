@@ -6,9 +6,14 @@ import browserSyncInit from './bs-init'
 import { findAndTerminate } from './src/server/util'
 import { WEBPACK_SERVER_PID_FILE } from './src/constants/index'
 
-browserSyncInit()
+const bs = browserSyncInit()
 
-findAndTerminate(WEBPACK_SERVER_PID_FILE)
+process.once('SIGUSR2', () => {
+  bs.exit()
+  findAndTerminate(WEBPACK_SERVER_PID_FILE)
+  
+  process.kill(process.pid, 'SIGUSR2')
+})
 
 const webpackServer = spawn('webpack-dev-server', [], { stdio: 'inherit' })
 

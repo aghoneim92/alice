@@ -6,12 +6,13 @@ interface Payload<T> {
 interface Action<T> {
   readonly type: string
   readonly payload?: Payload<T>
-  readonly data?: any
 }
 
-type Reducer<T> = (
+type Reducer<T, A> = (
   state: T,
-  action: Action<T>
+  action: Action<A>
 ) => T
+
+type IdReducer<T> = Reducer<T, T>
 
 type ActionCreator<T> = (...args: any[]) => Action<T>

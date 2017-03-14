@@ -1,59 +1,14 @@
 /// <reference path="../../index.d.ts" />
-import * as React from 'react'
 import { merge, last } from 'ramda'
 import { Map } from 'immutable'
 import { PROD } from './env'
-import { DRAFT_EDITOR } from './WindowTypes'
 
 // import { resolve } from 'react-resolver'
-
-import { genId } from '../lib/genId'
 
 export const APP_NAME = 'Alice'
 export const APP_URL = PROD ?
   'http://alice.services'
 : 'http://localhost:4000'
-
-const editorId = genId()
-const editor = Map({
-  id: editorId,
-  icon: (
-    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-      <path d="M0 0h24v24H0z" fill="none"/>
-    </svg>
-  ),
-  title: 'Editor',
-  type: DRAFT_EDITOR,
-})
-
-// const snakeId = genId()
-// const snake = Map({
-//   id: snakeId,
-//   icon: (
-//     <img src="../../snake.ico"/>
-//   ),
-//   title: 'Snake',
-//   type: SNAKE,
-// })
-// const nesId = genId()
-// const nes = Map({
-//   id: nesId,
-//   icon: resolve('img', 'onImgChange', null)((
-//     ({
-//       img,
-//     }) => (
-//       <img src={img}/>
-//     )
-//   )as (({img}: {img: string}) => any)),
-//   type: NES,
-// })
-
-export const APPS = Map<ImMap>({
-  [editorId]: editor,
-  // [nesId]: nes,
-  // [snakeId]: snake
-})
 
 export const BS_CONFIG = 'config/bs-config.js'
 export const BS_HOST = 'localhost'
@@ -80,13 +35,13 @@ const DEFAULT_INITIAL_STATE: State = {
   windows: Map<string, ImMap>(),
 }
 
-const globalInitialState = typeof __INITIAL_STATE__ === 'object' ?
-  __INITIAL_STATE__
-: {}
+// const globalInitialState = typeof __INITIAL_STATE__ === 'object' ?
+//   __INITIAL_STATE__
+// : {}
 
 export const INITIAL_STATE = merge(
   DEFAULT_INITIAL_STATE,
-  globalInitialState
+  {}
 )
 
 const windowCheck = 'typeof window === "object"'
@@ -96,9 +51,7 @@ export const ELECTRON = eval(`${windowCheck} && ${processCheck}`)
 export const FB_APP_ID = '111618562682872'
 
 export const FIREBASE_API_KEY = 'AIzaSyAo7NjwAU_bcy_j0vi85z_t4s0VEBkh-ko'
-export const FIREBASE_AUTH_DOMAIN = PROD ?
-  'alice-3aa4c.firebaseapp.com'
-: 'localhost'
+export const FIREBASE_AUTH_DOMAIN = 'alice-3aa4c.firebaseapp.com'
 export const FIREBASE_DATABASE_URL = 'https://alice-3aa4c.firebaseio.com'
 export const FIREBASE_MESSAGING_SENDER_ID = '88278176113'
 export const FIREBASE_PROJECT_ID = 'alice-3aa4c'
@@ -117,9 +70,10 @@ export const GOOGLE_SPEECH_RECOGNIZE_URL = 'https://speech.googleapis.com/v1beta
 export const WINDOW = typeof window !== 'undefined' && ! (window as GlobalWindow).isJsDOM
 
 export const IDLE_TIME = 30000
-const navigator = (WINDOW && window.navigator) as any || {}
+const navigator = WINDOW ? (window.navigator as any) : {}
 
-const { language, languages = [] } = navigator
+const { language = 'en-US', languages = [] } = navigator
+export const LOCALE = language
 export const LANGUAGE = language
 export const LANGUAGE2 = last(languages)
 

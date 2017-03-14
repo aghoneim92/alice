@@ -2,6 +2,8 @@ import React, { StatelessComponent } from 'react'
 
 // import * as graph from 'fbgraph'
 
+System.import('./index.scss')
+
 export const cssPrefix = 'os_desktop'
 
 export interface DesktopProps {}

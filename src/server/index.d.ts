@@ -1,30 +1,40 @@
-import Koa from 'koa'
+import * as Koa from 'koa'
+import * as convert from 'koa-convert'
+import * as logger from 'koa-logger'
+import * as serve from 'koa-static'
+import * as proxy from 'koa-proxy'
 
-interface System {
-  import: (module: string) => Promise<any>;
+import './index'
+
+declare module './index' {
+  var importScripts: Function
+  var importWorker: Function
+  interface ServerArgs extends Array<any> {
+    0: typeof Koa
+    1: typeof convert
+    2: typeof logger
+    3: typeof proxy
+    4: typeof serve
+  }
 }
+
 
 declare global {
-  interface Global {
-    System: System;
-    require: NodeRequire;
-  }
   interface Destroyable {
-    destroy?: () => void;
+    destroy?: () => void
   }
   interface IKoa extends Koa, Destroyable {}
-  var System: System;
-  var require: NodeRequire;
+  var require: NodeRequire
 }
 
-declare module "firebase-admin"
+declare module 'firebase-admin'
 
 // interface Destroyable {
-//   destroy: Function;
+//   destroy: Function
 // }
 
 
 // declare module 'koa!*' {
-//   const Koa: IKoa & Destroyable;
-//   export default Koa;
+//   const Koa: IKoa & Destroyable
+//   export default Koa
 // }

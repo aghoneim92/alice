@@ -1,7 +1,6 @@
-@import '../config';
-
 .os {
   &_windows {
-    margin-top: $navBarHeight;
+    height: 100%;
+    position: relative;
   }
 }

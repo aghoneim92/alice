@@ -1,10 +1,10 @@
 $z-index-emoji-picker: 100;
 $z-index-window-fullScreen: 200;
-$z-index-introScreen: 300;
 $z-index-speechKITT: 350;
-$z-index-screensaver: 400;
+$z-index-screensaver: -5;
 
 $z-index-wallpaperBlur: 0;
 $z-index-navbar: 100;
 $z-index-sidebar: 200;
 $z-index-firebaseLogin: 500;
+$z-index-introScreen: 1000;

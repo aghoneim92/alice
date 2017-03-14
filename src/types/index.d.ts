@@ -41,15 +41,5 @@ declare global {
       name?: string
     ) => void
   }
-
-  var speechSynthesis: {
-    speak: Function
-  }
-  var SpeechSynthesisUtterance: any;
-
-  var System: {
-    import: (module: string) => Promise<any>
-  }
-
 }
 

@@ -2,37 +2,20 @@ import * as React from 'react'
 import { StatelessComponent, MouseEventHandler } from 'react'
 import ReactSidebar from 'react-sidebar'
 
-import * as Tooltip from 'rc-tooltip'
-
 import { Map } from 'immutable'
+import { AppLauncher } from './AppLauncher'
 
 System.import('./index.scss')
 
 export const cssPrefix = 'os_sidebar'
 
-export interface SidebarIconProps {
-  app: Map<string, any>
-  onClick: MouseEventHandler<HTMLDivElement>
-}
-
-export const SidebarApp: StatelessComponent<SidebarIconProps> = ({ app, onClick }) => (
-  <div
-    className={`${cssPrefix}_app`}
-    onClick={onClick}
-  >
-    <Tooltip placement="right" overlay={<p>{app.get('title')}</p>}>
-    {
-      app.get('icon')
-    }
-    </Tooltip>
-  </div>
-)
-
 export interface SidebarProps {
   apps: ImMap
   onAppClick: (key: string) => MouseEventHandler<HTMLElement>
   onSetOpen: any
-  open: boolean
+  open?: boolean
+  openSidebar: () => void
+  closeSidebar: () => void
 }
 
 export const Sidebar: StatelessComponent<SidebarProps> = ({
@@ -40,6 +23,8 @@ export const Sidebar: StatelessComponent<SidebarProps> = ({
   onAppClick,
   onSetOpen,
   open,
+  // openSidebar,
+  closeSidebar,
 }) => (
   <ReactSidebar
     open={open}
@@ -53,20 +38,27 @@ export const Sidebar: StatelessComponent<SidebarProps> = ({
       },
     }}
     sidebar={
-      <div style={{width: 50, height: '100%'}} className={`${cssPrefix}_content`}>
+      <div
+        style={{width: 50, height: '100%'}}
+        className={`${cssPrefix}_content`}
+        onMouseLeave={closeSidebar}
+      >
         {
           apps.map(
             (app: Map<string, any>) => (
-              <SidebarApp
+              <AppLauncher
                 key={app.get('id')}
                 app={app}
                 onClick={onAppClick(app.get('id'))}
+                disableTooltip={!open}
               />
             )
           ).toArray()
         }
       </div>
     }
+    transitions
+    touch={false}
   >
     <div/>
   </ReactSidebar>

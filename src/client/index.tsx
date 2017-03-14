@@ -1,43 +1,61 @@
 /// <reference path="./index.d.ts" />
 import 'react-hot-loader/patch'
+import { AppContainer } from 'react-hot-loader'
+
+import * as react from 'react'
 
 import { prop } from 'ramda'
 
-import * as React from 'react'
-import { StatelessComponent } from 'react'
-import { render } from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-
 import { error } from '../lib/logging'
+
+import { aliceGetter, Alice } from '../components/index'
 
 const root = document.getElementById('Alice')
 
-type Renderer = (Alice: StatelessComponent<any>) => void
+const createEl = (React: typeof react, Alice: Alice) => (
+  <AppContainer>
+    <Alice/>
+  </AppContainer>
+)
 
-const doRender: Renderer = Alice => {
-  const el = (
-    <AppContainer>
-      <Alice/>
-    </AppContainer>
-  )
+const doRender: Renderer = ({
+  React,
+  render,
+  Alice,
+}) => {
+  const el = createEl(React, Alice)
 
   if(el) {
     render(el, root)
   }
 }
 
-const getRoutes: (() => Promise<any>) = () =>
-  System.import('../components/Alice')
+const getGetAlice: getGetAlice = (React: typeof react) =>
+  System.import('../components/index')
         .then(prop('getAlice'))
-        .then( (getAlice: Function) => getAlice() )
+        .then( (getAlice: aliceGetter) => getAlice(React) )
 
-if (module.hot) {
-  module.hot.accept(
-    '../components/Alice',
-    () =>
-      getRoutes().then(doRender)
-                 .catch(error)
-  )
+async function boot() {
+  try {
+    const React = await System.import('react')
+    const { render } = await System.import('react-dom')
+    const Alice = await getGetAlice(React)
+
+    doRender({
+      Alice,
+      React,
+      render,
+    })
+
+    if (module.hot) {
+      module.hot.accept(
+        '../components/index',
+        boot
+      )
+    }
+  } catch(e) {
+    error(e)
+  }
 }
 
-getRoutes().then(doRender)
+boot()

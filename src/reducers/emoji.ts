@@ -1,7 +1,7 @@
 import { DEFAULT_EMOJI } from './../constants/index'
 import { EMOJI_CHANGE } from '../constants/ActionTypes'
 
-export const emoji: Reducer<string> = (
+export const emoji: IdReducer<string> = (
   state = DEFAULT_EMOJI,
   action: Action<string>
 ) => {

@@ -1,18 +1,12 @@
+import { ComponentClass } from 'react'
+
+import { mapDispatchToProps } from './mapDispatchToProps'
 import { identity } from 'ramda'
-import { connect } from 'react-redux'
+import { connect as reduxConnect } from 'react-redux'
 
-import { Map } from 'immutable'
-
-import { APP_ICON_CLICK, TOGGLE_MENU } from '../constants/ActionTypes'
-
-export default connect(identity, (dispatch: Function): DispatchProps => ({
-  toggleMenuOpen: () => dispatch({
-    type: TOGGLE_MENU,
-  }),
-  onAppIconClick: (id: string) => dispatch({
-    type: APP_ICON_CLICK,
-    payload: {
-      data: Map({id}),
-    }
-  })
-}))
+export const connect: <P>(
+  component: ComponentClass<P>
+) => ComponentClass<P> = reduxConnect(
+  identity,
+  mapDispatchToProps,
+)

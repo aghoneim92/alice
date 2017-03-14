@@ -1,3 +1,9 @@
-import * as browserSync from 'browser-sync'
+import { create } from 'browser-sync'
 
-export default () => browserSync(require('./bs-config'))
+export default () => {
+  const bs = create()
+
+  bs.init()
+
+  return bs
+}

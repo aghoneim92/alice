@@ -1,0 +1,59 @@
+start: consent_recording
+
+screens:
+  consent_recording:
+    type: prompt
+    response: manual_only
+    content:
+      -
+        type: paragraph
+        content:
+        - This is a voice-based application.
+        - It listens to and produces voice.
+        - Do you agree to your voice being recorded?
+      -
+        type: choices
+        content:
+        - 'yes'
+        - 'no'
+    next: consent_voice
+
+  consent_voice:
+    type: prompt
+    response: manual_only
+    content:
+      -
+        type: paragraph
+        content:
+        - Alice is ready now.
+        - She can start speaking with you.
+        - Would you like to mute her voice?
+      -
+        type: choices
+        content:
+        - 'yes'
+        - 'no'
+    next: intro
+
+  intro:
+    type: paragraph
+    content:
+    - Hi, I'm Alice!
+    - Welcome to a new experience.
+    - I am a programmed personal assistant, a bot you may say.
+    next: login
+
+  login:
+    type: prompt
+    repsonse: all
+    content:
+    -
+      type: paragraph
+      content:
+      - Would you like to login or create an account?
+      - You can simply say yes or no
+    -
+      type: choices
+      content:
+      - 'yes'
+      - 'no'

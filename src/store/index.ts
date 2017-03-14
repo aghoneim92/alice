@@ -1,19 +1,19 @@
-import { identity } from 'ramda'
+/// <reference path="../../index.d.ts" />
+import { compose as _compose } from 'ramda'
 
-import { reactReduxFirebase } from 'react-redux-firebase/dist/index'
-import { createStore, applyMiddleware, compose } from 'redux'
+import * as ReactReduxFirebase from '../../react-redux-firebase/es/index'
+import { createStore, applyMiddleware } from 'redux'
 import * as createLogger from 'redux-logger'
-import { persistState } from 'redux-devtools'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-// import * as Bluebird from 'bluebird'
-
-// import { Map } from 'immutable'
-
-import DevTools from '../components/DevTools/index'
 import { FIREBASE_CONFIG, INITIAL_STATE, WINDOW } from '../constants/index'
 import { rootReducer } from '../reducers/index'
 
-const createStoreWithFirebase = compose(
+const { reactReduxFirebase } = ReactReduxFirebase
+
+const compose = WINDOW ? composeWithDevTools : _compose
+
+const createStoreWithFirebase =
   reactReduxFirebase(
     FIREBASE_CONFIG,
     {
@@ -22,15 +22,14 @@ const createStoreWithFirebase = compose(
       updateProfileOnLogin: true,
       
     }
-  ),
-)(createStore)
+  )(createStore)
 
-function getDebugSessionKey() {
-  const matches = WINDOW && window.location.href.match(/[?&]debug_session=([^&#]+)\b/);
-  return (matches && matches.length > 0)? matches[1] : null;
-}
+// function getDebugSessionKey() {
+//   const matches = WINDOW && window.location.href.match(/[?&]debug_session=([^&#]+)\b/);
+//   return (matches && matches.length > 0)? matches[1] : null;
+// }
 
-const debugSessionKey = getDebugSessionKey()
+// const debugSessionKey = getDebugSessionKey()
 
 const middleware = WINDOW ? [createLogger({
   duration: true,
@@ -39,10 +38,6 @@ const middleware = WINDOW ? [createLogger({
 
 const enhancer = compose(
   applyMiddleware(...middleware),
-  DevTools.instrument(),
-  debugSessionKey ?
-    persistState(debugSessionKey)
-  : identity
 )
 
 

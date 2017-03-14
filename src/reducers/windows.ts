@@ -1,15 +1,21 @@
-import { APPS } from './../constants/index';
 /// <reference path="../../index.d.ts" />
-
-import { APP_ICON_CLICK } from './../constants/ActionTypes';
-import { mergeImmutable } from './../lib/immutableHelpers';
-import { WINDOW_CHANGE } from '../constants/ActionTypes'
 
 import { Map } from 'immutable'
 
-import { genId } from '../lib/genId'
+import { APP_ICON_CLICK } from './../constants/ActionTypes'
+import { mergeImmutable } from './../lib/immutableHelpers'
+import { error } from './../lib/logging';
+import { Apps } from '../components/Apps'
+import {
+  WINDOW_DELETE_SUCCESS,
+  WINDOW_MOVE,
+  WINDOW_TOGGLE_FULLSCREEN,
+  WINDOW_UPDATE_SUCCESS,
+} from '../constants/ActionTypes'
 
-export type ActionHandler<T> = (state: T, data: T) => T
+import { WindowConfig } from '../components/Window/index'
+
+export type ActionHandler = (state: ImMap, data: any) => ImMap
 
 export type CreateOrUpdate = (
   data: ImMap,
@@ -20,57 +26,119 @@ export type CreateOrUpdate = (
 ) => ImMap
 
 const createOrUpdate: CreateOrUpdate = (
-  data: ImMap,
+  windows: ImMap,
   options,
 ) => {
   const from: ImMap = options.from
 
   if(from) {
-    const fromId: string = from.get('id')
-    const fromSansId = from.remove('id')
     const fromIdField: string = options.fromIdField
-    const oldDatum = data.find(
-      datum => datum.contains(fromIdField || 'id')
+
+    const fromId: string = from.get(fromIdField)
+    const id: string = from.get('id')
+    const fromSansId = from.remove('id')
+
+    const oldDatum = windows.find(
+      window => window.get(fromIdField) === fromId
     )
+
     if(oldDatum) {
-      return data.set(oldDatum.get('id'), oldDatum.merge(fromSansId))
+      return windows.update(oldDatum.get('id'), window => window.merge(fromSansId))
     }
 
-    const id = genId()
-    return data.set(id, Map({
-      id,
-      [fromIdField]: fromId,
-    }).merge(fromSansId))
+    return windows.set(
+      id, Map({
+        id,
+        [fromIdField]: fromId,
+      })
+      .merge(fromSansId)
+    )
   }
 
-  return data
+  return windows
 }
 
-const handleAppIconClick: ActionHandler<ImMap> = (windows, data) => {
-  const from = APPS.get(data.get('id'))
+const handleAppIconClick: ActionHandler = (windows, data) => {
+  const appId = data.get('appId')
+  const app = Apps.get(appId)
+  const id = data.get('id')
 
-  console.log(from);
+  const x = 0.05 * window.innerWidth
+  const y = 0.05 * (window.innerHeight - 20)
 
-  return createOrUpdate(windows, { from, fromIdField: 'appId' })
+  if(app) {
+    const from = app.merge(
+      Map({
+        id,
+        appId,
+        theme: 'macOs',
+        width: window.innerWidth - (2 * x),
+        height: 0.9 * (window.innerHeight - 20),
+        x,
+        y,
+      })
+    )
+
+    return createOrUpdate(windows, { from, fromIdField: 'appId' })
+  }
+
+  error(`App with id ${appId} not found`)
+
+  return windows
 }
 
-const actionHandlers: ({ [key: string]: ActionHandler<ImMap> }) = {
-  [WINDOW_CHANGE]: (state: ImMap, data: ImMap) => state.update(
+const handleWindowDelete = (state: ImMap, { id } : WindowConfig) =>
+  state.delete(id)
+
+const handleWindowFullScreen = (
+  state: ImMap,
+  { id } : WindowConfig
+) => {
+  let window: ImMap = state.get(id)
+  const fullScreen: boolean = !window.get('fullScreen')
+  const titlebarFocused = fullScreen ? false : window.get('titlebarFocused')
+
+  return state.update(
+    id,
+    window => window.set('fullScreen', fullScreen).set('titlebarFocused', titlebarFocused)
+  )
+}
+
+const handleWindowMove = (
+  state: ImMap,
+  { id, deltaX, deltaY }: { id: string, deltaX: number, deltaY: number }
+) => state.update(
+  id,
+  window => window.update(
+    'x',
+    (x: number) => x + deltaX
+  )
+  .update(
+    'y',
+    (y: number) => y + deltaY
+  )
+)
+
+const actionHandlers: ({ [key: string]: ActionHandler }) = {
+  [WINDOW_UPDATE_SUCCESS]: (state: ImMap, data: ImMap) => state.update(
     data.get('id'),
     data,
     mergeImmutable(data)
   ),
-  [APP_ICON_CLICK]: handleAppIconClick
+  [APP_ICON_CLICK]: handleAppIconClick,
+  [WINDOW_DELETE_SUCCESS]: handleWindowDelete,
+  [WINDOW_MOVE]: handleWindowMove,
+  [WINDOW_TOGGLE_FULLSCREEN]: handleWindowFullScreen
 }
 
-export const windows: Reducer<ImMap> = (
+export const windows: IdReducer<ImMap> = (
   state = Map<string, any>(),
   action,
 ) => {
   const { type, payload } = action
   const data = payload && payload.data
 
-  const handler: ActionHandler<ImMap> = actionHandlers[type]
+  const handler: ActionHandler = actionHandlers[type]
   if(handler && data) {
     return handler(state, data)
   }

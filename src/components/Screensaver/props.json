@@ -1,7 +1,0 @@
-{
-  "deps": [
-    "react",
-    "components/react-particles/app/Particles.jsx",
-    "components/Screensaver/screensaver.scss"
-  ]
-}

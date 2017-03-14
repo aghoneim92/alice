@@ -1,17 +1,39 @@
 @import '../z-indexes';
+@import '~animate.css';
 @import '~rc-tooltip/assets/bootstrap.css';
 
 .os {
+  &_tooltip {
+    .rc {
+      &-tooltip {
+        &-inner {
+          min-height: 10px;
+        }
+      }
+    }
+  }
   &_sidebar {
     width: 0;
     &-open {
       width: 100%;
     }
+    &_capture {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      &-open {
+        display: none;
+      }
+    }
     &_content {
       padding: 35px 5px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-around;
     }
     &_app {
       width: 100%;
@@ -19,7 +41,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: white;
     }
 
     z-index: $z-index-sidebar;

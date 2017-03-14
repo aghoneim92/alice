@@ -1,10 +1,10 @@
-import { TOGGLE_MENU } from './../constants/ActionTypes'
+import { MENU_TOGGLE } from './../constants/ActionTypes'
 
-export const menuOpen: Reducer<boolean> = (
+export const menuOpen: IdReducer<boolean> = (
   state = false,
   action: Action<boolean>,
 ) => {
-  if(action.type === TOGGLE_MENU) {
+  if(action.type === MENU_TOGGLE) {
     return !state
   }
 

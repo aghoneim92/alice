@@ -1,13 +1,12 @@
+import { APP_ICON_CLICK } from './../constants/ActionTypes';
 // import { debug } from './../lib/logging';
 
-import { CURRENT_WINDOW_ID } from '../constants/ActionTypes'
-
-export const currentWindowId: Reducer<string> = (
+export const currentWindowId: Reducer<string, ImMap> = (
   state = '',
   { type, payload }
-) => type === CURRENT_WINDOW_ID
+) => type === APP_ICON_CLICK
   && payload
   && payload.data ?
-     payload.data
+     payload.data.get('id')
   :  state
 

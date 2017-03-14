@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const { ProvidePlugin } = webpack
 const StatsPlugin = require('stats-webpack-plugin')
 const { resolve } = require('path')
 
@@ -8,7 +9,7 @@ const DEV = env.NODE_ENV === 'development'
 const PROD = env.NODE_ENV === 'production'
 const MAIN = './src/client/index.tsx'
 const DEV_TOOL = PROD ? 'source-map' : 'inline-source-map'
-const RESOLVE_EXTENSIONS = ['*', '.ts', '.tsx', '.js', '.scss', '.css', '.json']
+const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.js']
 
 const main = PROD ? [
   MAIN,
@@ -83,13 +84,25 @@ const MARKDOWN_LOADER = {
     }
   ]
 }
+const YAML_LOADER = {
+  test: /\.ya?ml$/,
+  loader: 'json-loader!yaml-loader',
+}
+
+const COFFEE_LOADER = {
+  test: /\.coffee$/,
+  loader: 'coffee-loader'
+}
+
 const LOADERS = [
+  COFFEE_LOADER,
   MARKDOWN_LOADER,
   TYPESCRIPT_LOADER,
   SOURCEMAPS_LOADER,
   CSS_LOADER,
   SCSS_LOADER,
   FILE_LOADER,
+  YAML_LOADER,
 ]
 const WEBPACK_PLUGINS = [
   new webpack.HotModuleReplacementPlugin(),
@@ -97,6 +110,9 @@ const WEBPACK_PLUGINS = [
   new StatsPlugin('stats.json', {
     chunkModules: true,
     exclude: [/node_modules/]
+  }),
+  new ProvidePlugin({
+    $: 'jquery'
   })
 ]
 
@@ -133,4 +149,8 @@ module.exports = {
   resolve: RESOLVE,
   module: MODULE,
   plugins,
+  watchOptions: {
+    aggregateTimeout: 1000,
+    ignored: /node_modules/
+  }
 }

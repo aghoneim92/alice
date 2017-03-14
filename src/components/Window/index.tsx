@@ -1,99 +1,141 @@
-/// <reference path="../../types/index.d.ts" />
 /// <reference path="./index.d.ts" />
+/// <reference path="../../types/index.d.ts" />
+/// <reference path="../../../index.d.ts" />
+
 import * as React from 'react'
 import { StatelessComponent } from 'react'
 
 import * as Draggable from 'react-draggable'
-import * as MacOSDesktop from 'react-desktop/macOs'
-import * as WindowsDesktop from 'react-desktop/windows'
+import * as Resizable from 'react-resizable-box'
+
+import { Title } from './Title'
+
+import { decorate } from './decorator'
 
 System.import('./index.scss')
 
 export const cssPrefix = 'os_window'
 
-interface TitleProps {
-  id: string
-  fullScreen: boolean
-  title: string
-  TitleBar: any;
-}
-
-export const WindowTitle: StatelessComponent<TitleProps> = ({
-  id,
-  title,
-  fullScreen,
-  TitleBar,
-}) => (
-  <div className={`${cssPrefix}_title ${cssPrefix}_title_${id}`}>
-    <TitleBar
-      title={title}
-      controls
-      isFullscreen={fullScreen}
-    />
-  </div>
-)
-
-export interface WindowProps {
-  window: ImMap;
-  onDragStop?: Function;
-}
-
-export const Window: StatelessComponent<WindowProps> = ({
-  window,
-  onDragStop,
-}) => {
-  const {
-    title = '',
-    app = null,
-    className = '',
-    id = '',
-    maximized = false,
-    theme = 'macOS',
-    fullScreen = false,
-    titleBarFocused = true,
-  } = window.toObject()
-
-  const {
+export const WindowComponent: StatelessComponent<DerivedProps> = ({
+  components: {
     Window: DesktopWindow,
     TitleBar,
-  } = theme.includes('mac') ? MacOSDesktop : WindowsDesktop
-
-  return (
-    <Draggable
-      axis="both"
-      handle={`.${cssPrefix}_title_${id}`}
-      onStop={onDragStop}
-      position={ maximized ? { x: 0, y: 0 } : null }
+  },
+  handlers,
+  window: {
+    className = '',
+    fullScreen,
+    id = '',
+    maximized,
+    minimized,
+    title = '',
+    titleBarFocused,
+    width = 100,
+    height = 100,
+    x = 0,
+    y = 0,
+  },
+}) => (
+  <Draggable
+    axis="both"
+    handle={`.${cssPrefix}_title_${id}`}
+    onDrag={handlers.onDrag}
+    onStart={handlers.onDragStart}
+    onStop={handlers.onDragStop}
+    position={
+      fullScreen ?
+      { x: 0, y: -20 }
+    : maximized ?
+      { x: 0, y: 0 }
+    : minimized ?
+      { x: 50, y: height }
+    : { x, y }
+    }
+    minWidth="20%"
+    minHeight={50}
+  >
+    <div
+      style={fullScreen ? { top: 0, left: 0, right: 0, bottom: 0 } : {}}
+      className={`${
+        cssPrefix
+      }${
+        fullScreen ? ` ${cssPrefix}-fullScreen` : ''
+      }${
+        titleBarFocused ? ` ${cssPrefix}_title-hover` : ''
+      }${
+        maximized ? ` ${cssPrefix}-maximized` : ''
+      }${
+        minimized ? ` ${cssPrefix}-minimized` : ''
+      }${
+        className
+      }`}
     >
-      <div
-        style={fullScreen ? { top: 0, left: 0, right: 0, bottom: 0 } : {}}
-        className={`${cssPrefix}${
-          fullScreen ? ` ${cssPrefix}-fullScreen` : ''
-        }${titleBarFocused ? ` ${cssPrefix}_title-hover` : ''}${
-          maximized ? ` ${cssPrefix}-maximized` : ''
-        }${
-          className
-        }`}
+      <Resizable
+        width={
+          fullScreen || maximized || minimized ?
+            '100%'
+          : width
+        }
+        height={
+          fullScreen || maximized || minimized ?
+            '100%'
+          : height
+        }
+        customClass={
+          `${
+            cssPrefix
+          }_resizable${
+            fullScreen ? ` ${cssPrefix}_resizable-fullScreen` : ''
+          }`
+        }
+        onResize={handlers.onResize}
+        isResizable={
+          fullScreen ?
+            {
+              top: false,
+              topRight: false,
+              topLeft: false,
+              bottom: false,
+              bottomLeft: false,
+              bottomRight: false,
+              left: false,
+              right: false
+            }
+          : undefined
+        }
       >
         <DesktopWindow
           className={`${cssPrefix}_desktopWindow`}
           padding = {0}
         >
-          <WindowTitle {...{id, fullScreen, title, TitleBar}}/>
-          {app}
+          <div className={`os_window_title os_window_title_${id}`}>
+            <Title
+              {...{title, TitleBar}}
+              fullScreen={fullScreen}
+              inset={minimized}
+              transparent={minimized}
+              handlers={handlers}
+            />
+          </div>
+          <div
+            className={`${
+              cssPrefix
+            }_title_capture${
+              fullScreen ?
+                ` ${cssPrefix}_title_capture-fullScreen`
+              : ''
+            }`}
+            onMouseEnter={handlers.onMouseEnter}
+            onMouseLeave={handlers.onMouseLeave}
+          />
         </DesktopWindow>
-      </div>
-    </Draggable>
-  )
-}
+      </Resizable>
+    </div>
+  </Draggable>
+)
 
+export const Window: StatelessComponent<WindowProps> = decorate(
+  WindowComponent
+) as any
 
-// onMouseEnter={onTitleBarMouseEnter}
-//            onMouseLeave={onTitleBarMouseLeave}
-//            onDoubleClick={onMaximizeClick}
- //           {...{
-   //           onCloseClick,
-  //            onMinimizeClick,
-  //            onMaximizeClick,
-  //            onResizeClick,
-   //         } */
+export default Window

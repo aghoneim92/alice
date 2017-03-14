@@ -1,10 +1,17 @@
 .os {
   &_intro {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
     &_text {
       font-size: 16px;
     }
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 5000;
   }
 }

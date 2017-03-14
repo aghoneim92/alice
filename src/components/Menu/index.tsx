@@ -1,6 +1,7 @@
 /// <reference path="./menu.d.ts" />
 import * as React from 'react'
 import { ReactElement, StatelessComponent } from 'react'
+import LazyLoad from 'react-lazy-load'
 // import { Link } from 'react-tiles'
 import ClickOutside from 'react-click-outside'
 import Markdown from 'react-markdown'
@@ -40,14 +41,18 @@ export const Menu: StatelessComponent<MenuProps> = ({
       className={`${cssPrefix}${open ? ` ${cssPrefix}-visible` : ''}`}
       {...{onClickOutside}}
     >
-      <Markdown
-        className={`${cssPrefix}_readme`}
-        source={README}
-        renderers={{
-          Link: MyLink,
-        }}
-        sourcePos
-      />
+      <LazyLoad
+        onContentVisible = {() => console.log('look ma I have been lazyloaded!')}
+      >
+        <Markdown
+          className={`${cssPrefix}_readme`}
+          source={README}
+          renderers={{
+            Link: MyLink,
+          }}
+          sourcePos
+        />
+      </LazyLoad>
       {children}
         {
           FB

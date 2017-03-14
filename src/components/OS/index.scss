@@ -1,6 +1,6 @@
 @import "~normalize.css";
 @import "../z-indexes";
-// @import "~v86/v86.css";
+@import "../../../v86/v86.css";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import '~react-clockwall/src/styles/main.css';
 @import '~font-awesome/css/font-awesome.css';
@@ -17,11 +17,13 @@ html, body {
 .os {
   position: absolute;
   background-size: cover;
+  height: 100%;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   overflow: hidden;
+
   .clock {
     color: rgba(0,0,0,0.3);
     padding: 0;

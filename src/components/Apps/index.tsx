@@ -5,12 +5,13 @@ import { resolve } from 'react-resolver'
 
 import { genId } from '../../lib/genId'
 
-import { DRAFT_EDITOR, IFRAME } from '../../constants/WindowTypes'
-
 import { Map } from 'immutable'
+
+import { pure } from 'recompose'
 
 const editorId = genId()
 const editor = Map({
+  element: 'insert editor here',
   id: editorId,
   icon: (
     <svg
@@ -26,7 +27,6 @@ const editor = Map({
     </svg>
   ),
   title: 'Editor',
-  type: DRAFT_EDITOR,
 })
 
 const Icon: StatelessComponent<ResolvedProps> = ({
@@ -43,9 +43,12 @@ const SolitaireIcon = resolve({
 
 const solitaire = Map({
   id: solitaireId,
+  Component: pure(() => <iframe
+    style={{width: '100%', height: '100%', border: 0}}
+    src="http://pl12133.github.io/react-solitaire/"
+  />),
   icon: <SolitaireIcon/>,
   title: 'Solitaire',
-  type: IFRAME,
 })
 
 interface ResolvedProps {
@@ -59,10 +62,13 @@ const HextrisIcon: StatelessComponent<any> = resolve({
 const hextrisId = genId()
 const hextris = Map({
   id: hextrisId,
+  Component: pure(() => <iframe
+    style={{width: '100%', height: '100%', border: 0}}
+    src="http://hextris.io"
+    />
+  ),
   icon: <HextrisIcon/>,
   title: 'Hextris',
-  src: 'https://hextris.io',
-  type: IFRAME,
 })
 
 // const snakeId = genId()

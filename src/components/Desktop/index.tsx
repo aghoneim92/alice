@@ -1,4 +1,5 @@
-import React, { StatelessComponent } from 'react'
+import * as React from 'react'
+import { StatelessComponent } from 'react'
 
 // import * as graph from 'fbgraph'
 

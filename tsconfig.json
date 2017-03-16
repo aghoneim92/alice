@@ -6,7 +6,6 @@
   },
   "compileOnSave": false,
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "alwaysStrict": true,
     "baseUrl": ".",

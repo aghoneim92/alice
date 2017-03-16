@@ -15,17 +15,14 @@ export const createServer = ([
 ]: ServerArgs): Koa => {
   const app = new Koa()
 
-  const router = createRouter()
-  app.use(convert(logger()))
-    .use(router)
-    .use(
-      convert(
-        proxy({
-          host: 'http://localhost:8080',
-          match: /^\/dist\//,
-        })
-      )
-    )
+  app.use(logger())
+    .use(createRouter())
+    .use(convert(
+      proxy({
+        host: 'http://localhost:8080',
+        match: /^\/dist\//,
+      })
+    ))
     .use(serve('.'))
 
   return app

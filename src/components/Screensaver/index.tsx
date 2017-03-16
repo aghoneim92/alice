@@ -1,50 +1,39 @@
+/// <reference path="./index.d.ts" />
+
 import * as React from 'react'
 import { StatelessComponent } from 'react'
+
+import { screensavers } from './screensavers'
+
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 System.import('./index.scss')
 
 export const cssPrefix = 'os_screensaver'
 
-export interface ScreensaverProps {
-  disabled?: boolean
-  entered?: boolean
-  visible?: boolean
-}
-
 export const Screensaver: StatelessComponent<ScreensaverProps> = ({
-  children,
-  disabled,
-  entered,
-  visible,
+  screensaver = 'Rings',
+  onClick,
 }) => (
-  <div
-    className={
-      `${
-        cssPrefix
-      }${
-        visible ? ` ${cssPrefix}-visible` : ''
-      }${
-        disabled ? ` ${cssPrefix}-invisible` : ''
-      }${
-        entered ? ` ${cssPrefix}-entered` : ''
-      }`
-    }
+  <ReactCSSTransitionGroup
+    transitionName={{
+      appear: 'fadeIn',
+      appearActive: 'fadeIn',
+      leave: 'fadeOut',
+      leaveActive: 'fadeOut',
+    }}
+    transitionAppearTimeout={500}
+    transitionLeaveTimeout={500}
+    transitionAppear
+    transitionEnter={false}
   >
-    {/*<Particles
-      {...{width, height}}
-    />*/}
-    <canvas className={`${cssPrefix}_canvas`}/>
-    {children}
-  </div>
+    <div
+      className={cssPrefix}
+      onClick={onClick}
+    >
+    {
+      React.createElement(screensavers[screensaver])
+    }
+    </div>
+  </ReactCSSTransitionGroup>
 )
-
-/*particles={{
-        particlesNumber: 150,
-        linkDist: 100,
-        createLinkDist: 150,
-        disableLinks: false,
-        disableMouse: false,
-        background: 'rgba(255, 255, 255, 0.5)',
-        color: '#ffffff',
-        linksWidth: 1,
-      }}*/

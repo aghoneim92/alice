@@ -1,8 +1,8 @@
 /// <reference path="../../../index.d.ts" />
 /// <reference path="./index.d.ts" />
-import '../../../v86/build/libv86'
 
 import * as React from 'react'
+import { PureComponent } from 'react'
 
 import Clock from 'react-clockwall'
 import EventListener from 'react-event-listener'
@@ -12,8 +12,6 @@ import { Map } from 'immutable'
 
 import { WallpaperBlur } from '../WallpaperBlur'
 
-import {RichUtils } from 'draft-js'
-
 import { SizeDelta } from '../Window'
 import { Handlers as WindowHandlers } from '../Windows'
 
@@ -21,71 +19,55 @@ import { APP_URL, BS_URL } from '../../constants'
 import { WINDOW } from '../../constants'
 import { PROD } from '../../constants/env'
 
+import * as LoginModule from '../Login'
+
+import * as capitalize from 'capitalize'
+
 import { error } from '../../lib/logging'
+
+import { getFirebase, firebaseConnect } from 'react-redux-firebase'
 
 import { enhancer } from './enhancer'
 
 System.import('./index.scss')
+System.import('firebaseui/dist/firebaseui.css')
 
 export const cssPrefix = 'os'
 
 console.log('PROD:', PROD)
+
+const loginClickHandler = (providerName: string) => {
+  const firebase = getFirebase()
+  const Provider = firebase.auth[`${capitalize(providerName)}AuthProvider`]
+  const provider = new Provider()
+
+  firebase.auth().signInWithRedirect(provider)
+}
 
 export const getOS: OSGetter = async () => {
   try {
     const { Apps } = await System.import(__dirname + '/../Apps')
     const { Desktop } = await System.import(__dirname + '/../Desktop')
     const { Logo } = await System.import(__dirname + '/../Logo')
+    const { Login }: typeof LoginModule = await System.import(__dirname + '/../Login')
     const { NavBar } = await System.import(__dirname + '/../NavBar')
     const { Menu } = await System.import(__dirname + '/../Menu')
     const { Sidebar } = await System.import(__dirname + '/../Sidebar')
     const { Windows } = await System.import(__dirname + '/../Windows')
     const { Screensaver } = await System.import(__dirname + '/../Screensaver')
-    const { firebaseConnect } =
-      await System.import(__dirname + '/../../../react-redux-firebase/')
 
-    const { PureComponent } = React
+    const IdleTimer = WINDOW && require('react-idle-timer').default
 
     class OS extends PureComponent<CombinedProps, undefined>{
       tilesRef?: any
 
       componentDidMount() {
-        // const wm = new WindowManager()
         this.handleDocumentResize()
-      }
-
-      componentDidUpdate({ layout }: { layout: any }) {
-        const { props, tilesRef } = this
-        if(!layout && props.layout && tilesRef) {
-          // debug(tilesRef)
-          // wm.createWindow()
-        }
-      }
-
-      componentWillUnMount() {
       }
 
       handleAppIconClick = (key: string) => () =>
         this.props.onAppIconClick(key)
     && this.props.toggleSidebarOpen()
-
-      handleBoldClick = () => this.props.onEditorChange(
-        RichUtils.toggleInlineStyle(
-          this.props.editor,
-          'BOLD'
-        )
-      )
-
-      handleEditorTab = (e: any) =>
-        this.props.onEditorChange(
-          RichUtils.onTab(
-            e,
-            this.props.editor,
-            4
-          )
-        );
-
-      handleFirebaseAuthSuccess = () => this.props.onFirebaseLogin(false)
 
       handleLogoClick = () => this.props.toggleMenuOpen()
 
@@ -190,22 +172,20 @@ export const getOS: OSGetter = async () => {
             },
             documentTitle,
             emoji,
+            firebase: {
+              auth,
+            },
+            idle,
             menuOpen,
+            onActive,
+            onIdle,
             sidebarOpen,
             README,
             windows,
-            firebase,
           },
         } = this
-        const { auth = null, authError = null, profile = null } = firebase || {}
-        // let auth, authError, profile
-        // if(firebase){
-        //   let {auth, authError, profile} = firebase
-        // }
 
-        console.log('auth', auth, 'authError', authError, 'profile', profile)
-
-        return (
+        return auth ? (
           <div
             className={`${
               cssPrefix
@@ -220,10 +200,18 @@ export const getOS: OSGetter = async () => {
               : ''
             }}
           >
-            {
-              !auth
-          && <div/>
-            }
+          {
+            idle && <Screensaver onClick={onActive}/>
+          }
+          {
+            IdleTimer
+        && <IdleTimer
+            element={document}
+            activeAction={onActive}
+            idleAction={onIdle}
+            timeout={20000}
+          />
+          }
             <EventListener
               target="window"
               onResize={handleDocumentResize}
@@ -238,7 +226,6 @@ export const getOS: OSGetter = async () => {
                 { src: BS_URL, async: true },
               ]}
             />
-            <Screensaver/>
             <WallpaperBlur width={width} background={background}/>
             <NavBar>
               <Logo onClick={handleLogoClick} emoji={emoji}/>
@@ -272,7 +259,7 @@ export const getOS: OSGetter = async () => {
             />
             {children}
           </div>
-        )
+        ) : <Login onButtonClick={loginClickHandler}/>
       }
     }
 

@@ -1,7 +1,7 @@
 /// <reference path="./index.d.ts" />
 /// <reference path="../../index.d.ts" />
 
-const nonNodeModules = /\.(scss|jpg)/
+const nonNodeModules = /\.(scss|jpg|css|png|less)/
 
 const System = {
   import: function(name: string) {

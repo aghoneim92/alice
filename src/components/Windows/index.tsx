@@ -1,6 +1,7 @@
 /// <reference path="./index.d.ts" />
 
-import React, { StatelessComponent } from 'react'
+import * as React from 'react'
+import { StatelessComponent } from 'react'
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
@@ -16,18 +17,21 @@ export const WindowsComponent: StatelessComponent<CombinedProps> = ({
 }) => (
   <div className='os_windows'>
     <ReactCSSTransitionGroup
-      transitionName="fade"
-      transitionAppearTimeout={5000}
-      transitionEnterTimeout={5000}
-      transitionLeaveTimeout={5000}
-      transitionAppear
+      transitionName={{
+        enter: 'fadeIn',
+        enterActive: 'fadeIn',
+        leave: 'fadeOut',
+        leaveActive: 'fadeOut',
+      }}
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={500}
     >
     {
       windows.map(
         window => ({
           key: window.get('id'),
           window,
-        })
+        }) as any
       )
       .map(
         ({
@@ -36,12 +40,12 @@ export const WindowsComponent: StatelessComponent<CombinedProps> = ({
         }) => ({
           key,
           window,
-          handlers: handlers.get(key),
-        })
+          handlers: handlers.get(key) as any,
+        }) as any
       )
       .map(
         props => (
-          <div key={props.key} className="os_window_wrapper">
+          <div key={props.key} className="os_window_wrapper animated">
             <Window {...props}/>
           </div>
         )

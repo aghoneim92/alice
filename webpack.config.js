@@ -24,9 +24,13 @@ const DIST = 'dist'
 const OUTPUT_FILENAME_PATTERN = '[name].js'
 const OUTPUT_PATH = resolve(`./${DIST}`)
 const PUBLIC_PATH = `/${DIST}/`
-const FILE_LOADER = {
-  test: /\.(png|jpg|eot|svg|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-  loaders: ['file-loader'],
+const FONT_LOADER = {
+  test: /\.(eot|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+  loader: 'url-loader',
+}
+const IMAGE_LOADER = {
+  test: /\.(png|jpg|svg)$/,
+  loader: 'file-loader',
 }
 const TYPESCRIPT_LOADER = {
   test: /\.tsx?$/,
@@ -93,6 +97,16 @@ const COFFEE_LOADER = {
   test: /\.coffee$/,
   loader: 'coffee-loader'
 }
+const LESS_LOADERS = [
+  'style-loader',
+  'css-loader?importLoaders=1&sourceMap',
+  'less-loader?sourceMap',
+  'postcss-loader?sourceMap',
+]
+const LESS_LOADER = {
+  test: /\.less$/,
+  loaders: LESS_LOADERS,
+}
 
 const LOADERS = [
   COFFEE_LOADER,
@@ -100,8 +114,10 @@ const LOADERS = [
   TYPESCRIPT_LOADER,
   SOURCEMAPS_LOADER,
   CSS_LOADER,
+  LESS_LOADER,
   SCSS_LOADER,
-  FILE_LOADER,
+  FONT_LOADER,
+  IMAGE_LOADER,
   YAML_LOADER,
 ]
 const WEBPACK_PLUGINS = [

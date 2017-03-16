@@ -12,6 +12,8 @@ import { Title } from './Title'
 
 import { decorate } from './decorator'
 
+import { Apps } from '../Apps'
+
 System.import('./index.scss')
 
 export const cssPrefix = 'os_window'
@@ -23,6 +25,7 @@ export const WindowComponent: StatelessComponent<DerivedProps> = ({
   },
   handlers,
   window: {
+    appId,
     className = '',
     fullScreen,
     id = '',
@@ -51,7 +54,7 @@ export const WindowComponent: StatelessComponent<DerivedProps> = ({
       { x: 50, y: height }
     : { x, y }
     }
-    minWidth="20%"
+    minWidth={200}
     minHeight={50}
   >
     <div
@@ -61,7 +64,7 @@ export const WindowComponent: StatelessComponent<DerivedProps> = ({
       }${
         fullScreen ? ` ${cssPrefix}-fullScreen` : ''
       }${
-        titleBarFocused ? ` ${cssPrefix}_title-hover` : ''
+        titleBarFocused ? ` ${cssPrefix}-title-hover` : ''
       }${
         maximized ? ` ${cssPrefix}-maximized` : ''
       }${
@@ -128,6 +131,11 @@ export const WindowComponent: StatelessComponent<DerivedProps> = ({
             onMouseEnter={handlers.onMouseEnter}
             onMouseLeave={handlers.onMouseLeave}
           />
+          <div className={`${cssPrefix}_content`}>
+          {
+            React.createElement(Apps.getIn([appId, 'Component'], 'div'))
+          }
+          </div>
         </DesktopWindow>
       </Resizable>
     </div>

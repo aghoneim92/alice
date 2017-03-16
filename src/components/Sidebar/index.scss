@@ -2,6 +2,8 @@
 @import '~animate.css';
 @import '~rc-tooltip/assets/bootstrap.css';
 
+$sidebarBackground: rgba(0,0,0,0.3);
+
 .os {
   &_tooltip {
     .rc {
@@ -13,9 +15,22 @@
     }
   }
   &_sidebar {
-    width: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 60px;
+    padding: 5px;
+    transform: translate3d(-60px, 0, 0);
+    transition: transform .5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: $sidebarBackground;
+
     &-open {
-      width: 100%;
+      transform: translate3d(0, 0, 0);
     }
     &_capture {
       position: absolute;
@@ -23,17 +38,10 @@
       left: 0;
       width: 10px;
       height: 100%;
-      background: rgba(0,0,0,0.3);
+      background: $sidebarBackground;
       &-open {
         display: none;
       }
-    }
-    &_content {
-      padding: 35px 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-around;
     }
     &_app {
       width: 100%;

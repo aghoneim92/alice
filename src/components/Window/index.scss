@@ -1,6 +1,5 @@
 @import '../z-indexes';
 @import '../config';
-@import '~draft-js/dist/Draft.css';
 
 $transitionDuration: .5s;
 
@@ -34,35 +33,9 @@ $transitionDuration: .5s;
       }
     }
 
-    &.fade {
-      opacity: 0;
-      &-appear {
-        opacity: 0.01;
-        &-active {
-          opacity: 1;
-          transition: opacity 500ms ease-in;
-        }
-      }
-      &-enter {
-        opacity: 0.01;
-        &-active {
-          opacity: 1;
-          transition: opacity 500ms ease-in;
-        }
-      }
-      &-leave {
-        opacity: 1;
-        &-active {
-          opacity: 0.01;
-          transition: opacity 300ms ease-in;
-        }
-      }
-    }
-
     &-minimized {
       width: 20%;
       height: 50px;
-      // overflow: hidden;
     }
 
     transition: top $transitionDuration, left $transitionDuration, width $transitionDuration, height $transitionDuration, transform $transitionDuration;
@@ -75,21 +48,24 @@ $transitionDuration: .5s;
         height: 100%;
       }
     }
-    &_title {
-      &-hover {
-        .os_window_title_capture {
-          height: 0;
-          transition: height 0.2s;
-        }
+    &-title-hover {
+      .os_window_title_capture {
+        height: 0;
+        transition: height 0.2s;
       }
+    }
+    &_title {
       &_capture {
+        position: absolute;
+        height: 0;
+        width: 100%;
         &-fullScreen {
-          height: 5px;
+          height: 20px;
         }
       }
       width: 100%;
-      flex: 0 1 22px;
-      @media(max-width: 414px) {
+      flex: 0 0 22px;
+      @media(max-width: 600px) {
         display: none;
       }
     }
@@ -126,7 +102,7 @@ $transitionDuration: .5s;
         transition: flex $transitionDuration;
       }
     }
-    &-fullScreen&_title-hover {
+    &-fullScreen&-title-hover {
       .os_window_title {
         flex: 0 1 22px;
         transition: flex $transitionDuration;

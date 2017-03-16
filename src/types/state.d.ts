@@ -12,9 +12,9 @@ declare global {
   interface PropsFromState {
     documentTitle: string
     emoji: string
-    firebase?: Firebase
-    menuOpen?: boolean
-    sidebarOpen?: boolean
+    firebase: Firebase
+    menuOpen: boolean
+    sidebarOpen: boolean
     windows: Map<string, Map<string, any>>
   }
   interface DispatchProps {

@@ -1,9 +1,8 @@
 /// <reference path="../../index.d.ts" />
-import { merge, last } from 'ramda'
+
+import { last } from 'ramda'
 import { Map } from 'immutable'
 import { PROD } from './env'
-
-// import { resolve } from 'react-resolver'
 
 export const APP_NAME = 'Alice'
 export const APP_URL = PROD ?
@@ -26,23 +25,13 @@ const DEFAULT_TITLE = APP_NAME
 
 export const DEFAULT_EMOJI = '👸'
 
-const DEFAULT_INITIAL_STATE: State = {
+export const INITIAL_STATE: Partial<State> = {
   currentWindowId: null,
   documentTitle: DEFAULT_TITLE,
   emoji: DEFAULT_EMOJI,
   menuOpen: false,
-  // firebase: {},
   windows: Map<string, ImMap>(),
 }
-
-// const globalInitialState = typeof __INITIAL_STATE__ === 'object' ?
-//   __INITIAL_STATE__
-// : {}
-
-export const INITIAL_STATE = merge(
-  DEFAULT_INITIAL_STATE,
-  {}
-)
 
 const windowCheck = 'typeof window === "object"'
 const processCheck = 'typeof window.process === "object"'
@@ -50,12 +39,12 @@ export const ELECTRON = eval(`${windowCheck} && ${processCheck}`)
 
 export const FB_APP_ID = '111618562682872'
 
-export const FIREBASE_API_KEY = 'AIzaSyAo7NjwAU_bcy_j0vi85z_t4s0VEBkh-ko'
-export const FIREBASE_AUTH_DOMAIN = 'alice-3aa4c.firebaseapp.com'
-export const FIREBASE_DATABASE_URL = 'https://alice-3aa4c.firebaseio.com'
-export const FIREBASE_MESSAGING_SENDER_ID = '88278176113'
-export const FIREBASE_PROJECT_ID = 'alice-3aa4c'
-export const FIREBASE_STORAGE_BUCKET = 'alice-3aa4c.appspot.com'
+export const FIREBASE_API_KEY = 'AIzaSyDbSqOdJIJT8vgdpV4AX55ot7JYsSpB358'
+export const FIREBASE_AUTH_DOMAIN = 'alice-65dad.firebaseapp.com'
+export const FIREBASE_DATABASE_URL = 'https://alice-65dad.firebaseio.com'
+export const FIREBASE_MESSAGING_SENDER_ID = '1045855855378'
+export const FIREBASE_PROJECT_ID = 'alice-65dad'
+export const FIREBASE_STORAGE_BUCKET = 'alice-65dad.appspot.com'
 export const FIREBASE_CONFIG = {
   apiKey: FIREBASE_API_KEY,
   authDomain: FIREBASE_AUTH_DOMAIN,
@@ -67,7 +56,7 @@ export const FIREBASE_CONFIG = {
 // export const GOOGLE_ACCESS_TOKEN = 'ya29.El_ZA9hFSioUuYAA_-uwKzL7XJmoOMA7d_Xj8Q_ptbEXrUBqd0V-cafs3Y7wRU9uUDJbEZoJ5z2DtaBtU6FxsrXJzB-lqi3dKTdJW5QPq-TFn-oRhlRUjFqy1avEb-vHdg'
 export const GOOGLE_SPEECH_RECOGNIZE_URL = 'https://speech.googleapis.com/v1beta1/speech:syncrecognize'
 
-export const WINDOW = typeof window !== 'undefined' && ! (window as GlobalWindow).isJsDOM
+export const WINDOW = eval("typeof window !== 'undefined'")
 
 export const IDLE_TIME = 30000
 const navigator = WINDOW ? (window.navigator as any) : {}

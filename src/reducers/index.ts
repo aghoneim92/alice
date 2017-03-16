@@ -1,4 +1,4 @@
-import * as reactReduxFirebase from '../../react-redux-firebase/es/index'
+import * as reactReduxFirebase from 'react-redux-firebase'
 
 const { firebaseStateReducer } = reactReduxFirebase
 

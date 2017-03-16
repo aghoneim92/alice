@@ -3,7 +3,11 @@
 
 declare module "annyang"
 
+declare module "capitalize"
+
 declare module 'browser-sync'
+
+declare module 'firebaseui'
 
 declare module 'fbgraph'
 
@@ -28,6 +32,7 @@ declare module 'react-desktop'
 declare module 'react-desktop/macOs'
 declare module 'react-desktop/windows'
 declare module 'react-draggable'
+declare module 'react-idle-timer'
 declare module 'react-lazy-load'
 declare module 'react-markdown'
 declare module 'react-particles-js'
@@ -38,6 +43,7 @@ declare module 'react-resolver'
 declare module 'react-router'
 declare module 'react-router-server'
 declare module 'react-scene'
+declare module 'react-social-button'
 declare module 'react-speech'
 declare module 'react-tiles'
 declare module 'react-tiles/src/react-router-resovler'

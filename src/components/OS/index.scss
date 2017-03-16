@@ -1,6 +1,5 @@
 @import "~normalize.css";
 @import "../z-indexes";
-@import "../../../v86/v86.css";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import '~react-clockwall/src/styles/main.css';
 @import '~font-awesome/css/font-awesome.css';
@@ -35,10 +34,4 @@ html, body {
       padding: 0;
     }
   }
-}
-
-#skitt-ui {
-  display: block;
-  position: absolute;
-  z-index: $z-index-speechKITT;
 }

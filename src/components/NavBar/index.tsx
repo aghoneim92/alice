@@ -5,19 +5,8 @@ export const cssPrefix = 'os_navbar'
 
 System.import('./navbar.scss')
 
-interface NavbarProps {
-  // currentWindow: ImMap;
-  // navbar: ImMap;
-}
-
-export const NavBar: StatelessComponent<NavbarProps> = ({
+export const NavBar: StatelessComponent<undefined> = ({
   children,
-  // currentWindow,
-  // navbar,
-  // force,
-  // onEmojiChange,
-  // onPickerClickOutside,
-  // pickerVisible,
 }) => {
   return (
     <div className={cssPrefix}>
@@ -27,26 +16,3 @@ export const NavBar: StatelessComponent<NavbarProps> = ({
     </div>
   )
 }
-/*{
-        {/*<Logo
-          {...{
-            force,
-            emoji,
-            pickerVisible,
-            onPickerClickOutside,
-            onEmojiChange,
-          }}
-        />*/
-
-      /*<EmojiPicker
-        onClickOutside={onPickerClickOutside}
-        {...{onEmojiChange}}
-        visible={force >= 0.2 && pickerVisible}
-      />*/
-      /*{menu}*/
-      /*{
-        currentWindowName
-     && <WindowControls
-         forName={currentWindowName}
-       />
-      }*/

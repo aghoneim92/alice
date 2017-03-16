@@ -11,39 +11,20 @@ import { withState } from 'recompose'
 
 export const cssPrefix = 'os_sidebar_app'
 
-const LAUNCH_ANIMATION_PERIOD = 5000
-
-
 @withState('launching', 'setLaunching', false)
 @derive({
-  onClick: track('setLaunching')(
+  onClick: track('setLaunching', 'onClick')(
     ({
       setLaunching,
+      onClick,
     }: DerivedProps) =>
-      () => setLaunching(true)
+      () => {
+        setLaunching(true)
+        onClick(null as any)
+      }
   ),
 })
-
 class Launcher extends Component<DerivedProps, any> {
-    timer?: any
-
-    disableAnimation = () => this.props.setLaunching(false)
-
-    handleClick = () => {
-      if(!this.timer) {
-        this.timer = setTimeout(
-          this.disableAnimation,
-          LAUNCH_ANIMATION_PERIOD
-        )
-      }
-    }
-
-    componentWillUnMount() {
-      if(this.timer) {
-        clearTimeout(this.timer)
-      }
-    }
-
     render() {
       const {
         props: {
@@ -67,9 +48,9 @@ class Launcher extends Component<DerivedProps, any> {
             }`}
             onClick={onClick}
           >
-            {
-              app.get('icon')
-            }
+          {
+            app.get('icon')
+          }
           </div>
         </Tooltip>
       )

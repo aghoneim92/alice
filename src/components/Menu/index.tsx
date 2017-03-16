@@ -1,8 +1,8 @@
 /// <reference path="./menu.d.ts" />
+
 import * as React from 'react'
 import { ReactElement, StatelessComponent } from 'react'
 import LazyLoad from 'react-lazy-load'
-// import { Link } from 'react-tiles'
 import ClickOutside from 'react-click-outside'
 import Markdown from 'react-markdown'
 
@@ -41,34 +41,34 @@ export const Menu: StatelessComponent<MenuProps> = ({
       className={`${cssPrefix}${open ? ` ${cssPrefix}-visible` : ''}`}
       {...{onClickOutside}}
     >
-      <LazyLoad
-        onContentVisible = {() => console.log('look ma I have been lazyloaded!')}
-      >
-        <Markdown
-          className={`${cssPrefix}_readme`}
-          source={README}
-          renderers={{
-            Link: MyLink,
-          }}
-          sourcePos
-        />
-      </LazyLoad>
-      {children}
-        {
-          FB
-      &&  (
-            <div className="fb">
-              <div className="fb-send"/>
-              <div
-                className="fb-login-button"
-                data-max-rows="5"
-                data-size="medium"
-                data-show-faces="true"
-                data-auto-logout-link="true"
-              />
-            </div>
-          )
-        }
+      <div>
+        <LazyLoad>
+          <Markdown
+            className={`${cssPrefix}_readme`}
+            source={README}
+            renderers={{
+              Link: MyLink,
+            }}
+            sourcePos
+          />
+        </LazyLoad>
+        {children}
+          {
+            FB
+        &&  (
+              <div className="fb">
+                <div className="fb-send"/>
+                <div
+                  className="fb-login-button"
+                  data-max-rows="5"
+                  data-size="medium"
+                  data-show-faces="true"
+                  data-auto-logout-link="true"
+                />
+              </div>
+            )
+          }
+      </div>
     </ClickOutside>
   )
 }

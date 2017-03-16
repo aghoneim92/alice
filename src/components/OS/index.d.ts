@@ -4,7 +4,6 @@ import { error } from './../../lib/logging'
 import { connect } from './../../lib/connect'
 import { compose, prop } from 'ramda'
 import * as React from 'react'
-import { EditorState } from 'draft-js'
 import { ComponentClass } from 'react'
 import { enhancer, withState } from 'recompose'
 
@@ -16,30 +15,35 @@ declare module '../OS' {
   type OSComponent = ComponentClass<OSProps>
 
   interface InternalState {
-    firebaseLogin: boolean
     dimensions: {
       width: number,
       height: number
     }
+    idle: boolean
   }
 
-  interface InternalCallbacks {
-    onFirebaseLogin: Function
+  interface StateCallbacks {
+    setIdle: (idle: boolean) => void
   }
 
   interface OSProps {}
 
+  interface DerivedProps {
+    onActive: () => void
+    onIdle: () => void
+  }
+
   type CombinedProps = PropsFromState
     & DispatchProps
+    & DerivedProps
     & InternalState
-    & InternalCallbacks
+    & StateCallbacks
     & {
       background?: string
       currentWindow?: Map<string, any>
       done?: Function
       editor: any
       layout?: any
-      onEditorChange: (editorState: EditorState) => void
       onDimensionsChanged: Function
       README: string
       router: any

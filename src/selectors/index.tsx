@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 import { prop } from 'ramda'
 import { Map } from 'immutable'
 
-import * as ReactReduxFirebase from '../../react-redux-firebase/es/index'
+import * as ReactReduxFirebase from 'react-redux-firebase'
 
 const { pathToJS } = ReactReduxFirebase
 

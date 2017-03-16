@@ -1,7 +1,7 @@
 /// <reference path="../../index.d.ts" />
 import { compose as _compose } from 'ramda'
 
-import * as ReactReduxFirebase from '../../react-redux-firebase/es/index'
+import * as ReactReduxFirebase from 'react-redux-firebase'
 import { createStore, applyMiddleware } from 'redux'
 import * as createLogger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'

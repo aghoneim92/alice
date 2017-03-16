@@ -31,6 +31,7 @@ declare module './index' {
 
   interface WindowConfig {
     app?: ReactNode
+    appId?: string
     className?: string
     dragging?: boolean
     fullScreen?: boolean

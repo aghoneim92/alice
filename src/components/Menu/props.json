@@ -1,9 +1,0 @@
-{
-  "deps": [
-    "react",
-    "react-markdown",
-    "react-click-outside",
-    "constants/constants.js",
-    "components/Menu/menu.scss"
-  ]
-}

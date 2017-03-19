@@ -90,6 +90,7 @@
     "rc-tooltip": "^3.4.2",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
+    "react-bash": "^1.5.3",
     "react-click-outside": "tj/react-click-outside",
     "react-clockwall": "^1.4.7",
     "react-derive": "^0.1.1",

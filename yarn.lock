@@ -5955,6 +5955,10 @@ react-base16-styling@^0.5.1:
     lodash.flow "^3.3.0"
     pure-color "^1.2.0"
 
+react-bash@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/react-bash/-/react-bash-1.5.3.tgz#a205c8c58e54101648facc49f8c7cf39928a9c0e"
+
 react-bootstrap@^0.30.3:
   version "0.30.8"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.30.8.tgz#4ceca8e138ce2351228c4a58d59db00c003ca9c0"

@@ -34,7 +34,7 @@ System.import('firebaseui/dist/firebaseui.css')
 
 export const cssPrefix = 'os'
 
-console.log('PRODUCTION:', PROD)
+console.log('PROD:', PROD)
 
 const loginClickHandler = (providerName: string) => {
   const firebase = getFirebase()

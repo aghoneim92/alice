@@ -1,6 +1,5 @@
 const webpack = require('webpack')
 const { ProvidePlugin } = webpack
-const StatsPlugin = require('stats-webpack-plugin')
 const { resolve } = require('path')
 
 const { env } = process
@@ -82,9 +81,6 @@ const MARKDOWN_LOADER = {
     },
     {
       loader: "markdown-loader",
-      options: {
-        /* your options here */
-      }
     }
   ]
 }
@@ -123,10 +119,6 @@ const LOADERS = [
 const WEBPACK_PLUGINS = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
-  new StatsPlugin('stats.json', {
-    chunkModules: true,
-    exclude: [/node_modules/]
-  }),
   new ProvidePlugin({
     $: 'jquery'
   })
@@ -166,7 +158,7 @@ module.exports = {
   module: MODULE,
   plugins,
   watchOptions: {
-    aggregateTimeout: 1000,
+    aggregateTimeout: 5000,
     ignored: /node_modules/
   }
 }

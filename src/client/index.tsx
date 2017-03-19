@@ -20,8 +20,8 @@ const createEl = (React: typeof react, Alice: Alice) => (
 
 const doRender: Renderer = ({
   React,
-  render,
   Alice,
+  render,
 }) => {
   const el = createEl(React, Alice)
 

@@ -1,10 +1,11 @@
+import { PROD } from './../constants/env'
 import { ServerArgs } from './index'
 
 import * as Koa from 'koa'
 
 import { createRouter } from '../lib/router'
 
-const PORT = 4000
+const PORT = process.env.PORT || 4000
 
 export const createServer = ([
   Koa,
@@ -17,13 +18,17 @@ export const createServer = ([
 
   app.use(logger())
     .use(createRouter())
-    .use(convert(
+
+  if(!PROD) {
+    app.use(convert(
       proxy({
         host: 'http://localhost:8080',
         match: /^\/dist\//,
       })
     ))
-    .use(serve('.'))
+  }
+
+  app.use(serve('.'))
 
   return app
 }

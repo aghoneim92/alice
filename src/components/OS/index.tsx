@@ -15,8 +15,8 @@ import { WallpaperBlur } from '../WallpaperBlur'
 import { SizeDelta } from '../Window'
 import { Handlers as WindowHandlers } from '../Windows'
 
-import { APP_URL, BS_URL } from '../../constants'
-import { WINDOW } from '../../constants'
+import { APP_URL } from '../../constants'
+import { WINDOW, FB_APP_ID } from '../../constants'
 import { PROD } from '../../constants/env'
 
 import * as LoginModule from '../Login'
@@ -55,6 +55,7 @@ export const getOS: OSGetter = async () => {
     const { Sidebar } = await System.import(__dirname + '/../Sidebar')
     const { Windows } = await System.import(__dirname + '/../Windows')
     const { Screensaver } = await System.import(__dirname + '/../Screensaver')
+    const { Camera } = await System.import(__dirname + '/../Camera')
 
     const IdleTimer = WINDOW && require('react-idle-timer').default
 
@@ -63,6 +64,25 @@ export const getOS: OSGetter = async () => {
 
       componentDidMount() {
         this.handleDocumentResize()
+
+        ;(window as any).fbAsyncInit = () => {
+          FB.init({
+            appId      : FB_APP_ID,
+            xfbml      : true,
+            version    : 'v2.8'
+          });
+          FB.AppEvents.logPageView();
+
+          this.props.setFB(FB)
+        };
+
+        (function(d, s, id){
+          var js: HTMLScriptElement, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement(s) as HTMLScriptElement; js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs!.parentNode!.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
       }
 
       handleAppIconClick = (key: string) => () =>
@@ -155,9 +175,14 @@ export const getOS: OSGetter = async () => {
       openSidebar = () => this.props.setSidebarOpen(true)
       closeSidebar = () => this.props.setSidebarOpen(false)
 
+      handleCameraCapture = (image: string) => {
+        image = ''
+      }
+
       render() {
         const {
           handleAppIconClick,
+          handleCameraCapture,
           handleDocumentResize,
           handleLogoClick,
           handleMenuClickOutside,
@@ -172,6 +197,7 @@ export const getOS: OSGetter = async () => {
             },
             documentTitle,
             emoji,
+            FB,
             firebase: {
               auth,
             },
@@ -207,9 +233,8 @@ export const getOS: OSGetter = async () => {
             IdleTimer
         && <IdleTimer
             element={document}
-            activeAction={onActive}
             idleAction={onIdle}
-            timeout={20000}
+            timeout={120000}
           />
           }
             <EventListener
@@ -221,19 +246,17 @@ export const getOS: OSGetter = async () => {
               meta={[
                 { name: 'charset', content: 'UTF-8' },
               ]}
-              script={
-                PROD ? [] : [
-                { src: BS_URL, async: true },
-              ]}
             />
             <WallpaperBlur width={width} background={background}/>
             <NavBar>
               <Logo onClick={handleLogoClick} emoji={emoji}/>
               <Menu
+                FB={FB}
                 open={menuOpen}
                 onClickOutside={handleMenuClickOutside}
                 README={README}
               />
+              <Camera onCapture={handleCameraCapture}/>
               <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin'}} />
             </NavBar>
             <Desktop>

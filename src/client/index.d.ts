@@ -17,9 +17,10 @@ declare module './index' {
   type getGetAlice = (react: typeof React) => Promise<Alice>
 
   interface RendererArgs {
-    Alice: StatelessComponent<any>
     React: typeof React
+    Alice: StatelessComponent<any>
     render: typeof render
+    FB?: any
   }
   type Renderer = (args: RendererArgs) => void
 }

@@ -1,0 +1,74 @@
+.os {
+  &_screensaver {
+    &_Circles {
+      width: 100%;
+      height: 100%;
+      &_content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: black;
+      }
+      &_circle {
+        border-radius: 50%;
+        display: flex;
+        margin: calc(100vw/11);
+
+        &-color {
+          &--black {
+            background-color: black;
+          }
+          &--white {
+            background-color: white;
+          }
+        }
+
+        &-level {
+          &--1 {
+            transform: translateX(-6%);
+            animation: slither6 1.5s 2.5s infinite alternate ease-in-out;
+          }
+          &--2 {
+            transform: translateX(-12%);
+            animation: slither12 1.5s 2s infinite alternate ease-in-out;
+          }
+          &--3 {
+            transform: translateX(-15%);
+            animation: slither15 1.5s 1.5s infinite alternate ease-in-out;
+          }
+          &--4 {
+            transform: translateX(-24%);
+            animation: slither24 1.5s 1s infinite alternate ease-in-out;
+          }
+          &--5 {
+            transform: translateX(-40%);
+            animation: slither40 1.5s .5s infinite alternate ease-in-out;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slither6 {
+  0% {transform: translateX(-6%);}
+  100% {transform: translateX(6%);}
+}
+@keyframes slither12 {
+  0% {transform: translateX(-12%);}
+  100% {transform: translateX(12%);}
+}
+@keyframes slither15 {
+  0% {transform: translateX(-15%);}
+  100% {transform: translateX(15%);}
+}
+@keyframes slither24 {
+  0% {transform: translateX(-24%);}
+  100% {transform: translateX(24%);}
+}
+@keyframes slither40 {
+  0% {transform: translateX(-40%);}
+  100% {transform: translateX(40%);}
+}

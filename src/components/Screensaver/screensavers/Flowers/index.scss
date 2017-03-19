@@ -1,0 +1,22 @@
+.os {
+  &_screensaver {
+    &_flowers {
+      height: 100%;
+      background: white;
+      text-align: center;
+
+      &_content {
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        animation: colorRotate 6s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes colorRotate {
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}

@@ -1,15 +1,22 @@
 FROM node
 
-COPY ./ /alice
+RUN apt-get -y update
 
-RUN mkdir -p /alice/dist/.well-known/acme-challenge
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-WORKDIR /alice/dist
+RUN yarn global add node-gyp
 
-RUN printf "%s" BXAhgXiu68rQsS3GXrCTT6KT9k30V69fXOcr8nrzsHM.lNh0V_VVFOPyKQpCSchXeJCGS-HafZx4pOABEOkf5sM > .well-known/acme-challenge/BXAhgXiu68rQsS3GXrCTT6KT9k30V69fXOcr8nrzsHM
+COPY ./ /home
 
-WORKDIR /alice
-RUN npm i
-RUN NODE_ENV=production npm run build
+WORKDIR /home
 
-CMD NODE_ENV=production npm run start-server
+RUN yarn
+
+ENV NODE_ENV=production
+
+RUN npm run build
+
+CMD npm run start-server
+
+EXPOSE 4000

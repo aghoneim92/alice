@@ -2,7 +2,7 @@
 
 $box-size: 90vh;
 $rings: 30;
-$duration: 2.5s;
+$duration: 5s;
 $lagdelay: 1.25;
 
 .os {
@@ -35,19 +35,19 @@ $lagdelay: 1.25;
   @keyframes el-animate-#{$i} {
     0% {
       border-color: rgb(255 * $perc, 255 * $perc, 255 * $perc);
-      transform: rotate(0deg);
+      transform: rotate3d(0, 0, 1, 0);
     }
     25% {
       border-color: rgb(255 * (1 - $perc), 125 * $perc, 255 * (1 - $perc));
-      transform: rotate(45deg);
+      transform: rotate3d(0, 0, 1, 45deg);
     }
     75% {
       border-color: rgb(125 * $perc, 255 * (1 - $perc), 255 * $perc);
-      transform: rotate(135deg);
+      transform: rotate3d(0, 0, 1, 135deg);
     }
     100%{
       border-color: rgb(255 * $perc, 255 * $perc, 255 * $perc);
-      transform: rotate(180deg);
+      transform: rotate3d(0, 0, 1, 180deg);
     }
   }
 

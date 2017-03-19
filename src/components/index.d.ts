@@ -11,7 +11,8 @@ import { OSComponent } from './OS'
 
 
 declare module './index' {
-  interface AliceProps {}
+  interface AliceProps {
+  }
   type Alice = StatelessComponent<AliceProps>
   
   type AliceCreator = (

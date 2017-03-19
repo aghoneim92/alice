@@ -11,8 +11,12 @@ System.import('./index.scss')
 
 export const cssPrefix = 'os_screensaver'
 
+const screensaverNames = Object.keys(screensavers)
+const randomScreensaver = () => screensaverNames[
+  ~~(Math.random() * screensaverNames.length)
+]
+
 export const Screensaver: StatelessComponent<ScreensaverProps> = ({
-  screensaver = 'Rings',
   onClick,
 }) => (
   <ReactCSSTransitionGroup
@@ -32,7 +36,7 @@ export const Screensaver: StatelessComponent<ScreensaverProps> = ({
       onClick={onClick}
     >
     {
-      React.createElement(screensavers[screensaver])
+      React.createElement(screensavers[randomScreensaver()] as any)
     }
     </div>
   </ReactCSSTransitionGroup>

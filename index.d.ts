@@ -1,9 +1,11 @@
 /// <reference path='node_modules/@types/node/index.d.ts' />
 /// <reference path='src/types/index.d.ts' />
 
-declare module "annyang"
+declare module 'annyang'
 
-declare module "capitalize"
+declare module 'b_'
+
+declare module 'capitalize'
 
 declare module 'browser-sync'
 
@@ -35,7 +37,7 @@ declare module 'react-draggable'
 declare module 'react-idle-timer'
 declare module 'react-lazy-load'
 declare module 'react-markdown'
-declare module 'react-particles-js'
+declare module 'react-popover'
 declare module 'react-redux-firebase'
 declare module 'react-redux-firebase/dist/react-redux-firebase'
 declare module 'react-resizable-box'
@@ -50,6 +52,7 @@ declare module 'react-tiles/src/react-router-resovler'
 declare module 'react-transmit'
 declare module 'react-typewriter'
 declare module 'react-voice-components'
+declare module 'react-webcam'
 
 declare module 'recompose'
 
@@ -90,3 +93,4 @@ interface System {
   import: (module: string) => Promise<any>
 }
 declare var System: System
+declare var FB: any

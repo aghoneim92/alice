@@ -24,6 +24,7 @@ export const enhancer: Enhancer<OSProps, CombinedProps> = (compose as any)(
     height: 100,
   }),
   withState('idle', 'setIdle', false),
+  withState('FB', 'setFB', null),
   derive({
     onActive: track('setIdle')(
       ({

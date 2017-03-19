@@ -93,7 +93,6 @@ const hextris = Map({
 //   type: NES,
 // })
 
-
 export const Apps = Map<ImMap>({
   [editorId]: editor,
   [hextrisId]: hextris,

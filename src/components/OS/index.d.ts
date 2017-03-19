@@ -20,13 +20,17 @@ declare module '../OS' {
       height: number
     }
     idle: boolean
+    FB: any
   }
 
   interface StateCallbacks {
     setIdle: (idle: boolean) => void
+    setFB: (FB: any) => void
+    onDimensionsChanged: Function
   }
 
-  interface OSProps {}
+  interface OSProps {
+  }
 
   interface DerivedProps {
     onActive: () => void
@@ -44,11 +48,11 @@ declare module '../OS' {
       done?: Function
       editor: any
       layout?: any
-      onDimensionsChanged: Function
       README: string
       router: any
       windows: Map<string, ImMap>
     }
+    & OSProps
 
   type HandleWindowDrag = (
     id: string,

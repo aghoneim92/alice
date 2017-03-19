@@ -17,6 +17,18 @@
     &_content {
       display: flex;
       align-items: center;
+
+      .clock {
+        color: rgba(0,0,0,0.3);
+        padding: 0;
+        min-width: initial;
+        margin-left: auto;
+        .time {
+          font-size: 1.4em;
+          margin: 0;
+          padding: 0;
+        }
+      }
     }
   }
 }

@@ -14,7 +14,7 @@ export const spawnServer =  () => exec(SERVER_CMD)
 export function findAndTerminate(file: string) {
   const pid = readPid(file)
 
-  if(pid && isRunning(pid)) {
+  if (pid && isRunning(pid)) {
     terminate(pid, (err: Error) => err && error(err))
   }
 }

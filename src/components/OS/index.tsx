@@ -59,13 +59,13 @@ export const getOS: OSGetter = async () => {
 
     const IdleTimer = WINDOW && require('react-idle-timer').default
 
-    class OS extends PureComponent<CombinedProps, undefined>{
+    class OS extends PureComponent<CombinedProps, undefined> {
       tilesRef?: any
 
       componentDidMount() {
         this.handleDocumentResize()
 
-        ;(window as any).fbAsyncInit = () => {
+        ; (window as any).fbAsyncInit = () => {
           FB.init({
             appId      : FB_APP_ID,
             xfbml      : true,
@@ -77,10 +77,11 @@ export const getOS: OSGetter = async () => {
         };
 
         (function(d, s, id){
-          var js: HTMLScriptElement, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {return;}
+          let js: HTMLScriptElement
+          const fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {return; }
           js = d.createElement(s) as HTMLScriptElement; js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js";
+          js.src = '//connect.facebook.net/en_US/sdk.js';
           fjs!.parentNode!.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       }
@@ -292,7 +293,7 @@ export const getOS: OSGetter = async () => {
     ])
 
     return WINDOW ? firebaseConn(enhanced) : enhanced
-  } catch(e) {
+  } catch (e) {
     error(e)
   }
 }

@@ -19,7 +19,7 @@ export const createServer = ([
   app.use(logger())
     .use(createRouter())
 
-  if(!PROD) {
+  if (!PROD) {
     app.use(convert(
       proxy({
         host: 'http://localhost:8080',
@@ -39,7 +39,7 @@ export const startServer = (app: any, enableDestroy: any) => {
 }
 
 export const stopServer = (app: Destroyable) => {
-  if(app.destroy) {
+  if (app.destroy) {
     app.destroy()
   }
 }

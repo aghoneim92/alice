@@ -3,6 +3,18 @@
 
 [![Coverage](https://coveralls.io/repos/github/aghoneim92/os.js/badge.svg?branch=master)](https://coveralls.io/github/aghoneim92/os.js?branch=master)
 
+
+Alice is an free and open-source (FOSS) Operating System running in your browser.
+
+
+## Features
+
+- [x] GBA Emulator
+- [x] Web Terminal
+- [x] Hextrix Puzzle Game
+- [x] Time & Date
+- [x] Camera Snap&Pop
+
 ## Getting Started
 
 ### Development

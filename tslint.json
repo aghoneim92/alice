@@ -22,7 +22,7 @@
         "no-var-keyword": true,
         "quotemark": [
             true,
-            "double",
+            "single",
             "avoid-escape"
         ],
         "semicolon": [

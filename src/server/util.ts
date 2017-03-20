@@ -1,10 +1,10 @@
-import { error } from "./../lib/logging"
-import * as isRunning from "is-running"
-import * as terminate from "terminate"
-import { existsSync, readFileSync } from "fs"
-import { exec } from "child_process"
+import { error } from './../lib/logging'
+import * as isRunning from 'is-running'
+import * as terminate from 'terminate'
+import { existsSync, readFileSync } from 'fs'
+import { exec } from 'child_process'
 
-import { SERVER_CMD } from "./../constants/index"
+import { SERVER_CMD } from './../constants/index'
 
 const readIfExists: (file: string) => (boolean | string) = file => existsSync(file) && readFileSync(file).toString()
 const readPid: (file: string) => number = file => ~~readIfExists(file)

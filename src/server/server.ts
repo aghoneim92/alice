@@ -1,9 +1,9 @@
-import { PROD } from "./../constants/env"
-import { ServerArgs } from "./index"
+import { PROD } from './../constants/env'
+import { ServerArgs } from './index'
 
-import * as Koa from "koa"
+import * as Koa from 'koa'
 
-import { createRouter } from "../lib/router"
+import { createRouter } from '../lib/router'
 
 const PORT = process.env.PORT || 4000
 
@@ -22,13 +22,13 @@ export const createServer = ([
   if (!PROD) {
     app.use(convert(
       proxy({
-        host: "http://localhost:8080",
+        host: 'http://localhost:8080',
         match: /^\/dist\//,
       })
     ))
   }
 
-  app.use(serve("."))
+  app.use(serve('.'))
 
   return app
 }

@@ -1,40 +1,40 @@
 /// <reference path="../../../index.d.ts" />
 /// <reference path="./index.d.ts" />
 
-import * as React from "react"
-import { PureComponent } from "react"
+import * as React from 'react'
+import { PureComponent } from 'react'
 
-import Clock from "react-clockwall"
-import EventListener from "react-event-listener"
-import * as Helmet from "react-helmet"
+import Clock from 'react-clockwall'
+import EventListener from 'react-event-listener'
+import * as Helmet from 'react-helmet'
 
-import { Map } from "immutable"
+import { Map } from 'immutable'
 
-import { WallpaperBlur } from "../WallpaperBlur"
+import { WallpaperBlur } from '../WallpaperBlur'
 
-import { SizeDelta } from "../Window"
-import { Handlers as WindowHandlers } from "../Windows"
+import { SizeDelta } from '../Window'
+import { Handlers as WindowHandlers } from '../Windows'
 
-import { APP_URL } from "../../constants"
-import { WINDOW, FB_APP_ID } from "../../constants"
-import { PROD } from "../../constants/env"
+import { APP_URL } from '../../constants'
+import { WINDOW, FB_APP_ID } from '../../constants'
+import { PROD } from '../../constants/env'
 
-import * as LoginModule from "../Login"
+import * as LoginModule from '../Login'
 
-import * as capitalize from "capitalize"
+import * as capitalize from 'capitalize'
 
-import { error } from "../../lib/logging"
+import { error } from '../../lib/logging'
 
-import { getFirebase, firebaseConnect } from "react-redux-firebase"
+import { getFirebase, firebaseConnect } from 'react-redux-firebase'
 
-import { enhancer } from "./enhancer"
+import { enhancer } from './enhancer'
 
-System.import("./index.scss")
-System.import("firebaseui/dist/firebaseui.css")
+System.import('./index.scss')
+System.import('firebaseui/dist/firebaseui.css')
 
-export const cssPrefix = "os"
+export const cssPrefix = 'os'
 
-console.log("PROD:", PROD)
+console.log('PROD:', PROD)
 
 const loginClickHandler = (providerName: string) => {
   const firebase = getFirebase()
@@ -46,18 +46,18 @@ const loginClickHandler = (providerName: string) => {
 
 export const getOS: OSGetter = async () => {
   try {
-    const { Apps } = await System.import(__dirname + "/../Apps")
-    const { Desktop } = await System.import(__dirname + "/../Desktop")
-    const { Logo } = await System.import(__dirname + "/../Logo")
-    const { Login }: typeof LoginModule = await System.import(__dirname + "/../Login")
-    const { NavBar } = await System.import(__dirname + "/../NavBar")
-    const { Menu } = await System.import(__dirname + "/../Menu")
-    const { Sidebar } = await System.import(__dirname + "/../Sidebar")
-    const { Windows } = await System.import(__dirname + "/../Windows")
-    const { Screensaver } = await System.import(__dirname + "/../Screensaver")
-    const { Camera } = await System.import(__dirname + "/../Camera")
+    const { Apps } = await System.import(__dirname + '/../Apps')
+    const { Desktop } = await System.import(__dirname + '/../Desktop')
+    const { Logo } = await System.import(__dirname + '/../Logo')
+    const { Login }: typeof LoginModule = await System.import(__dirname + '/../Login')
+    const { NavBar } = await System.import(__dirname + '/../NavBar')
+    const { Menu } = await System.import(__dirname + '/../Menu')
+    const { Sidebar } = await System.import(__dirname + '/../Sidebar')
+    const { Windows } = await System.import(__dirname + '/../Windows')
+    const { Screensaver } = await System.import(__dirname + '/../Screensaver')
+    const { Camera } = await System.import(__dirname + '/../Camera')
 
-    const IdleTimer = WINDOW && require("react-idle-timer").default
+    const IdleTimer = WINDOW && require('react-idle-timer').default
 
     class OS extends PureComponent<CombinedProps, undefined> {
       tilesRef?: any
@@ -69,7 +69,7 @@ export const getOS: OSGetter = async () => {
           FB.init({
             appId      : FB_APP_ID,
             xfbml      : true,
-            version    : "v2.8"
+            version    : 'v2.8'
           });
           FB.AppEvents.logPageView();
 
@@ -81,9 +81,9 @@ export const getOS: OSGetter = async () => {
           const fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) {return; }
           js = d.createElement(s) as HTMLScriptElement; js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js";
+          js.src = '//connect.facebook.net/en_US/sdk.js';
           fjs!.parentNode!.insertBefore(js, fjs);
-        }(document, "script", "facebook-jssdk"));
+        }(document, 'script', 'facebook-jssdk'));
       }
 
       handleAppIconClick = (key: string) => () =>
@@ -151,7 +151,7 @@ export const getOS: OSGetter = async () => {
         id: string,
         direction: string,
         delta: SizeDelta
-      ) => console.log("id", id, "direction", direction, "delta", delta)
+      ) => console.log('id', id, 'direction', direction, 'delta', delta)
 
       handleWindowMaximizeClick = (id: string) => this.props.onWindowChange({
         id,
@@ -177,7 +177,7 @@ export const getOS: OSGetter = async () => {
       closeSidebar = () => this.props.setSidebarOpen(false)
 
       handleCameraCapture = (image: string) => {
-        image = ""
+        image = ''
       }
 
       render() {
@@ -224,7 +224,7 @@ export const getOS: OSGetter = async () => {
                 }${
                   background
                 }')`
-              : ""
+              : ''
             }}
           >
           {
@@ -239,13 +239,13 @@ export const getOS: OSGetter = async () => {
           />
           }
             <EventListener
-              target="window"
+              target='window'
               onResize={handleDocumentResize}
             />
             <Helmet
               title={documentTitle}
               meta={[
-                { name: "charset", content: "UTF-8" },
+                { name: 'charset', content: 'UTF-8' },
               ]}
             />
             <WallpaperBlur width={width} background={background}/>
@@ -258,7 +258,7 @@ export const getOS: OSGetter = async () => {
                 README={README}
               />
               <Camera onCapture={handleCameraCapture}/>
-              <Clock config={{ timezone: "Europe/Berlin", town: "Berlin"}} />
+              <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin'}} />
             </NavBar>
             <Desktop>
               <Windows
@@ -277,7 +277,7 @@ export const getOS: OSGetter = async () => {
               className={`${
                 cssPrefix
               }_sidebar_capture${
-                sidebarOpen ? ` ${cssPrefix}_sidebar_capture-open` : ""
+                sidebarOpen ? ` ${cssPrefix}_sidebar_capture-open` : ''
               }`}
               onMouseEnter={openSidebar}
             />
@@ -289,7 +289,7 @@ export const getOS: OSGetter = async () => {
 
     const enhanced = enhancer(OS)
     const firebaseConn = firebaseConnect([
-      "public"
+      'public'
     ])
 
     return WINDOW ? firebaseConn(enhanced) : enhanced

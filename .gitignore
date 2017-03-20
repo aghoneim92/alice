@@ -7,4 +7,5 @@ yarn-error.log
 /imports.js
 typings/
 .awcache
-*.pid*.pid
+*.pid
+

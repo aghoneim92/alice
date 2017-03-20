@@ -239,7 +239,7 @@ export const getOS: OSGetter = async () => {
           />
           }
             <EventListener
-              target='window'
+              target="window"
               onResize={handleDocumentResize}
             />
             <Helmet

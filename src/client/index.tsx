@@ -3,6 +3,7 @@ import 'react-hot-loader/patch'
 import { AppContainer } from 'react-hot-loader'
 
 import * as react from 'react'
+import { Resolver } from 'react-resolver'
 
 import { prop } from 'ramda'
 
@@ -21,13 +22,11 @@ const createEl = (React: typeof react, Alice: Alice) => (
 const doRender: Renderer = ({
   React,
   Alice,
-  render,
 }) => {
-  const el = createEl(React, Alice)
-
-  if(el) {
-    render(el, root)
-  }
+  Resolver.render(
+    () => createEl(React, Alice),
+    root
+  )
 }
 
 const getGetAlice: getGetAlice = (React: typeof react) =>

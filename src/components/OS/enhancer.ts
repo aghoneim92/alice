@@ -18,7 +18,7 @@ export const enhancer: Enhancer<OSProps, CombinedProps> = (compose as any)(
         .import('../../background.jpg')
         .catch(error)
   ),
-  resolve('README', () => System.import('../../../README.md')),
+  resolve('README', () => System.import(__dirname + '/../../../README.md')),
   withState('dimensions', 'onDimensionsChanged', {
     width: 100,
     height: 100,

@@ -4,7 +4,8 @@ import { StatelessComponent } from 'react'
 import * as Helmet from 'react-helmet'
 
 export const Container: StatelessComponent<any> = ({
-  children
+  children,
+  data,
 }) => {
   const head = Helmet.rewind()
   const attrs = head.htmlAttributes.toComponent()
@@ -18,12 +19,10 @@ export const Container: StatelessComponent<any> = ({
       </head>
       <body>
         {children}
-        {/*<script dangerouslySetInnerHTML={{
-          __html: `
-            window.__INITIAL_STATE__ = JSON.parse('${JSON.stringify(state)}');
-          `
-        }} />*/}
-        <script src="dist/main.js"/>
+        <script dangerouslySetInnerHTML={{ __html:
+          `window.__REACT_RESOLVER_PAYLOAD__ = '${JSON.stringify(data)}'`
+        }}/>
+        <script src="dist/main.js" async defer/>
       </body>
     </html>
   )

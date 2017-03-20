@@ -1,12 +1,17 @@
+import { readFileSync } from 'fs';
 /// <reference path="./index.d.ts" />
 /// <reference path="../../index.d.ts" />
 
-const nonNodeModules = /\.(scss|jpg|css|png|less)/
+const nonNodeModules = /\.(scss|jpg|css|png|less|md)/
 
 const System = {
   import: function(name: string) {
     return Promise.resolve(
-      nonNodeModules.test(name) ? null : require(name)
+      nonNodeModules.test(name) ?
+        name.includes('.md') ?
+          readFileSync(name)
+        : null
+      : require(name)
     )
   }
 }

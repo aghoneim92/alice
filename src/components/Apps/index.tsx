@@ -9,6 +9,8 @@ import { Map } from 'immutable'
 
 import { pure } from 'recompose'
 
+System.import('./index.scss')
+
 const editorId = genId()
 const editor = Map({
   element: 'insert editor here',
@@ -71,6 +73,15 @@ const hextris = Map({
   title: 'Hextris',
 })
 
+
+const GBAIconEnhanced: StatelessComponent<any> = ({ src }) => (
+  <img className="os_sidebar_appLauncher_icon" src={src}/>
+)
+
+const GBAIcon = resolve({
+  src: () => System.import('./gba.png')
+})(GBAIconEnhanced)
+
 const gbaId = genId()
 const gba = Map({
   id: gbaId,
@@ -79,11 +90,9 @@ const gba = Map({
     src="http://endrift.github.io/gbajs/"
     />
   ),
-  icon: <HextrisIcon/>,
+  icon: <GBAIcon/>,
   title: 'GBA Emulator',
 })
-
-
 
 // const snakeId = genId()
 // const snake = Map({

@@ -25,7 +25,7 @@ const doRender: Renderer = ({
 }) => {
   const el = createEl(React, Alice)
 
-  if(el) {
+  if (el) {
     render(el, root)
   }
 }
@@ -53,7 +53,7 @@ async function boot() {
         boot
       )
     }
-  } catch(e) {
+  } catch (e) {
     error(e)
   }
 }

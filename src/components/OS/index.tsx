@@ -1,55 +1,40 @@
 /// <reference path="../../../index.d.ts" />
 /// <reference path="./index.d.ts" />
 
-import * as React from 'react'
 import { PureComponent } from 'react'
 
 import Clock from 'react-clockwall'
 import EventListener from 'react-event-listener'
 import * as Helmet from 'react-helmet'
 
+import { firebaseConnect } from 'react-redux-firebase'
+
+import { merge } from 'ramda'
+
+import { withProps } from 'recompose'
+
 import { Map } from 'immutable'
 
+import { Desktop } from '../Desktop'
+import { Logo } from '../Logo'
 import { WallpaperBlur } from '../WallpaperBlur'
-
 import { SizeDelta } from '../Window'
 import { Handlers as WindowHandlers } from '../Windows'
 
-import { APP_URL } from '../../constants'
 import { WINDOW, FB_APP_ID } from '../../constants'
 import { PROD } from '../../constants/env'
 
-import * as LoginModule from '../Login'
-
-import * as capitalize from 'capitalize'
-
 import { error } from '../../lib/logging'
 
-import { getFirebase, firebaseConnect } from 'react-redux-firebase'
-
 import { enhancer } from './enhancer'
-
-System.import('./index.scss')
-System.import('firebaseui/dist/firebaseui.css')
 
 export const cssPrefix = 'os'
 
 console.log('PROD:', PROD)
 
-const loginClickHandler = (providerName: string) => {
-  const firebase = getFirebase()
-  const Provider = firebase.auth[`${capitalize(providerName)}AuthProvider`]
-  const provider = new Provider()
-
-  firebase.auth().signInWithRedirect(provider)
-}
-
-export const getOS: OSGetter = async () => {
+export const getOS: OSGetter = async ({ React, auth }) => {
   try {
     const { Apps } = await System.import(__dirname + '/../Apps')
-    const { Desktop } = await System.import(__dirname + '/../Desktop')
-    const { Logo } = await System.import(__dirname + '/../Logo')
-    const { Login }: typeof LoginModule = await System.import(__dirname + '/../Login')
     const { NavBar } = await System.import(__dirname + '/../NavBar')
     const { Menu } = await System.import(__dirname + '/../Menu')
     const { Sidebar } = await System.import(__dirname + '/../Sidebar')
@@ -61,6 +46,11 @@ export const getOS: OSGetter = async () => {
 
     class OS extends PureComponent<CombinedProps, undefined> {
       tilesRef?: any
+
+      componentWillMount() {
+        System.import('./index.scss')
+        System.import('firebaseui/dist/firebaseui.css')
+      }
 
       componentDidMount() {
         this.handleDocumentResize()
@@ -199,9 +189,6 @@ export const getOS: OSGetter = async () => {
             documentTitle,
             emoji,
             FB,
-            firebase: {
-              auth,
-            },
             idle,
             menuOpen,
             onActive,
@@ -212,7 +199,7 @@ export const getOS: OSGetter = async () => {
           },
         } = this
 
-        return auth ? (
+        return (
           <div
             className={`${
               cssPrefix
@@ -220,8 +207,6 @@ export const getOS: OSGetter = async () => {
             style={{
               backgroundImage: WINDOW ?
                 `url('${
-                  APP_URL
-                }${
                   background
                 }')`
               : ''
@@ -283,19 +268,28 @@ export const getOS: OSGetter = async () => {
             />
             {children}
           </div>
-        ) : <Login onButtonClick={loginClickHandler}/>
+        )
       }
     }
 
     const enhanced = enhancer(OS)
     const firebaseConn = firebaseConnect([
-      'public'
+      '/'
     ])
 
+    return WINDOW ? firebaseConn(enhanced) : withProps(
+      (props: OSProps): CombinedProps => merge(
+        props, {
+          firebase: {
+            auth,
+          },
+        } as CombinedProps
+      )
+    )(enhanced)
+  } catch(e) {
     return WINDOW ? firebaseConn(enhanced) : enhanced
   } catch (e) {
     error(e)
   }
 }
-
 

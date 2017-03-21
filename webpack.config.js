@@ -1,6 +1,10 @@
 const webpack = require('webpack')
-const { ProvidePlugin } = webpack
 const { resolve } = require('path')
+const OfflinePlugin = require('offline-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+
+const { ProvidePlugin } = webpack
+
 
 const { env } = process
 
@@ -9,6 +13,7 @@ const PROD = env.NODE_ENV === 'production'
 const MAIN = './src/client/index.tsx'
 const DEV_TOOL = PROD ? 'source-map' : 'inline-source-map'
 const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.js']
+
 
 const main = PROD ? [
   MAIN,
@@ -20,7 +25,7 @@ const main = PROD ? [
 
 const DIST = 'dist'
 
-const OUTPUT_FILENAME_PATTERN = '[name].js'
+const OUTPUT_FILENAME_PATTERN = PROD ? '[hash].js' : '[name].js'
 const OUTPUT_PATH = resolve(`./${DIST}`)
 const PUBLIC_PATH = `/${DIST}/`
 const FONT_LOADER = {
@@ -117,6 +122,17 @@ const LOADERS = [
   YAML_LOADER,
 ]
 const WEBPACK_PLUGINS = [
+  new OfflinePlugin(PROD ?{
+    caches: {
+      main: [':rest:'],
+      additional: [':externals:'],
+      optional: ['*.chunk.js']
+    },
+    safeToUseOptionalCaches: true,
+  } : {}),
+  new ManifestPlugin({
+    fileName: 'push_manifest.json',
+  }),
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
   new ProvidePlugin({
@@ -133,6 +149,7 @@ const loaders = LOADERS
 const MODULE = { loaders }
 const output = {
   filename,
+  chunkFilename: '[chunkhash].chunk.js',
   path,
   publicPath,
 }

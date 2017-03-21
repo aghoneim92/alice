@@ -1,13 +1,16 @@
 /// <reference path="../../index.d.ts" />
+
 import { compose as _compose } from 'ramda'
 
 import * as ReactReduxFirebase from 'react-redux-firebase'
 import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 import * as createLogger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { FIREBASE_CONFIG, INITIAL_STATE, WINDOW } from '../constants/index'
-import { rootReducer } from '../reducers/index'
+import { FIREBASE_CONFIG, INITIAL_STATE, WINDOW } from '../constants'
+import { rootReducer } from '../reducers'
+import { saga } from '../sagas'
 
 const { reactReduxFirebase } = ReactReduxFirebase
 
@@ -24,32 +27,18 @@ const createStoreWithFirebase =
     }
   )(createStore)
 
-// function getDebugSessionKey() {
-//   const matches = WINDOW && window.location.href.match(/[?&]debug_session=([^&#]+)\b/);
-//   return (matches && matches.length > 0)? matches[1] : null;
-// }
+const sagaMiddleware = createSagaMiddleware()
 
-// const debugSessionKey = getDebugSessionKey()
+const baseMiddleware = [sagaMiddleware]
 
-const middleware = WINDOW ? [createLogger({
+const middleware = (WINDOW ? [createLogger({
   duration: true,
   diff: true,
-})] : []
+})] : []).concat(baseMiddleware)
 
 const enhancer = compose(
   applyMiddleware(...middleware),
 )
-
-
-// const historyAction: ActionCreator = ({
-//   action,
-//   location,
-// }): Action => ({
-//   type: action,
-//   payload: {
-//     data: Map({location}),
-//   }
-// })
 
 export function configureStore(
 ) {
@@ -60,17 +49,13 @@ export function configureStore(
     createStoreWithFirebase(...args)
   : createStore(rootReducer, initialState, enhancer);
 
-  // const state: any = store.getState()
+  sagaMiddleware.run(saga)
 
   if (module.hot) {
     module.hot.accept('../reducers/index', () =>
       store.replaceReducer(require('../reducers/index'))
     );
   }
-
-  // if(!(state && state.firebase && state.firebase.auth)) {
-  //   router.navigate('/intro')
-  // }
 
   return store
 }

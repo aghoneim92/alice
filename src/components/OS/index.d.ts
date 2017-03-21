@@ -5,7 +5,7 @@ import { connect } from './../../lib/connect'
 import { compose, prop } from 'ramda'
 import * as React from 'react'
 import { ComponentClass } from 'react'
-import { enhancer, withState } from 'recompose'
+import { withState } from 'recompose'
 
 import * as OS from '../OS'
 
@@ -65,8 +65,7 @@ declare module '../OS' {
 
   interface OSGetterArgs {
     React: typeof React
-    firebaseConnect: any
-    withState: typeof withState
+    auth: any
   }
 
   type ComponentGetter<A, P> = (args: A) => Promise<ComponentClass<P>>

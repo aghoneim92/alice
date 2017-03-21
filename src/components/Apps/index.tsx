@@ -3,6 +3,9 @@ import { StatelessComponent } from 'react'
 
 import { resolve } from 'react-resolver'
 
+import { Editor } from './Editor'
+import { Hackernews } from './Hackernews'
+
 import { genId } from '../../lib/genId'
 
 import { Map } from 'immutable'
@@ -11,10 +14,12 @@ import { pure } from 'recompose'
 
 System.import('./index.scss')
 
-const editorId = genId()
+const editorId = '292d57678e871ce5359fb2fa92cbf2e79fe5261afedac24c5c1b0975dfd868465009fdf7d4a3c6f3756ee528a41a185e52b564b55cb98545dce84da622a25295'
+
 const editor = Map({
   element: 'insert editor here',
   id: editorId,
+  Component: Editor,
   icon: (
     <svg
       fill="white"
@@ -31,7 +36,7 @@ const editor = Map({
   title: 'Editor',
 })
 
-const Icon: StatelessComponent<ResolvedProps> = ({
+export const Icon: StatelessComponent<ResolvedProps> = ({
   src,
 }) => (
   <img style={{ width: '90%', height: '90%'}} src={src}/>
@@ -72,6 +77,18 @@ const hextris = Map({
   icon: <HextrisIcon/>,
   title: 'Hextris',
 })
+
+
+const HackernewsIcon = resolve({
+  src: () => System.import('./Hackernews/ycombinator-logo.png'),
+})(Icon)
+
+const hackerNewsId = genId()
+const hackerNews = Map({
+  id: hackerNewsId,
+  Component: Hackernews,
+  icon: <HackernewsIcon/>,
+  title: 'Hacker News',
 
 
 const GBAIconEnhanced: StatelessComponent<any> = ({ src }) => (
@@ -120,7 +137,8 @@ export const Apps = Map<ImMap>({
   [editorId]: editor,
   [hextrisId]: hextris,
   [solitaireId]: solitaire,
-  [gbaId]: gba
+  [hackerNewsId]: hackerNews,
+  [gbaId]: gba,
   // [nesId]: nes,
   // [snakeId]: snake
 })

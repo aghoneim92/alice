@@ -3,24 +3,33 @@
 
 declare module 'annyang'
 
+declare module 'browser-cookie-lite'
+
 declare module 'b_'
 
 declare module 'capitalize'
 
+declare module 'codemirror'
+
 declare module 'browser-sync'
 
-declare module 'firebaseui'
+declare module 'firepad/lib/firepad'
 
 declare module 'fbgraph'
 
 declare module 'is-running'
 
+declare module 'koa-cookie'
 declare module 'koa-convert'
 declare module 'koa-proxy'
+declare module 'koa-sslify'
+declare module 'koa-server-push'
 
 declare module 'navigo'
 
 declare module 'nodemon'
+
+declare module 'offline-plugin/runtime'
 
 declare module 'preload-js'
 
@@ -47,15 +56,13 @@ declare module 'react-router-server'
 declare module 'react-scene'
 declare module 'react-social-button'
 declare module 'react-speech'
-declare module 'react-tiles'
-declare module 'react-tiles/src/react-router-resovler'
+declare module 'react-toggle'
 declare module 'react-transmit'
 declare module 'react-typewriter'
 declare module 'react-voice-components'
 declare module 'react-webcam'
 
-declare module 'recompose'
-
+declare module 'redux-auth-wrapper'
 declare module 'redux-devtools-extension'
 declare module 'redux-devtools-log-monitor'
 declare module 'redux-devtools-dock-monitor'

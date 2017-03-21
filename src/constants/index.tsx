@@ -6,7 +6,7 @@ import { PROD } from './env'
 
 export const APP_NAME = 'Alice'
 export const APP_URL = PROD ?
-  'http://alice.services'
+  'https://alice.services'
 : 'http://localhost:4000'
 
 export const BS_CONFIG = 'config/bs-config.js'
@@ -15,6 +15,8 @@ export const BS_PORT = 3000
 export const BS_URL = `http://${BS_HOST}:${BS_PORT}/browser-sync/browser-sync-client.js`
 
 export const DIST = 'dist'
+
+export const HOME = process.env.HOME
 
 const SERVER_WATCH = 'src/server/index.tsx'
 export const SERVER_CMD = `ttab node_modules/.bin/nodemon --watch ${
@@ -30,7 +32,7 @@ export const INITIAL_STATE: Partial<State> = {
   documentTitle: DEFAULT_TITLE,
   emoji: DEFAULT_EMOJI,
   menuOpen: false,
-  windows: Map<string, ImMap>(),
+  windows: Map<string, any>()
 }
 
 const windowCheck = 'typeof window === "object"'

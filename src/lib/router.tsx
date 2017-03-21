@@ -1,46 +1,65 @@
 import * as React from 'react'
-
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 
-// import { AsyncSubject } from '@reactivex/rxjs'
-// import * as Navigo from 'navigo'
+import { Resolver } from 'react-resolver'
+
 import * as Koa from 'koa'
 
 import { debug } from './logging'
 
 import { getAlice } from '../components/index'
 import { Container } from '../components/Router'
+import { readFileSync } from "fs"
+
+import * as admin from 'firebase-admin'
 
 export function createRouter(): Koa.Middleware {
   return async (ctx, next) => {
-    const { url } = ctx
+    const { cookie, url }: Koa.Context & { cookie: any } = (ctx as any)
 
     debug('url:', url)
-    if(url.includes('dist') || url.includes('hextris')) {
+    if(url.includes('dist')) {
+      await next()
+    } else if (url.includes('.well-known')) {
+      ctx.body = readFileSync(url.substring(1, url.length))
+
       await next()
     } else {
-      const Alice = await getAlice(React)
+      let auth
+      if(typeof cookie === 'object') {
+        const { accessToken } = cookie
 
-      if(Alice) {
-        const toRender = (
-          <Alice/>
-        )
-        const toRenderStatic = (
-          <Container>
-            <div id="Alice" dangerouslySetInnerHTML={{ __html: renderToString(toRender) }}/>
-          </Container>
-        )
-
-        const body = toRenderStatic && renderToStaticMarkup(toRenderStatic)
-
-        if(body) {
-          ctx.body = body
+        if(accessToken) {
+          auth = await admin.auth().verifyIdToken(accessToken)
         }
-
-        return
       }
 
-      await next()
+      const Alice = await getAlice(React, auth)
+
+      if(Alice) {
+        await Resolver.resolve(
+          () => <Alice/>
+        )
+        .then(
+          ({ Resolved, data }: any): any => {
+            const toRenderStatic = (
+              <Container data={data}>
+                <div
+                  id="Alice"
+                  dangerouslySetInnerHTML={{ __html: renderToString(<Resolved/>) }}
+                />
+              </Container>
+            )
+
+            const body = toRenderStatic && renderToStaticMarkup(toRenderStatic)
+
+
+            if(body) {
+              ctx.body = body
+            }
+          }
+        )
+      }
     }
   }
 }

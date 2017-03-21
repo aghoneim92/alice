@@ -7,13 +7,14 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 
 RUN yarn global add node-gyp
 
-COPY ./ /home
+COPY . /home
 
 WORKDIR /home
 
 RUN yarn
 
 ENV NODE_ENV=production
+ENV HOME=/home
 
 RUN npm run build
 

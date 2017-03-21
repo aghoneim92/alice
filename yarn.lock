@@ -423,6 +423,12 @@
   version "15.0.16"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.16.tgz#78e39511a9cfcabf7f74ecd55180522f4290a0c1"
 
+"@types/recompose@^0.20.4":
+  version "0.20.4"
+  resolved "https://registry.yarnpkg.com/@types/recompose/-/recompose-0.20.4.tgz#9fa6528c9e2e234e212b12a51ee9dcaf4f433057"
+  dependencies:
+    "@types/react" "*"
+
 "@types/redux-devtools@^3.0.37":
   version "3.0.37"
   resolved "https://registry.yarnpkg.com/@types/redux-devtools/-/redux-devtools-3.0.37.tgz#4149492f1a63726e8e68f36619927a24d4d42f85"
@@ -1156,6 +1162,10 @@ brorand@^1.0.1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
 
+browser-cookie-lite@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/browser-cookie-lite/-/browser-cookie-lite-1.0.4.tgz#245526f981fafec65b8df21bec29771f546c0160"
+
 browser-sync-client@2.4.5:
   version "2.4.5"
   resolved "https://registry.yarnpkg.com/browser-sync-client/-/browser-sync-client-2.4.5.tgz#976afab1a54f255baa38fe22ae3c0d3753ad337b"
@@ -1522,6 +1532,10 @@ coa@~1.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+codemirror@^5.25.0:
+  version "5.25.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.25.0.tgz#78e06939c7bb41f65707b8aa9c5328111948b756"
 
 color-convert@^0.5.3:
   version "0.5.3"
@@ -2627,7 +2641,7 @@ firebase@3.6.5:
     rsvp "3.2.1"
     xmlhttprequest "1.8.0"
 
-firebase@^3.3.0, firebase@^3.7.2:
+firebase@3.x.x, firebase@^3.3.0, firebase@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.7.2.tgz#fab14f7e31de007dd373f9295a81f6fba04d3c98"
   dependencies:
@@ -2642,6 +2656,20 @@ firebaseui@^1.0.0:
   resolved "https://registry.yarnpkg.com/firebaseui/-/firebaseui-1.0.0.tgz#b071e910ff2a5ace5035d640d550e65d60bff197"
   dependencies:
     firebase "^3.3.0"
+
+firepad@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/firepad/-/firepad-1.4.0.tgz#31a020158f77ce522b391367e3dea27efbdd0dd7"
+  dependencies:
+    firebase "3.x.x"
+    jsdom ">3"
+
+firepad@firebase/firepad:
+  version "1.4.0"
+  resolved "https://codeload.github.com/firebase/firepad/tar.gz/e9715d379631d3c133c9f60220abddf7a2a28d75"
+  dependencies:
+    firebase "3.x.x"
+    jsdom ">3"
 
 flatten@^1.0.2:
   version "1.0.2"
@@ -3174,7 +3202,7 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
-hoist-non-react-statics@^1.0.0, hoist-non-react-statics@^1.0.3:
+hoist-non-react-statics@1.2.0, hoist-non-react-statics@^1.0.0, hoist-non-react-statics@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
@@ -3720,7 +3748,7 @@ jsdom-global@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/jsdom-global/-/jsdom-global-2.1.1.tgz#47d46fe77f6167baf5d34431d3bb59fc41b0915a"
 
-jsdom@^9.11.0:
+jsdom@>3, jsdom@^9.11.0:
   version "9.12.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-9.12.0.tgz#e8c546fffcb06c00d4833ca84410fed7f8a097d4"
   dependencies:
@@ -3903,6 +3931,10 @@ koa-convert@^1.2.0:
   dependencies:
     co "^4.6.0"
     koa-compose "^3.0.0"
+
+koa-cookie@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/koa-cookie/-/koa-cookie-1.0.0.tgz#7c79723dd03b97abcfe430028b700bd47a36dafb"
 
 koa-is-json@^1.0.0:
   version "1.0.0"
@@ -4231,6 +4263,10 @@ lodash.isarguments@^3.0.0:
 lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
+
+lodash.isempty@4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
 
 lodash.isequal@^4.2.0:
   version "4.5.0"
@@ -5946,6 +5982,10 @@ react-addons-shallow-compare@^15.4.2:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-async-component@^1.0.0-alpha.1:
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/react-async-component/-/react-async-component-1.0.0-alpha.1.tgz#a04c0eaea5ca9149bfb5928b7ffc1e06a004b33c"
+
 react-base16-styling@^0.5.1:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/react-base16-styling/-/react-base16-styling-0.5.3.tgz#3858f24e9c4dd8cbd3f702f3f74d581ca2917269"
@@ -6349,6 +6389,13 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-auth-wrapper@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/redux-auth-wrapper/-/redux-auth-wrapper-1.0.0.tgz#9aa16f8934563efe92f684b2ab201b4f01f50381"
+  dependencies:
+    hoist-non-react-statics "1.2.0"
+    lodash.isempty "4.4.0"
 
 redux-crud@^3.0.4:
   version "3.0.4"

@@ -23,7 +23,7 @@
     "module": "es6",
     "preserveConstEnums": true,
     "strictNullChecks": true,
-    "target": "ESNext",
+    "target": "es6",
     "jsx": "react",
     "lib": [
       "dom",

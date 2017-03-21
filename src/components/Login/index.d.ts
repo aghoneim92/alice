@@ -1,8 +1,7 @@
 import { StatelessComponent } from 'react'
 
-declare module './index' {
+declare module './Login' {
   interface LoginProps {
-    onButtonClick: (provider: string) => void
   }
   type LoginComponent = StatelessComponent<LoginProps>
 }

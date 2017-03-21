@@ -1,4 +1,5 @@
 /// <reference path="./window.d.ts" />
+
 import { Map } from 'immutable'
 
 import { WindowConfig } from '../components/Window'
@@ -12,7 +13,7 @@ declare global {
   interface PropsFromState {
     documentTitle: string
     emoji: string
-    firebase: Firebase
+    firebase: any
     menuOpen: boolean
     sidebarOpen: boolean
     windows: Map<string, Map<string, any>>

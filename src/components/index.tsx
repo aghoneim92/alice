@@ -2,12 +2,16 @@
 
 import * as react from 'react'
 import { StatelessComponent } from 'react'
-
 import { Provider } from 'react-redux'
+import { AsyncComponentProvider } from 'react-async-component'
+
+import * as admin from 'firebase-admin'
 
 import { configureStore } from '../store/index'
+import { getOS } from './OS'
 
 import { error } from '../lib/logging'
+import { WINDOW } from "../constants"
 
 export const createAlice: AliceCreator = (
   React,
@@ -15,19 +19,28 @@ export const createAlice: AliceCreator = (
   store,
   ProviderComponent: typeof Provider
 ) => ({ children }) => (
-  <ProviderComponent store={store}>
-    <OS>
-      {children}
-    </OS>
-  </ProviderComponent>
+  <AsyncComponentProvider>
+    <ProviderComponent store={store}>
+      <OS>
+        {children}
+      </OS>
+    </ProviderComponent>
+  </AsyncComponentProvider>
 )
 
-export async function getAlice(React: typeof react): Promise<(StatelessComponent<any> | void)> {
+export async function getAlice(React: typeof react, auth?: admin.auth.DecodedIdToken): Promise<(StatelessComponent<any> | void)> {
   try {
-    const { Provider } = await System.import('react-redux')
-    const { getOS } = await System.import(__dirname + '/OS/index.tsx')
-    const OS = await getOS()
+    const OS = await getOS({
+      React,
+      auth,
+    })
+
     const store = configureStore()
+
+    if(WINDOW) {
+      (window as any).store = store
+    }
+
     const Alice: Alice = createAlice(React, OS, store, Provider)
 
     return Alice

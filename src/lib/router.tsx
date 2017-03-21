@@ -9,11 +9,13 @@ import { debug } from './logging'
 
 import { getAlice } from '../components/index'
 import { Container } from '../components/Router'
-import { readFileSync } from "fs";
+import { readFileSync } from "fs"
+
+import * as admin from 'firebase-admin'
 
 export function createRouter(): Koa.Middleware {
   return async (ctx, next) => {
-    const { url } = ctx
+    const { cookie, url }: Koa.Context & { cookie: any } = (ctx as any)
 
     debug('url:', url)
     if(url.includes('dist')) {
@@ -23,7 +25,16 @@ export function createRouter(): Koa.Middleware {
 
       await next()
     } else {
-      const Alice = await getAlice(React)
+      let auth
+      if(typeof cookie === 'object') {
+        const { accessToken } = cookie
+
+        if(accessToken) {
+          auth = await admin.auth().verifyIdToken(accessToken)
+        }
+      }
+
+      const Alice = await getAlice(React, auth)
 
       if(Alice) {
         await Resolver.resolve(

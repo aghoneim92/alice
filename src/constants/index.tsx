@@ -16,6 +16,8 @@ export const BS_URL = `http://${BS_HOST}:${BS_PORT}/browser-sync/browser-sync-cl
 
 export const DIST = 'dist'
 
+export const HOME = process.env.HOME
+
 const SERVER_WATCH = 'src/server/index.tsx'
 export const SERVER_CMD = `ttab node_modules/.bin/nodemon --watch ${
   SERVER_WATCH
@@ -30,7 +32,7 @@ export const INITIAL_STATE: Partial<State> = {
   documentTitle: DEFAULT_TITLE,
   emoji: DEFAULT_EMOJI,
   menuOpen: false,
-  windows: Map<string, ImMap>(),
+  windows: Map<string, any>()
 }
 
 const windowCheck = 'typeof window === "object"'

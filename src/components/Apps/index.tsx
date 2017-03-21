@@ -3,16 +3,19 @@ import { StatelessComponent } from 'react'
 
 import { resolve } from 'react-resolver'
 
+import { Editor } from './Editor'
+
 import { genId } from '../../lib/genId'
 
 import { Map } from 'immutable'
 
 import { pure } from 'recompose'
 
-const editorId = genId()
+const editorId = '292d57678e871ce5359fb2fa92cbf2e79fe5261afedac24c5c1b0975dfd868465009fdf7d4a3c6f3756ee528a41a185e52b564b55cb98545dce84da622a25295'
 const editor = Map({
   element: 'insert editor here',
   id: editorId,
+  Component: Editor,
   icon: (
     <svg
       fill="white"

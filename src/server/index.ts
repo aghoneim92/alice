@@ -1,27 +1,21 @@
-import { readFileSync } from 'fs';
 /// <reference path="./index.d.ts" />
 /// <reference path="../../index.d.ts" />
 
-const nonNodeModules = /\.(scss|jpg|css|png|less|md)/
+import './bootstrap'
 
-const System = {
-  import: function(name: string) {
-    return Promise.resolve(
-      nonNodeModules.test(name) ?
-        name.includes('.md') ?
-          readFileSync(name)
-        : null
-      : require(name)
-    )
-  }
-}
-Object.assign(
-  global, {
-    System,
-  }
-)
+import * as admin from 'firebase-admin'
 
 import { createServer, startServer, stopServer } from './server'
+
+const { env: { HOME } } = process
+const FIREBASE_ADMIN_KEY_FILENAME = 'alice-65dad-firebase-adminsdk-xh6ct-cc85956454'
+
+const serviceAccount = require(`${HOME}/alice-keys/${FIREBASE_ADMIN_KEY_FILENAME}.json`)
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://alice-65dad.firebaseio.com"
+})
 
 let app: any
 

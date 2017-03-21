@@ -10,6 +10,8 @@ export const Container: StatelessComponent<any> = ({
   const head = Helmet.rewind()
   const attrs = head.htmlAttributes.toComponent()
 
+  console.log('data: ', data)
+
   return (
     <html {...attrs}>
       <head>
@@ -20,7 +22,7 @@ export const Container: StatelessComponent<any> = ({
       <body>
         {children}
         <script dangerouslySetInnerHTML={{ __html:
-          `window.__REACT_RESOLVER_PAYLOAD__ = '${JSON.stringify(data)}'`
+          `window.__REACT_RESOLVER_PAYLOAD__ = JSON.parse('${JSON.stringify(data)}')`
         }}/>
         <script src="dist/main.js" async defer/>
       </body>

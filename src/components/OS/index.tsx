@@ -286,8 +286,6 @@ export const getOS: OSGetter = async ({ React, auth }) => {
         } as CombinedProps
       )
     )(enhanced)
-  } catch(e) {
-    return WINDOW ? firebaseConn(enhanced) : enhanced
   } catch (e) {
     error(e)
   }

@@ -89,7 +89,7 @@ const hackerNews = Map({
   Component: Hackernews,
   icon: <HackernewsIcon/>,
   title: 'Hacker News',
-
+})
 
 const GBAIconEnhanced: StatelessComponent<any> = ({ src }) => (
   <img className="os_sidebar_appLauncher_icon" src={src}/>

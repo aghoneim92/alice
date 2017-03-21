@@ -6,7 +6,7 @@ import { PROD } from './env'
 
 export const APP_NAME = 'Alice'
 export const APP_URL = PROD ?
-  'http://alice.services'
+  'https://alice.services'
 : 'http://localhost:4000'
 
 export const BS_CONFIG = 'config/bs-config.js'

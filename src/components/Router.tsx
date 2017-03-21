@@ -3,6 +3,8 @@ import * as React from 'react'
 import { StatelessComponent } from 'react'
 import * as Helmet from 'react-helmet'
 
+import { PROD } from "../constants/env"
+
 export const Container: StatelessComponent<any> = ({
   children,
   data,
@@ -11,6 +13,8 @@ export const Container: StatelessComponent<any> = ({
   const attrs = head.htmlAttributes.toComponent()
 
   console.log('data: ', data)
+
+  let mainjs = `dist/${ PROD ? require('../../dist/push_manifest.json')['main.js'] : 'main.js'}`
 
   return (
     <html {...attrs}>
@@ -24,7 +28,7 @@ export const Container: StatelessComponent<any> = ({
         <script dangerouslySetInnerHTML={{ __html:
           `window.__REACT_RESOLVER_PAYLOAD__ = JSON.parse('${JSON.stringify(data)}')`
         }}/>
-        <script src="dist/main.js" async defer/>
+        <script src={mainjs} async defer/>
       </body>
     </html>
   )

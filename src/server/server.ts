@@ -6,9 +6,13 @@ import * as https from 'https'
 
 import * as Koa from 'koa'
 import cookie from 'koa-cookie'
+import * as serverpush from 'koa-server-push'
+
+import * as enforceHttps from 'koa-sslify'
 
 import { createRouter } from '../lib/router'
 import { HOME } from '../constants'
+
 
 const PORT = process.env.PORT || 4000
 
@@ -20,6 +24,10 @@ export const createServer = ([
   serve,
 ]: ServerArgs): Koa => {
   const app = new Koa()
+
+  if(PROD) {
+    app.use(enforceHttps())
+  }
 
   app.use(logger())
      .use(cookie())
@@ -34,6 +42,7 @@ export const createServer = ([
     ))
   }
 
+  app.use(serverpush())
   app.use(serve('.'))
 
   return app

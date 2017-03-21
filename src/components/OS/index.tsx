@@ -21,7 +21,6 @@ import { WallpaperBlur } from '../WallpaperBlur'
 import { SizeDelta } from '../Window'
 import { Handlers as WindowHandlers } from '../Windows'
 
-import { APP_URL } from '../../constants'
 import { WINDOW, FB_APP_ID } from '../../constants'
 import { PROD } from '../../constants/env'
 
@@ -207,8 +206,6 @@ export const getOS: OSGetter = async ({ React, auth }) => {
             style={{
               backgroundImage: WINDOW ?
                 `url('${
-                  APP_URL
-                }${
                   background
                 }')`
               : ''

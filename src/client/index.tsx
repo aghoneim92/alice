@@ -5,6 +5,10 @@ import { AppContainer } from 'react-hot-loader'
 import * as react from 'react'
 import { Resolver } from 'react-resolver'
 
+import * as OfflinePluginRuntime from 'offline-plugin/runtime'
+
+OfflinePluginRuntime.install()
+
 import { prop } from 'ramda'
 
 import { error } from '../lib/logging'

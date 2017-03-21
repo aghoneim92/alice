@@ -2,11 +2,6 @@
 @import "../z-indexes";
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import '~react-clockwall/src/styles/main.css';
-@import '~font-awesome/css/font-awesome.css';
-
-* {
-  font-family: 'Source Sans Pro', sans-serif;
-}
 
 html, body {
   height: 100%;
@@ -15,6 +10,7 @@ html, body {
 
 .os {
   position: absolute;
+  font-family: 'Source Sans Pro', sans-serif;
   background-size: cover;
   height: 100%;
   top: 0;

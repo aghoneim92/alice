@@ -13,6 +13,8 @@ import { getOS } from './OS'
 import { error } from '../lib/logging'
 import { WINDOW } from "../constants"
 
+System.import('font-awesome/css/font-awesome.css')
+
 export const createAlice: AliceCreator = (
   React,
   OS,

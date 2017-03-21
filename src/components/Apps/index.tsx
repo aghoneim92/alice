@@ -4,6 +4,7 @@ import { StatelessComponent } from 'react'
 import { resolve } from 'react-resolver'
 
 import { Editor } from './Editor'
+import { Hackernews } from './Hackernews'
 
 import { genId } from '../../lib/genId'
 
@@ -32,7 +33,7 @@ const editor = Map({
   title: 'Editor',
 })
 
-const Icon: StatelessComponent<ResolvedProps> = ({
+export const Icon: StatelessComponent<ResolvedProps> = ({
   src,
 }) => (
   <img style={{ width: '90%', height: '90%'}} src={src}/>
@@ -74,6 +75,18 @@ const hextris = Map({
   title: 'Hextris',
 })
 
+const HackernewsIcon = resolve({
+  src: () => System.import('./Hackernews/ycombinator-logo.png'),
+})(Icon)
+
+const hackerNewsId = genId()
+const hackerNews = Map({
+  id: hackerNewsId,
+  Component: Hackernews,
+  icon: <HackernewsIcon/>,
+  title: 'Hacker News',
+})
+
 // const snakeId = genId()
 // const snake = Map({
 //   id: snakeId,
@@ -99,7 +112,8 @@ const hextris = Map({
 export const Apps = Map<ImMap>({
   [editorId]: editor,
   [hextrisId]: hextris,
-  [solitaireId]: solitaire
+  [solitaireId]: solitaire,
+  [hackerNewsId]: hackerNews,
   // [nesId]: nes,
   // [snakeId]: snake
 })

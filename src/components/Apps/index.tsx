@@ -12,7 +12,10 @@ import { Map } from 'immutable'
 
 import { pure } from 'recompose'
 
+System.import('./index.scss')
+
 const editorId = '292d57678e871ce5359fb2fa92cbf2e79fe5261afedac24c5c1b0975dfd868465009fdf7d4a3c6f3756ee528a41a185e52b564b55cb98545dce84da622a25295'
+
 const editor = Map({
   element: 'insert editor here',
   id: editorId,
@@ -75,6 +78,7 @@ const hextris = Map({
   title: 'Hextris',
 })
 
+
 const HackernewsIcon = resolve({
   src: () => System.import('./Hackernews/ycombinator-logo.png'),
 })(Icon)
@@ -85,6 +89,26 @@ const hackerNews = Map({
   Component: Hackernews,
   icon: <HackernewsIcon/>,
   title: 'Hacker News',
+
+
+const GBAIconEnhanced: StatelessComponent<any> = ({ src }) => (
+  <img className="os_sidebar_appLauncher_icon" src={src}/>
+)
+
+const GBAIcon = resolve({
+  src: () => System.import('./gba.png')
+})(GBAIconEnhanced)
+
+const gbaId = genId()
+const gba = Map({
+  id: gbaId,
+  Component: pure(() => <iframe
+    style={{width: '100%', height: '100%', border: 0}}
+    src="http://endrift.github.io/gbajs/"
+    />
+  ),
+  icon: <GBAIcon/>,
+  title: 'GBA Emulator',
 })
 
 // const snakeId = genId()
@@ -114,6 +138,7 @@ export const Apps = Map<ImMap>({
   [hextrisId]: hextris,
   [solitaireId]: solitaire,
   [hackerNewsId]: hackerNews,
+  [gbaId]: gba,
   // [nesId]: nes,
   // [snakeId]: snake
 })

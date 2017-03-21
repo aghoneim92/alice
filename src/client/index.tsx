@@ -56,7 +56,7 @@ async function boot() {
         boot
       )
     }
-  } catch(e) {
+  } catch (e) {
     error(e)
   }
 }

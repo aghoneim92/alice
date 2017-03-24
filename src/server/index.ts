@@ -14,7 +14,7 @@ const serviceAccount = require(`${HOME}/alice-keys/${FIREBASE_ADMIN_KEY_FILENAME
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://alice-65dad.firebaseio.com"
+  databaseURL: 'https://alice-65dad.firebaseio.com'
 })
 
 let app: any

@@ -3,6 +3,7 @@ import { PROD } from './../constants/env'
 import { ServerArgs } from './index'
 
 import * as https from 'https'
+import * as http from 'http'
 
 import * as Koa from 'koa'
 import cookie from 'koa-cookie'
@@ -12,7 +13,6 @@ import * as enforceHttps from 'koa-sslify'
 
 import { createRouter } from '../lib/router'
 import { HOME } from '../constants'
-
 
 const PORT = process.env.PORT || 4000
 
@@ -25,7 +25,7 @@ export const createServer = ([
 ]: ServerArgs): Koa => {
   const app = new Koa()
 
-  if(PROD) {
+  if (PROD) {
     app.use(enforceHttps())
   }
 
@@ -54,7 +54,8 @@ const options = {
 }
 
 export const startServer = (app: any, enableDestroy: any) => {
-  if(PROD) {
+  if (PROD) {
+    http.createServer(app.callback()).listen(80)
     https.createServer(options, app.callback()).listen(PORT)
   } else {
     app.listen(PORT)
@@ -68,4 +69,3 @@ export const stopServer = (app: Destroyable) => {
     app.destroy()
   }
 }
-

@@ -61,6 +61,7 @@
     "capitalize": "^1.0.0",
     "codemirror": "^5.25.0",
     "commonmark": "^0.27.0",
+    "eventbusjs": "^0.1.0",
     "fbgraph": "^1.4.1",
     "firebase": "^3.7.2",
     "firebase-admin": "^4.1.1",
@@ -69,6 +70,7 @@
     "font-awesome": "^4.7.0",
     "gen-run": "^0.1.2",
     "google-cloud": "^0.47.0",
+    "googleapis": "^18.0.0",
     "graphql-tag": "^1.2.4",
     "history": "^4.5.1",
     "is-running": "^2.1.0",
@@ -167,7 +169,6 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.0.3",
-    "babel-core": "^6.24.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "2.0.0-rc.3",
     "file-loader": "^0.10.0",

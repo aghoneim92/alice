@@ -35,21 +35,42 @@ class Editor extends PureComponent<any, any> {
   initEditor = () => {
     const { ref, editor, state: { mode } } = this
 
-    ;(window as any).CodeMirror = require('codemirror')
+    ; (window as any).CodeMirror = require('codemirror')
 
     const Firepad = require('firepad/dist/firepad')
 
     const firebase: typeof Firebase = getFirebase()
-    const firepadRef = firebase.database().ref()
 
-    if(mode === 'code' && this.editor) {
-      if(editor) {
-        Firepad.fromACE(firepadRef, editor)
+    const auth = firebase.auth()
+
+    const { currentUser } = auth
+
+    const { props: { id } } = this
+    if (currentUser) {
+      const { uid } = currentUser
+
+      const firepadRef = firebase.database().ref().child(`users/${uid}/editors/${id}`)
+
+      if (mode === 'code' && this.editor) {
+        if (editor) {
+          Firepad.fromACE(firepadRef, editor)
+        }
+      } else if (ref) {
+        const codeMirror = (window as any).CodeMirror(
+          ref, {
+            lineWrapping: true
+          },
+        );
+
+        Firepad.fromCodeMirror(
+          firepadRef,
+          codeMirror, {
+            richTextShortcuts: true,
+            richTextToolbar: true,
+            defaultText: 'Hello, World!',
+          },
+        );
       }
-    } else if(ref) {
-      const codeMirror = (window as any).CodeMirror(ref, { lineWrapping: true });
-      Firepad.fromCodeMirror(firepadRef, codeMirror,
-      { richTextShortcuts: true, richTextToolbar: true, defaultText: 'Hello, World!' });
     }
   }
 
@@ -58,7 +79,7 @@ class Editor extends PureComponent<any, any> {
   }
 
   componentWillUpdate({ mode }: { mode: string }) {
-    if(this.state.mode !== mode) {
+    if (this.state.mode !== mode) {
       this.initEditor()
     }
   }
@@ -119,8 +140,8 @@ class Editor extends PureComponent<any, any> {
                 theme="github"
                 onLoad={handleAceLoad}
                 editorProps={{$blockScrolling: 1}}
-                width='1000px'
-                height='1000px'
+                width="1000px"
+                height="1000px"
               />
             ) : <div ref={handleRef}/>
           }

@@ -3,14 +3,14 @@ import { StatelessComponent } from 'react'
 
 import { resolve } from 'react-resolver'
 
+import { pure } from 'recompose'
+
 import { Editor } from './Editor'
 import { Hackernews } from './Hackernews'
 
 import { genId } from '../../lib/genId'
 
 import { Map } from 'immutable'
-
-import { pure } from 'recompose'
 
 System.import('./index.scss')
 
@@ -42,6 +42,7 @@ export const Icon: StatelessComponent<ResolvedProps> = ({
   <img style={{ width: '90%', height: '90%'}} src={src}/>
 )
 
+
 const solitaireId = genId()
 
 const SolitaireIcon = resolve({
@@ -52,7 +53,7 @@ const solitaire = Map({
   id: solitaireId,
   Component: pure(() => <iframe
     style={{width: '100%', height: '100%', border: 0}}
-    src="http://pl12133.github.io/react-solitaire/"
+    src="https://alice-65dad.firebaseapp.com/react-solitaire/"
   />),
   icon: <SolitaireIcon/>,
   title: 'Solitaire',
@@ -61,7 +62,6 @@ const solitaire = Map({
 interface ResolvedProps {
   src: string
 }
-
 const HextrisIcon: StatelessComponent<any> = resolve({
   src: () => System.import('../../hextris.png'),
 })(Icon)
@@ -71,13 +71,12 @@ const hextris = Map({
   id: hextrisId,
   Component: pure(() => <iframe
     style={{width: '100%', height: '100%', border: 0}}
-    src="http://hextris.io"
+    src="https://alice-65dad.firebaseapp.com/hextris/"
     />
   ),
   icon: <HextrisIcon/>,
   title: 'Hextris',
 })
-
 
 const HackernewsIcon = resolve({
   src: () => System.import('./Hackernews/ycombinator-logo.png'),
@@ -89,6 +88,20 @@ const hackerNews = Map({
   Component: Hackernews,
   icon: <HackernewsIcon/>,
   title: 'Hacker News',
+})
+
+const ThreeIcon = resolve({
+  src: () => System.import('./three.png')
+})(Icon)
+
+const threeId = genId()
+const three = Map({
+  id: threeId,
+  Component: () => (
+    <iframe style={{ width: '100%', height: '100%' }} src="https://threejs.org/editor/"/>
+  ),
+  icon: <ThreeIcon/>,
+  title: 'Three.JS',
 })
 
 const GBAIconEnhanced: StatelessComponent<any> = ({ src }) => (
@@ -111,34 +124,11 @@ const gba = Map({
   title: 'GBA Emulator',
 })
 
-// const snakeId = genId()
-// const snake = Map({
-//   id: snakeId,
-//   icon: (
-//     <img src="../../snake.ico"/>
-//   ),
-//   title: 'Snake',
-//   type: SNAKE,
-// })
-// const nesId = genId()
-// const nes = Map({
-//   id: nesId,
-//   icon: resolve('img', 'onImgChange', null)((
-//     ({
-//       img,
-//     }) => (
-//       <img src={img}/>
-//     )
-//   )as (({img}: {img: string}) => any)),
-//   type: NES,
-// })
-
 export const Apps = Map<ImMap>({
   [editorId]: editor,
+  [hackerNewsId]: hackerNews,
+  [threeId]: three,
   [hextrisId]: hextris,
   [solitaireId]: solitaire,
-  [hackerNewsId]: hackerNews,
   [gbaId]: gba,
-  // [nesId]: nes,
-  // [snakeId]: snake
 })

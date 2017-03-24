@@ -5,11 +5,11 @@ import { Resolver } from 'react-resolver'
 
 import * as Koa from 'koa'
 
-import { debug } from './logging'
+import { debug, error } from './logging'
 
 import { getAlice } from '../components/index'
 import { Container } from '../components/Router'
-import { readFileSync } from "fs"
+import { readFileSync } from 'fs'
 
 import * as admin from 'firebase-admin'
 
@@ -18,7 +18,7 @@ export function createRouter(): Koa.Middleware {
     const { cookie, url }: Koa.Context & { cookie: any } = (ctx as any)
 
     debug('url:', url)
-    if(url.includes('dist')) {
+    if (url.includes('dist')) {
       await next()
     } else if (url.includes('.well-known')) {
       ctx.body = readFileSync(url.substring(1, url.length))
@@ -26,17 +26,22 @@ export function createRouter(): Koa.Middleware {
       await next()
     } else {
       let auth
-      if(typeof cookie === 'object') {
+
+      if (typeof cookie === 'object') {
         const { accessToken } = cookie
 
-        if(accessToken) {
-          auth = await admin.auth().verifyIdToken(accessToken)
+        if (accessToken) {
+          try {
+            auth = await admin.auth().verifyIdToken(accessToken)
+          } catch (e) {
+            error(e)
+          }
         }
       }
 
       const Alice = await getAlice(React, auth)
 
-      if(Alice) {
+      if (Alice) {
         await Resolver.resolve(
           () => <Alice/>
         )
@@ -54,7 +59,7 @@ export function createRouter(): Koa.Middleware {
             const body = toRenderStatic && renderToStaticMarkup(toRenderStatic)
 
 
-            if(body) {
+            if (body) {
               ctx.body = body
             }
           }

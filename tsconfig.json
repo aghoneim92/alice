@@ -1,5 +1,6 @@
 {
   "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
     "useCache": true,
     "useTranspileModule": true,
     "usePrecompiledFiles": true

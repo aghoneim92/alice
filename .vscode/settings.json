@@ -1,3 +1,10 @@
 {
-    "vsicons.presets.angular": false
-}
+    "files.autoSave": "afterDelay",
+    "window.zoomLevel": 1,
+    "workbench.iconTheme": "file-icons",
+    "editor.tabSize": 2,
+    "tslint.autoFixOnSave": true,
+    "php.validate.executablePath": "/usr/bin/php",
+    "blankLine.showMessage": false,
+    "tslint.jsEnable": true
+  }

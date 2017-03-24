@@ -3,6 +3,8 @@ const { resolve } = require('path')
 const OfflinePlugin = require('offline-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
+const { CheckerPlugin } = require('awesome-typescript-loader')
+
 const { ProvidePlugin } = webpack
 
 
@@ -122,6 +124,7 @@ const LOADERS = [
   YAML_LOADER,
 ]
 const WEBPACK_PLUGINS = [
+  new CheckerPlugin(),
   new OfflinePlugin(PROD ?{
     caches: {
       main: [':rest:'],

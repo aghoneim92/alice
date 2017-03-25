@@ -2651,9 +2651,9 @@ firebase-admin@^4.1.1:
     faye-websocket "0.9.3"
     jsonwebtoken "7.1.9"
 
-firebase@3.6.5:
-  version "3.6.5"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.6.5.tgz#e321da57c9c5b66e436432a3e15f1cf6d3b2f9a9"
+firebase@3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.7.1.tgz#8e10d18d79bde61c2379b31dffb73a9094aa9873"
   dependencies:
     dom-storage "2.0.2"
     faye-websocket "0.9.3"
@@ -3971,9 +3971,9 @@ koa-is-json@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/koa-is-json/-/koa-is-json-1.0.0.tgz#273c07edcdcb8df6a2c1ab7d59ee76491451ec14"
 
-koa-logger@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/koa-logger/-/koa-logger-1.3.1.tgz#ad3f5f2193b3334328f3eb99a618f4b04bee8bd5"
+koa-logger@^2.0.2:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/koa-logger/-/koa-logger-2.0.1.tgz#3ee42f457c40fb4d4a19a131c8022504b5b232b8"
   dependencies:
     bytes "1"
     chalk "^1.1.3"
@@ -4004,9 +4004,9 @@ koa-server-push@^0.1.0:
     debug "^2.2.0"
     mz "^2.1.0"
 
-koa-sslify@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/koa-sslify/-/koa-sslify-1.1.0.tgz#f631282f9e93f8dbb7646752aff7ccc85b3ace22"
+koa-sslify@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/koa-sslify/-/koa-sslify-2.1.0.tgz#c88714089a0be60a10ac15da61879c853039c33b"
 
 koa-static@^3.0.0:
   version "3.0.0"
@@ -4425,7 +4425,7 @@ lodash@3.x, lodash@^3.10.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.1:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4678,6 +4678,10 @@ moment-timezone@^0.5.0:
 moment@2.x.x, "moment@>= 2.6.0", moment@^2.10.3, moment@^2.10.6:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
+
+mousetrap@^1.5.2:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.0.tgz#0168fcabb11d07669e87490324c981208121ac4d"
 
 ms@0.7.1:
   version "0.7.1"
@@ -6155,6 +6159,13 @@ react-hot-loader@3.0.0-beta.6:
     redbox-react "^1.2.5"
     source-map "^0.4.4"
 
+react-hotkeys@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-hotkeys/-/react-hotkeys-0.9.0.tgz#7a47ba4337be8925a96a024e6d58d433096a3233"
+  dependencies:
+    lodash "^4.13.1"
+    mousetrap "^1.5.2"
+
 react-idle-timer@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-idle-timer/-/react-idle-timer-1.3.3.tgz#51f7360533afd74e68e65369849f2cb042e9cb0e"
@@ -6192,6 +6203,10 @@ react-motion@^0.4.7:
   dependencies:
     performance-now "^0.2.0"
     raf "^3.1.0"
+
+react-overdrive@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-overdrive/-/react-overdrive-0.0.4.tgz#89d16a0ccfcf110a57ca0df434f30a12b6f0c223"
 
 react-overlays@^0.6.12:
   version "0.6.12"
@@ -6231,12 +6246,12 @@ react-pure-render@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-pure-render/-/react-pure-render-1.0.2.tgz#9d8a928c7f2c37513c2d064e57b3e3c356e9fabb"
 
-react-redux-firebase@^1.3.3:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-1.3.3.tgz#d48e6ac5488496cdabb572f81ee2112e293f7ad9"
+react-redux-firebase@^1.4.0-alpha:
+  version "1.4.0-alpha"
+  resolved "https://registry.yarnpkg.com/react-redux-firebase/-/react-redux-firebase-1.4.0-alpha.tgz#e5bba53af49d86eb93922d514fa8baec35155b89"
   dependencies:
     es6-promise "^4.0.5"
-    firebase "3.6.5"
+    firebase "3.7.1"
     immutable "^3.8.1"
     jwt-decode "^2.1.0"
     lodash "^4.17.4"
@@ -7578,17 +7593,25 @@ ua-parser-js@0.7.12, ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 
-uglify-js@2.8.x, uglify-js@^2.6, uglify-js@^2.7.5:
-  version "2.8.12"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.12.tgz#8a50f5d482243650b7108f6080aa3a6afe2a6c55"
+uglify-js@2.8.x, uglify-js@^2.6, uglify-js@^2.7.5, "uglify-js@git://github.com/mishoo/UglifyJS2#harmony":
+  version "2.8.15"
+  resolved "git://github.com/mishoo/UglifyJS2#9e2290b29c86caf847e291cf120ab23bea40544c"
   dependencies:
     source-map "~0.5.1"
-    uglify-to-browserify "~1.0.0"
     yargs "~3.10.0"
+  optionalDependencies:
+    uglify-to-browserify "~1.0.0"
 
 uglify-to-browserify@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/uglify-to-browserify/-/uglify-to-browserify-1.0.2.tgz#6e0924d6bda6b5afe349e39a6d632850a0f882b7"
+
+uglifyjs-webpack-plugin@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/uglifyjs-webpack-plugin/-/uglifyjs-webpack-plugin-0.3.1.tgz#dbee23420c0d84534736a3723c63022a091410dd"
+  dependencies:
+    source-map "^0.5.6"
+    webpack-sources "^0.1.4"
 
 uid-number@~0.0.6:
   version "0.0.6"

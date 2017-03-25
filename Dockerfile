@@ -1,4 +1,4 @@
-FROM node
+FROM node:7.7.4
 
 RUN apt-get -y update
 
@@ -18,6 +18,6 @@ ENV HOME=/home
 
 RUN npm run build
 
-CMD npm run start-server
+CMD DEPLOYED=true npm run start-server
 
 EXPOSE 4000

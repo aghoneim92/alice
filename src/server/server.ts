@@ -1,6 +1,7 @@
-import { readFileSync } from 'fs';
-import { PROD } from './../constants/env'
-import { ServerArgs } from './index'
+import { verifyToken } from './verifyToken'
+import { readFileSync } from 'fs'
+import { DEPLOYED, PROD } from './../constants/env'
+import { ServerArgs, Destroyable } from '.'
 
 import * as https from 'https'
 import * as http from 'http'
@@ -11,55 +12,50 @@ import * as serverpush from 'koa-server-push'
 
 import * as enforceHttps from 'koa-sslify'
 
-import { createRouter } from '../lib/router'
-import { HOME } from '../constants'
+import { createRouter } from './router'
+import { resolve } from 'path'
 
-const PORT = process.env.PORT || 4000
+const HTTP_PORT = 80
+const HTTPS_PORT = DEPLOYED ? 443 : PROD ? 8080 : 4000
 
 export const createServer = ([
   Koa,
-  convert,
   logger,
-  proxy,
   serve,
 ]: ServerArgs): Koa => {
   const app = new Koa()
 
-  if (PROD) {
-    app.use(enforceHttps())
-  }
-
-  app.use(logger())
-     .use(cookie())
-     .use(createRouter())
-
-  if (!PROD) {
-    app.use(convert(
-      proxy({
-        host: 'http://localhost:8080',
-        match: /^\/dist\//,
+  app
+    .use(
+      enforceHttps({
+        port: HTTPS_PORT
       })
-    ))
-  }
+    )
+    .use(logger())
 
-  app.use(serverpush())
-  app.use(serve('.'))
+  app
+    .use(cookie())
+    .use(verifyToken())
+    .use(createRouter())
+
+  if (PROD) {
+    app.use(serverpush())
+    app.use(serve('.'))
+  }
 
   return app
 }
 
 const options = {
-  key: readFileSync(`${HOME}/alice-keys/ssl_cert/alice.key`),
-  cert: readFileSync(`${HOME}/alice-keys/ssl_cert/alice_services/alice_services.crt`)
+  key: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.key' : 'local.key'}`)),
+  cert: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.crt' : 'local.crt'}`))
 }
 
 export const startServer = (app: any, enableDestroy: any) => {
-  if (PROD) {
-    http.createServer(app.callback()).listen(80)
-    https.createServer(options, app.callback()).listen(PORT)
-  } else {
-    app.listen(PORT)
+  if (DEPLOYED) {
+    http.createServer(app.callback()).listen(HTTP_PORT)
   }
+  https.createServer(options, app.callback()).listen(HTTPS_PORT)
 
   enableDestroy(app)
 }

@@ -3,6 +3,8 @@ const { resolve } = require('path')
 const OfflinePlugin = require('offline-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+
 const { CheckerPlugin } = require('awesome-typescript-loader')
 
 const { ProvidePlugin } = webpack
@@ -123,6 +125,27 @@ const LOADERS = [
   IMAGE_LOADER,
   YAML_LOADER,
 ]
+const PROD_PLUGINS = PROD ? [
+  new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+  }),
+  // new UglifyJsPlugin({
+  //   sourceMap: true,
+  //   beautify: false,
+  //   mangle: {
+  //     screw_ie8: true,
+  //     keep_fnames: true,
+  //   },
+  //   exclude: /rc-align/,
+  //   compress: {
+  //       screw_ie8: true
+  //   },
+  // }),
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production')
+  }),
+] : []
 const WEBPACK_PLUGINS = [
   new CheckerPlugin(),
   new OfflinePlugin(PROD ?{
@@ -141,7 +164,7 @@ const WEBPACK_PLUGINS = [
   new ProvidePlugin({
     $: 'jquery'
   })
-]
+].concat(PROD_PLUGINS)
 
 const devtool = DEV_TOOL
 const extensions = RESOLVE_EXTENSIONS
@@ -164,8 +187,15 @@ const plugins = WEBPACK_PLUGINS
 const entry = main
 const devServer = {
   hot: true,
+  hotOnly: true,
   compress: true,
-  contentBase: './',
+  proxy: {
+    '/': {
+      target: 'https://localhost:4000',
+      secure: false,
+    },
+  },
+  contentBase: false,
 }
 
 module.exports = {

@@ -27,9 +27,8 @@
             "avoid-escape"
         ],
         "semicolon": [
-            false,
-            "always",
-            "ignore-bound-class-methods"
+            true,
+            "never"
         ],
         "whitespace": [
             true,

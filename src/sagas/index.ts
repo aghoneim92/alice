@@ -87,12 +87,21 @@ function* setCookies() {
   yield takeEvery('@@reactReduxFirebase/LOGIN', async () => {
     try {
       const firebase: typeof Firebase = getFirebase()
-      const accessToken = await firebase.auth().currentUser!.getToken(true)
+      let accessToken = await firebase.auth().currentUser!.getToken()
 
-      if(WINDOW && cookie('accessToken') !== accessToken) {
+      const { verified }: any = await fetch(`/verifyToken?token=${accessToken}`)
+      .then(
+        resp => resp.json()
+      )
+
+      if (!verified) {
+        accessToken = await firebase.auth().currentUser!.getToken(true)
+      }
+
+      if (WINDOW && cookie('accessToken') !== accessToken) {
         cookie('accessToken', accessToken, ONE_YEAR)
       }
-    } catch(e) {
+    } catch (e) {
       error(e)
     }
   })

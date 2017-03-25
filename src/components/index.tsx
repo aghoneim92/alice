@@ -11,7 +11,7 @@ import { configureStore } from '../store/index'
 import { getOS } from './OS'
 
 import { error } from '../lib/logging'
-import { WINDOW } from "../constants"
+import { WINDOW } from '../constants'
 
 System.import('font-awesome/css/font-awesome.css')
 
@@ -39,14 +39,14 @@ export async function getAlice(React: typeof react, auth?: admin.auth.DecodedIdT
 
     const store = configureStore()
 
-    if(WINDOW) {
+    if (WINDOW) {
       (window as any).store = store
     }
 
     const Alice: Alice = createAlice(React, OS, store, Provider)
 
     return Alice
-  } catch(e) {
+  } catch (e) {
     error(e)
   }
 

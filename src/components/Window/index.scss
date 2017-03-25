@@ -1,7 +1,7 @@
 @import '../z-indexes';
 @import '../config';
 
-$transitionDuration: .5s;
+$transitionDuration: .2s;
 
 @mixin dimensions {
   $width: 90%;

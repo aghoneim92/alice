@@ -9,6 +9,7 @@ import * as createLogger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { FIREBASE_CONFIG, INITIAL_STATE, WINDOW } from '../constants'
+import { PROD } from '../constants/env'
 import { rootReducer } from '../reducers'
 import { saga } from '../sagas'
 
@@ -21,7 +22,7 @@ const createStoreWithFirebase =
     FIREBASE_CONFIG,
     {
       userProfile: 'users',
-      enableLogging: true,
+      enableLogging: !PROD,
       updateProfileOnLogin: true,
       
     }
@@ -31,7 +32,7 @@ const sagaMiddleware = createSagaMiddleware()
 
 const baseMiddleware = [sagaMiddleware]
 
-const middleware = (WINDOW ? [createLogger({
+const middleware = (WINDOW && !PROD ? [createLogger({
   duration: true,
   diff: true,
 })] : []).concat(baseMiddleware)

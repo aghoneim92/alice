@@ -45,11 +45,11 @@ class Editor extends PureComponent<any, any> {
 
     const { currentUser } = auth
 
-    const { props: { id } } = this
+    // const { props: { id } } = this
     if (currentUser) {
       const { uid } = currentUser
 
-      const firepadRef = firebase.database().ref().child(`users/${uid}/editors/${id}`)
+      const firepadRef = firebase.database().ref().child(`users/${uid}/editor`)
 
       if (mode === 'code' && this.editor) {
         if (editor) {
@@ -60,7 +60,7 @@ class Editor extends PureComponent<any, any> {
           ref, {
             lineWrapping: true
           },
-        );
+        )
 
         Firepad.fromCodeMirror(
           firepadRef,
@@ -69,7 +69,7 @@ class Editor extends PureComponent<any, any> {
             richTextToolbar: true,
             defaultText: 'Hello, World!',
           },
-        );
+        )
       }
     }
   }

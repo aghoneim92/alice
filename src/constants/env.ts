@@ -15,13 +15,15 @@ const {
 
 const {
   env: {
+    DEPLOYED,
     BROWSERSYNC_PORT,
     KOA_PORT,
-    TS_OPTIONS = `-P src/server`,
+    TS_OPTIONS = '-P src/server',
   },
 } = process
 
 export {
+  DEPLOYED,
   BROWSERSYNC_PORT,
   KOA_PORT,
   TS_COMPILER,

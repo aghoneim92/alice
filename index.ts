@@ -7,7 +7,7 @@ nodemon({
   'watch': [
     'dev.ts',
     'index.ts',
-    "node_modules",
+    'node_modules',
     'tsconfig.json',
     '.babelrc',
     'bs-config.js',

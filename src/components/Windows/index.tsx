@@ -15,7 +15,7 @@ export const WindowsComponent: StatelessComponent<CombinedProps> = ({
   windows,
   handlers,
 }) => (
-  <div className='os_windows'>
+  <div className="os_windows">
     <ReactCSSTransitionGroup
       transitionName={{
         enter: 'fadeIn',
@@ -23,8 +23,8 @@ export const WindowsComponent: StatelessComponent<CombinedProps> = ({
         leave: 'fadeOut',
         leaveActive: 'fadeOut',
       }}
-      transitionEnterTimeout={500}
-      transitionLeaveTimeout={500}
+      transitionEnterTimeout={200}
+      transitionLeaveTimeout={200}
     >
     {
       windows.map(

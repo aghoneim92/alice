@@ -7,6 +7,8 @@ import Clock from 'react-clockwall'
 import EventListener from 'react-event-listener'
 import * as Helmet from 'react-helmet'
 
+import { HotKeys } from 'react-hotkeys'
+
 import { firebaseConnect } from 'react-redux-firebase'
 
 import { merge } from 'ramda'
@@ -22,15 +24,12 @@ import { SizeDelta } from '../Window'
 import { Handlers as WindowHandlers } from '../Windows'
 
 import { WINDOW, FB_APP_ID } from '../../constants'
-import { PROD } from '../../constants/env'
 
 import { error } from '../../lib/logging'
 
 import { enhancer } from './enhancer'
 
 export const cssPrefix = 'os'
-
-console.log('PROD:', PROD)
 
 export const getOS: OSGetter = async ({ React, auth }) => {
   try {
@@ -55,6 +54,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
       componentDidMount() {
         this.handleDocumentResize()
 
+        // tslint:disable:semicolon
         ; (window as any).fbAsyncInit = () => {
           FB.init({
             appId      : FB_APP_ID,
@@ -75,6 +75,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
           fjs!.parentNode!.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
       }
+      // tslint:enable:semicolon
 
       handleAppIconClick = (key: string) => () =>
         this.props.onAppIconClick(key)
@@ -200,74 +201,83 @@ export const getOS: OSGetter = async ({ React, auth }) => {
         } = this
 
         return (
-          <div
-            className={`${
-              cssPrefix
-            }`}
-            style={{
-              backgroundImage: WINDOW ?
-                `url('${
-                  background
-                }')`
-              : ''
+          <HotKeys
+            handlers={{
+              'command+up': () => console.log('hiii')
             }}
           >
-          {
-            idle && <Screensaver onClick={onActive}/>
-          }
-          {
-            IdleTimer
-        && <IdleTimer
-            element={document}
-            idleAction={onIdle}
-            timeout={120000}
-          />
-          }
-            <EventListener
-              target="window"
-              onResize={handleDocumentResize}
-            />
-            <Helmet
-              title={documentTitle}
-              meta={[
-                { name: 'charset', content: 'UTF-8' },
-              ]}
-            />
-            <WallpaperBlur width={width} background={background}/>
-            <NavBar>
-              <Logo onClick={handleLogoClick} emoji={emoji}/>
-              <Menu
-                FB={FB}
-                open={menuOpen}
-                onClickOutside={handleMenuClickOutside}
-                README={README}
-              />
-              <Camera onCapture={handleCameraCapture}/>
-              <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin'}} />
-            </NavBar>
-            <Desktop>
-              <Windows
-                windows={windows}
-                handlers={windowHandlersMap}
-              />
-            </Desktop>
-            <Sidebar
-              apps={Apps}
-              onAppClick={handleAppIconClick}
-              open={sidebarOpen}
-              onSetOpen={openSidebar}
-              {...{openSidebar, closeSidebar}}
-            />
             <div
               className={`${
                 cssPrefix
-              }_sidebar_capture${
-                sidebarOpen ? ` ${cssPrefix}_sidebar_capture-open` : ''
               }`}
-              onMouseEnter={openSidebar}
+              style={{
+                backgroundImage: WINDOW ?
+                  `url('${
+                    background
+                  }')`
+                : ''
+              }}
+            >
+            {
+              idle && <Screensaver onClick={onActive}/>
+            }
+            {
+              IdleTimer
+          && <IdleTimer
+              element={document}
+              idleAction={onIdle}
+              timeout={120000}
             />
-            {children}
-          </div>
+            }
+              <EventListener
+                target="window"
+                onResize={handleDocumentResize}
+                onKeyPress={
+                  (key) => console.log(key)
+                }
+              />
+              <Helmet
+                title={documentTitle}
+                meta={[
+                  { name: 'charset', content: 'UTF-8' },
+                ]}
+              />
+              <WallpaperBlur width={width} background={background}/>
+              <NavBar>
+                <Logo onClick={handleLogoClick} emoji={emoji}/>
+                <Menu
+                  FB={FB}
+                  open={menuOpen}
+                  onClickOutside={handleMenuClickOutside}
+                  README={README}
+                />
+                <Camera onCapture={handleCameraCapture}/>
+                <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin'}} />
+              </NavBar>
+              <Desktop>
+                <Windows
+                  windows={windows}
+                  handlers={windowHandlersMap}
+                />
+              </Desktop>
+              <Sidebar
+                apps={Apps}
+                onAppClick={handleAppIconClick}
+                open={sidebarOpen}
+                onSetOpen={openSidebar}
+                {...{openSidebar, closeSidebar}}
+              />
+              <div
+                className={`${
+                  cssPrefix
+                }_sidebar_capture${
+                  sidebarOpen ? ` ${cssPrefix}_sidebar_capture-open` : ''
+                }`}
+                onMouseEnter={openSidebar}
+              />
+              {children}
+            </div>
+          </HotKeys>
         )
       }
     }

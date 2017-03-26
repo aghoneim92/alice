@@ -1,3 +1,4 @@
+import { merge } from 'ramda'
 import { verifyToken } from './verifyToken'
 import { readFileSync } from 'fs'
 import { DEPLOYED, PROD } from './../constants/env'
@@ -15,8 +16,12 @@ import * as enforceHttps from 'koa-sslify'
 import { createRouter } from './router'
 import { resolve } from 'path'
 
-const HTTP_PORT = 80
-const HTTPS_PORT = DEPLOYED ? 443 : PROD ? 8080 : 4000
+const {
+  env: {
+    HTTP_PORT = 80,
+    HTTPS_PORT = DEPLOYED ? 443 : PROD ? 8080 : 4000,
+  },
+} = process
 
 export const createServer = ([
   Koa,
@@ -46,10 +51,13 @@ export const createServer = ([
   return app
 }
 
-const options = {
+const options = merge({
   key: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.key' : 'local.key'}`)),
-  cert: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.crt' : 'local.crt'}`))
+  cert: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.services.chain.crt' : 'local.crt'}`)),
+}, DEPLOYED ? {
+  // ca: readFileSync(resolve(__dirname, '../../alice-keys/alice.services.chain.crt')),
 }
+: {})
 
 export const startServer = (app: any, enableDestroy: any) => {
   if (DEPLOYED) {

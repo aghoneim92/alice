@@ -33,11 +33,11 @@ export FIREBASE_ADMIN_KEY_FILENAME = {key-filename}
 
 * Start a new terminal, or `source ~/.bashrc`
 
-
 ```bash
 yarn
 npm start
 # Need to manually run tis in a separate tab if not using macOS.
 npm run start-server
 ```
+
 go to [https://localhost:4001](https://localhost:4001)

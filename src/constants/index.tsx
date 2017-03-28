@@ -68,8 +68,6 @@ export const LOCALE = language
 export const LANGUAGE = language
 export const LANGUAGE2 = last(languages)
 
-export const PORT = PROD ? 80 : 8080
-
 export const REACT_COMPONENT = 'REACT_COMPONENT'
 
 export const SAMPLE_RATE = 16000

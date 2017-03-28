@@ -12,6 +12,22 @@
 .os {
   &_camera {
     margin-left: auto;
+
+    &_icon {
+      height: 100%;
+      display: inline-flex;
+      align-items: center;
+
+      .fa {
+        &.fa {
+          &-camera {
+            margin-top: 2.5px;
+            transform: scale(1.5, 1.5);
+          }
+        }
+      }
+    }
+
     &_content {
       background: white;
     }

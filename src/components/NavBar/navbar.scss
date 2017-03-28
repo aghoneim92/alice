@@ -10,7 +10,8 @@
   &_navbar {
     color: black;
     height: $navBarHeight;
-    width: 100%;
+    width: 95vw;
+    margin-left: 5vw;
     position: fixed;
     z-index: $z-index-navbar;
 

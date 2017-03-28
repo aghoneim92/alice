@@ -37,21 +37,23 @@ declare module '../OS' {
     onIdle: () => void
   }
 
+  interface ResolvedProps {
+    background: string
+    README: string
+    favicon: string
+  }
+
+  interface ReselectProps {
+    currentWindow?: Map<string, any>
+  }
+
   type CombinedProps = PropsFromState
+    & ReselectProps
     & DispatchProps
     & DerivedProps
     & InternalState
+    & ResolvedProps
     & StateCallbacks
-    & {
-      background?: string
-      currentWindow?: Map<string, any>
-      done?: Function
-      editor: any
-      layout?: any
-      README: string
-      router: any
-      windows: Map<string, ImMap>
-    }
     & OSProps
 
   type HandleWindowDrag = (

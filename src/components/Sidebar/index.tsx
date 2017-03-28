@@ -13,19 +13,25 @@ export interface SidebarProps {
   onAppClick: (key: string) => MouseEventHandler<HTMLElement>
   onSetOpen: any
   open?: boolean
+  docked?: boolean
   openSidebar: () => void
   closeSidebar: () => void
 }
 
 export const Sidebar: StatelessComponent<SidebarProps> = ({
   apps,
+  closeSidebar,
+  docked = true,
   onAppClick,
   open,
-  closeSidebar,
 }) => (
   <div
-    className={`${cssPrefix}${open ? ` ${cssPrefix}-open` : ''}`}
-    onMouseLeave={closeSidebar}
+    className={`${cssPrefix}${
+      open ? ` ${cssPrefix}-open` : ''
+    }${
+      docked ? ` ${cssPrefix}-docked` : ''
+    }`}
+    onMouseLeave={() => docked ? undefined : closeSidebar()}
   >
     {
       apps.map(

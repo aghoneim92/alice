@@ -5,8 +5,10 @@ import { compose as _compose } from 'ramda'
 import * as ReactReduxFirebase from 'react-redux-firebase'
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import * as createLogger from 'redux-logger'
+import * as ReduxLogger from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension'
+
+const { createLogger } = ReduxLogger
 
 import { FIREBASE_CONFIG, INITIAL_STATE, WINDOW } from '../constants'
 import { PROD } from '../constants/env'
@@ -23,8 +25,8 @@ const createStoreWithFirebase =
     {
       userProfile: 'users',
       enableLogging: !PROD,
-      updateProfileOnLogin: true,
-      
+      updateProfileOnLogin: false,
+      enableRedirectHandling: false,
     }
   )(createStore)
 
@@ -48,14 +50,14 @@ export function configureStore(
   const args = [rootReducer, initialState, enhancer]
   const store = WINDOW ?
     createStoreWithFirebase(...args)
-  : createStore(rootReducer, initialState, enhancer);
+  : createStore(rootReducer, initialState, enhancer)
 
   sagaMiddleware.run(saga)
 
   if (module.hot) {
     module.hot.accept('../reducers/index', () =>
       store.replaceReducer(require('../reducers/index'))
-    );
+    )
   }
 
   return store

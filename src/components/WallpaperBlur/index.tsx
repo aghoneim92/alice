@@ -5,19 +5,21 @@ export const cssPrefix = 'os_wallpaperBlur'
 System.import('./index.scss')
 
 interface WallpaperBlurProps {
-  background?: string;
-  width: number;
+  background?: string
+  width: number
+  height: number
 }
 
 export const WallpaperBlur: StatelessComponent<WallpaperBlurProps> = ({
   background = '',
-  width
+  width,
+  height,
 }) => (
   <svg
-    width="100%"
-    height={20}
+    width="95vw"
+    height="10vh"
     className={cssPrefix}
-    viewBox={`0 0 ${width} 20`}
+    viewBox={`0 0 ${width} ${0.1 * height}`}
   >
     <filter id="filter" x="-5%" y="-5%" width="110%" height="110%">
       <feGaussianBlur result="blur" in="SourceGraphic" stdDeviation="3.5"/>
@@ -35,7 +37,7 @@ export const WallpaperBlur: StatelessComponent<WallpaperBlurProps> = ({
       y={0}
       xlinkHref={background}
       width={width}
-      height={20}
+      height="10vh"
       filter="url(#filter)"
       preserveAspectRatio="xMinYMin slice"
     />

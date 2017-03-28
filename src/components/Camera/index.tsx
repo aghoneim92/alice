@@ -1,14 +1,14 @@
 /// <reference path="./index.d.ts" />
 
 import * as React from 'react'
-import { PureComponent } from "react"
+import { PureComponent } from 'react'
 
 import Popover from 'react-popover'
 import Webcam from 'react-webcam'
 
 
 import { pure, withState } from 'recompose'
-import { compose } from "ramda";
+import { compose } from 'ramda'
 
 System.import('./index.scss')
 
@@ -34,7 +34,7 @@ class CameraEnhanced extends PureComponent<CombinedProps, undefined> {
     
     setCapturing(true)
 
-    if(ref) {
+    if (ref) {
       onCapture(ref.getScreenshot())
     }
   }
@@ -60,7 +60,7 @@ class CameraEnhanced extends PureComponent<CombinedProps, undefined> {
           body={
             <div className={`${cssPrefix}_content`}>
               <div className={`${cssPrefix}_video${capturing ? ' os_camera_video-capturing' : ''}`}>
-                <Webcam ref={handleRef} width='100%' height='100%'/>
+                <Webcam ref={handleRef} width="100%" height="100%"/>
               </div>
               <div className="os_camera_controls">
                 <button
@@ -73,11 +73,15 @@ class CameraEnhanced extends PureComponent<CombinedProps, undefined> {
           isOpen={open}
           place="below"
           target={
-            <i className="fa fa-camera"/>
+            <span className="os_camera_icon">
+              <i className="fa fa-camera"/>
+            </span>
           }
           onOuterAction={() => setOpen(false)}
         >
-          <i onClick={() => setOpen(!open)} className="fa fa-camera"/>
+          <span className="os_camera_icon">
+            <i onClick={() => setOpen(!open)} className="fa fa-camera"/>
+          </span>
         </Popover>
       </div>
     )

@@ -21,7 +21,7 @@ const authWrapper = UserAuthWrapper({
   authSelector: (state: State) => {
     return selectors.firebase(state).auth
   },
-  redirectAction: () => null, // the redux action to dispatch for redirect
+  redirectAction: () => undefined, // the redux action to dispatch for redirect
   wrapperDisplayName: 'UserIsAuthenticated', // a nice name for this auth check
   FailureComponent: Login
 })
@@ -31,20 +31,19 @@ export const enhancer: Enhancer<OSProps, CombinedProps> = (compose as any)(
   authWrapper,
   reselect,
   pure,
-  resolve(
-    'background',
-    () =>
-      System
+  resolve({
+    favicon: () => System.import('../../logo-compact.png'),
+    background: () => System
         .import('../../background.jpg')
-        .catch(error)
-  ),
-  resolve('README', () => System.import(__dirname + '/../../../README.md')),
+        .catch(error),
+    README: () => System.import(__dirname + '/../../../README.md')
+  }),
   withState('dimensions', 'onDimensionsChanged', {
     width: 100,
     height: 100,
   }),
   withState('idle', 'setIdle', false),
-  withState('FB', 'setFB', null),
+  withState('FB', 'setFB', undefined),
   derive({
     onActive: track('setIdle')(
       ({

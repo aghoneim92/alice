@@ -10,15 +10,12 @@ $clickHaloDiam: 25px;
     display: flex;
     align-items: center;
     height: 100%;
+    width: $navBarHeight;
 
-    &_clickHalo {
-      width: $clickHaloDiam;
-      height: $clickHaloDiam;
-      overflow: hidden;
-      position: absolute;
-      left: -($clickHaloDiam - $fontSize) / 2;
-      top: -($clickHaloDiam - $navBarHeight) / 2;
-    }
+    background-image: url("../../logo-compact.png");
+    background-position: center;
+    background-size: cover;
+    filter: invert(100%);
 
     &_text {
       height: 20px;

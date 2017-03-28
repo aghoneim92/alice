@@ -12,7 +12,7 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "outDir": "./dist/",
+    "isolatedModules": true,
     "sourceMap": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -21,7 +21,9 @@
     "noUnusedParameters": true,
     "module": "es6",
     "preserveConstEnums": true,
+    "pretty": true,
     "strictNullChecks": true,
+    "skipDefaultLibCheck": true,
     "target": "es6",
     "jsx": "react",
     "lib": [
@@ -35,6 +37,10 @@
     "src/**/*"
   ],
   "include": [
-    "src/**/*"
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.json",
+    "src/**/*.js",
+    "src/**/*.ts"
   ]
 }

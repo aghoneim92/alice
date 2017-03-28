@@ -6,6 +6,7 @@ import { PureComponent } from 'react'
 import Clock from 'react-clockwall'
 import EventListener from 'react-event-listener'
 import * as Helmet from 'react-helmet'
+import * as Favicon from 'react-favicon'
 
 import { HotKeys } from 'react-hotkeys'
 
@@ -112,7 +113,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
         _,
         {
           deltaX = 0,
-          deltaY = 0,
+          deltaY = 0
         }
       ) => this.props.onWindowMove(
         id,
@@ -186,9 +187,10 @@ export const getOS: OSGetter = async ({ React, auth }) => {
             children,
             dimensions: {
               width,
+              height,
             },
             documentTitle,
-            emoji,
+            favicon,
             FB,
             idle,
             menuOpen,
@@ -224,10 +226,10 @@ export const getOS: OSGetter = async ({ React, auth }) => {
             {
               IdleTimer
           && <IdleTimer
-              element={document}
-              idleAction={onIdle}
-              timeout={120000}
-            />
+                element={document}
+                idleAction={onIdle}
+                timeout={120000}
+              />
             }
               <EventListener
                 target="window"
@@ -242,9 +244,10 @@ export const getOS: OSGetter = async ({ React, auth }) => {
                   { name: 'charset', content: 'UTF-8' },
                 ]}
               />
-              <WallpaperBlur width={width} background={background}/>
+              <Favicon url={[favicon]} />
+              <WallpaperBlur {...{width, height, background}}/>
               <NavBar>
-                <Logo onClick={handleLogoClick} emoji={emoji}/>
+                <Logo onClick={handleLogoClick}/>
                 <Menu
                   FB={FB}
                   open={menuOpen}
@@ -254,12 +257,6 @@ export const getOS: OSGetter = async ({ React, auth }) => {
                 <Camera onCapture={handleCameraCapture}/>
                 <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin'}} />
               </NavBar>
-              <Desktop>
-                <Windows
-                  windows={windows}
-                  handlers={windowHandlersMap}
-                />
-              </Desktop>
               <Sidebar
                 apps={Apps}
                 onAppClick={handleAppIconClick}
@@ -267,6 +264,12 @@ export const getOS: OSGetter = async ({ React, auth }) => {
                 onSetOpen={openSidebar}
                 {...{openSidebar, closeSidebar}}
               />
+              <Desktop>
+                <Windows
+                  windows={windows}
+                  handlers={windowHandlersMap}
+                />
+              </Desktop>
               <div
                 className={`${
                   cssPrefix

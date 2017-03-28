@@ -1,8 +1,8 @@
-import { WINDOW } from './../constants/index';
+import { WINDOW } from './../constants/index'
 import * as jsSHA from 'jssha'
 type IdGenerator = () => string
 
-const shaObj = new jsSHA('SHA-512', "ARRAYBUFFER")
+const shaObj = new jsSHA('SHA-512', 'ARRAYBUFFER')
 
 export const genId: IdGenerator = () => {
   const getRandomValues: (size: number) => ArrayBufferView = (size: number) => WINDOW ?

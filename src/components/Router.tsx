@@ -13,7 +13,7 @@ export const Container: StatelessComponent<any> = ({
   const head = Helmet.rewind()
   const attrs = head.htmlAttributes.toComponent()
 
-  const mainjs = `${PROD ? '' : 'https://localhost:8080/'}dist/${ PROD ? require('../../dist/push_manifest.json')['main.js'] : 'main.js'}`
+  const mainjs = `dist/${ PROD ? require('../../dist/push_manifest.json')['main.js'] : 'main.js'}`
 
   return (
     <html {...attrs}>

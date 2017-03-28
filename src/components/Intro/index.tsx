@@ -456,3 +456,5 @@ export default Intro*/
 //   'bot',
 //   () => getBot().catch(error)
 // )*/
+
+export default {}

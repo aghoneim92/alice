@@ -16,10 +16,13 @@ $sidebarBackground: rgba(0,0,0,0.3);
   }
   &_sidebar {
     position: absolute;
+    &-docked {
+      position: static;
+    }
     left: 0;
     top: 0;
     height: 100%;
-    width: 60px;
+    width: 5vw;
     padding: 5px;
     transform: translate3d(-60px, 0, 0);
     transition: transform 1s;

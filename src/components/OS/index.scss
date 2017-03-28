@@ -8,9 +8,16 @@ html, body {
   overflow: hidden;
 }
 
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../../fonts/quicksand/Quicksand-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .os {
   position: absolute;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   background-size: cover;
   height: 100%;
   top: 0;
@@ -18,4 +25,5 @@ html, body {
   left: 0;
   right: 0;
   overflow: hidden;
+  display: flex;
 }

@@ -1,7 +1,7 @@
-import { merge } from 'ramda'
+// import { merge } from 'ramda'
 import { verifyToken } from './verifyToken'
 import { readFileSync } from 'fs'
-import { DEPLOYED, PROD } from './../constants/env'
+import { PROD } from '../constants/env'
 import { ServerArgs, Destroyable } from '.'
 
 import * as https from 'https'
@@ -18,10 +18,13 @@ import { resolve } from 'path'
 
 const {
   env: {
-    HTTP_PORT = 80,
-    HTTPS_PORT = DEPLOYED ? 443 : PROD ? 8080 : 4000,
+    HTTP_PORT = PROD ? 80 : 4000,
+    HTTPS_PORT = 443,
+    DISABLE_HTTPS,
   },
 } = process
+
+const ENABLE_HTTPS = !DISABLE_HTTPS
 
 export const createServer = ([
   Koa,
@@ -31,12 +34,16 @@ export const createServer = ([
   const app = new Koa()
 
   app
-    .use(
+
+  if (PROD && ENABLE_HTTPS) {
+    app.use(
       enforceHttps({
         port: HTTPS_PORT
       })
     )
-    .use(logger())
+  }
+
+  app.use(logger())
 
   app
     .use(cookie())
@@ -51,19 +58,22 @@ export const createServer = ([
   return app
 }
 
-const options = merge({
-  key: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.key' : 'local.key'}`)),
-  cert: readFileSync(resolve(__dirname, `../../alice-keys/${DEPLOYED ? 'alice.services.chain.crt' : 'local.crt'}`)),
-}, DEPLOYED ? {
-  // ca: readFileSync(resolve(__dirname, '../../alice-keys/alice.services.chain.crt')),
+const options = {
+  key: readFileSync(resolve(__dirname, `../../alice-keys/alice.key`)),
+  cert: readFileSync(resolve(__dirname, `../../alice-keys/alice.services.chain.crt`)),
+  ca: [
+    readFileSync(resolve(__dirname, '../../alice-keys/AddTrustExternalCARoot.crt')),
+    readFileSync(resolve(__dirname, '../../alice-keys/COMODORSAAddTrustCA.crt')),
+    readFileSync(resolve(__dirname, '../../alice-keys/COMODORSADomainValidationSecureServerCA.crt')),
+  ],
 }
-: {})
 
 export const startServer = (app: any, enableDestroy: any) => {
-  if (DEPLOYED) {
-    http.createServer(app.callback()).listen(HTTP_PORT)
+  http.createServer(app.callback()).listen(HTTP_PORT)
+
+  if (PROD && ENABLE_HTTPS) {
+    https.createServer(options, app.callback()).listen(HTTPS_PORT)
   }
-  https.createServer(options, app.callback()).listen(HTTPS_PORT)
 
   enableDestroy(app)
 }

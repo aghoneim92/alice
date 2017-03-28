@@ -15,7 +15,6 @@ const {
 
 const {
   env: {
-    DEPLOYED,
     BROWSERSYNC_PORT,
     KOA_PORT,
     TS_OPTIONS = '-P src/server',
@@ -23,7 +22,6 @@ const {
 } = process
 
 export {
-  DEPLOYED,
   BROWSERSYNC_PORT,
   KOA_PORT,
   TS_COMPILER,

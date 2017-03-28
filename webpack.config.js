@@ -1,23 +1,29 @@
 const webpack = require('webpack')
-const { resolve } = require('path')
+const {
+  resolve
+} = require('path')
 const OfflinePlugin = require('offline-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const {
+  CheckerPlugin
+} = require('awesome-typescript-loader')
 
-const { ProvidePlugin } = webpack
+const {
+  ProvidePlugin
+} = webpack
 
-
-const { env } = process
+const {
+  env
+} = process
 
 const DEV = env.NODE_ENV === 'development'
 const PROD = env.NODE_ENV === 'production'
 const MAIN = './src/client/index.tsx'
 const DEV_TOOL = PROD ? 'source-map' : 'inline-source-map'
-const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.js']
-
+const RESOLVE_EXTENSIONS = ['.ts', '.tsx', '.js', '.json']
 
 const main = PROD ? [
   MAIN,
@@ -33,7 +39,7 @@ const OUTPUT_FILENAME_PATTERN = PROD ? '[hash].js' : '[name].js'
 const OUTPUT_PATH = resolve(`./${DIST}`)
 const PUBLIC_PATH = `/${DIST}/`
 const FONT_LOADER = {
-  test: /\.(eot|ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+  test: /\.(eot|ttf|woff|woff2|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
   loader: 'url-loader',
 }
 const IMAGE_LOADER = {
@@ -50,8 +56,7 @@ const CSS_LOADERS = [
   'css-loader?importLoaders=1&sourceMap',
   'postcss-loader?sourceMap',
 ]
-const CSS_LOADER = Object.assign(
-  {
+const CSS_LOADER = Object.assign({
     test: /\.css$/,
   },
   DEV ? {
@@ -66,8 +71,7 @@ const SCSS_LOADERS = [
   'sass-loader?sourceMap',
   'postcss-loader?sourceMap',
 ]
-const SCSS_LOADER = Object.assign(
-  {
+const SCSS_LOADER = Object.assign({
     test: /\.scss$/,
   },
   DEV ? {
@@ -84,8 +88,7 @@ const SOURCEMAPS_LOADER = {
 }
 const MARKDOWN_LOADER = {
   test: /\.md$/,
-  use: [
-    {
+  use: [{
       loader: "html-loader"
     },
     {
@@ -127,8 +130,8 @@ const LOADERS = [
 ]
 const PROD_PLUGINS = PROD ? [
   new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
+    minimize: true,
+    debug: false
   }),
   // new UglifyJsPlugin({
   //   sourceMap: true,
@@ -148,7 +151,7 @@ const PROD_PLUGINS = PROD ? [
 ] : []
 const WEBPACK_PLUGINS = [
   new CheckerPlugin(),
-  new OfflinePlugin(PROD ?{
+  new OfflinePlugin(PROD ? {
     caches: {
       main: [':rest:'],
       additional: [':externals:'],
@@ -172,14 +175,18 @@ const path = OUTPUT_PATH
 const publicPath = PUBLIC_PATH
 const filename = OUTPUT_FILENAME_PATTERN
 const loaders = LOADERS
-const MODULE = { loaders }
+const MODULE = {
+  loaders
+}
 const output = {
   filename,
-  chunkFilename: '[chunkhash].chunk.js',
+  chunkFilename: PROD ? '[chunkhash].chunk.js' : '[name].chunk.js',
   path,
   publicPath,
 }
-const RESOLVE = { extensions }
+const RESOLVE = {
+  extensions
+}
 const node = {
   fs: 'empty',
 }
@@ -191,8 +198,7 @@ const devServer = {
   compress: true,
   proxy: {
     '/': {
-      target: 'https://localhost:4000',
-      secure: false,
+      target: 'http://localhost:4000',
     },
   },
   contentBase: false,

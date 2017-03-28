@@ -17,9 +17,9 @@ export const WallpaperBlur: StatelessComponent<WallpaperBlurProps> = ({
 }) => (
   <svg
     width="95vw"
-    height="10vh"
+    height="5vh"
     className={cssPrefix}
-    viewBox={`0 0 ${width} ${0.1 * height}`}
+    viewBox={`0 0 ${width} ${0.05 * height}`}
   >
     <filter id="filter" x="-5%" y="-5%" width="110%" height="110%">
       <feGaussianBlur result="blur" in="SourceGraphic" stdDeviation="3.5"/>
@@ -37,7 +37,7 @@ export const WallpaperBlur: StatelessComponent<WallpaperBlurProps> = ({
       y={0}
       xlinkHref={background}
       width={width}
-      height="10vh"
+      height="5vh"
       filter="url(#filter)"
       preserveAspectRatio="xMinYMin slice"
     />

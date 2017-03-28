@@ -253,7 +253,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
               <Favicon url={[favicon]} />
               <WallpaperBlur {...{ width, height, background }} />
               <NavBar>
-                <Logo onClick={handleLogoClick} />
+                <Logo onClick={handleLogoClick} src={favicon}/>
                 <Menu
                   FB={FB}
                   open={menuOpen}

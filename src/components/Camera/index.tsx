@@ -60,7 +60,7 @@ class CameraEnhanced extends PureComponent<CombinedProps, undefined> {
           body={
             <div className={`${cssPrefix}_content`}>
               <div className={`${cssPrefix}_video${capturing ? ' os_camera_video-capturing' : ''}`}>
-                <Webcam ref={handleRef} width="100%" height="100%"/>
+                <Webcam ref={handleRef} width="100%" height="100%" audio={false}/>
               </div>
               <div className="os_camera_controls">
                 <button

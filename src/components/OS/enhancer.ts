@@ -32,7 +32,7 @@ export const enhancer: Enhancer<OSProps, CombinedProps> = (compose as any)(
   reselect,
   pure,
   resolve({
-    favicon: () => System.import('../../logo-compact.png'),
+    favicon: () => System.import('../Logo/logo-compact.png'),
     background: () => System
         .import('../../background.jpg')
         .catch(error),

@@ -44,7 +44,7 @@ export const Icon: StatelessComponent<ResolvedProps> = ({
 const solitaireId = genId()
 
 const SolitaireIcon = resolve({
-  src: () => System.import('../../solitaire.png')
+  src: () => System.import('./solitaire.png')
 })(Icon)
 
 const solitaire = Map({
@@ -61,7 +61,7 @@ interface ResolvedProps {
   src: string
 }
 const HextrisIcon: StatelessComponent<any> = resolve({
-  src: () => System.import('../../hextris.png'),
+  src: () => System.import('./hextris.png'),
 })(Icon)
 
 const hextrisId = genId()

@@ -3,7 +3,7 @@
   "engines": {
     "node": ">=7.6"
   },
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "An OS that runs in your browser",
   "main": "index.ts",
   "scripts": {
@@ -189,6 +189,7 @@
     "postcss-modules": "^0.6.4",
     "postcss-scss": "^0.4.0",
     "prettier": "^0.22.0",
+    "resolve-url-loader": "^2.0.2",
     "sass-loader": "^5.0.1",
     "style-loader": "^0.13.1",
     "uglify-js": "git://github.com/mishoo/UglifyJS2#harmony",

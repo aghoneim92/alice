@@ -3,7 +3,7 @@ import { StatelessComponent } from 'react'
 
 export const cssPrefix = 'os_navbar'
 
-System.import('./navbar.scss')
+System.import('./index.scss')
 
 export const NavBar: StatelessComponent<undefined> = ({
   children,

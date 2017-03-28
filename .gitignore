@@ -9,3 +9,4 @@ typings/
 .awcache
 *.pid
 alice-keys
+*.scss.json

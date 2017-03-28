@@ -1,4 +1,4 @@
-![Alice Logo](https://raw.githubusercontent.com/aliceservices/alice/master/src/logo.png)
+![Alice Logo](https://raw.githubusercontent.com/aliceservices/alice/master/src/components/Logo/logo.png)
 # <span>Alice 👩</span> [![GitHub release](https://img.shields.io/github/release/aghoneim92/alice.svg)]()
 
 [![Coverage](https://coveralls.io/repos/github/aghoneim92/os.js/badge.svg?branch=master)](https://coveralls.io/github/aghoneim92/os.js?branch=master)

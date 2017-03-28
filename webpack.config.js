@@ -54,6 +54,7 @@ const TYPESCRIPT_LOADER = {
 const CSS_LOADERS = [
   'style-loader',
   'css-loader?importLoaders=1&sourceMap',
+  'resolve-url-loader',
   'postcss-loader?sourceMap',
 ]
 const CSS_LOADER = Object.assign({
@@ -68,6 +69,7 @@ const CSS_LOADER = Object.assign({
 const SCSS_LOADERS = [
   'style-loader',
   'css-loader?importLoaders=1&sourceMap',
+  'resolve-url-loader',
   'sass-loader?sourceMap',
   'postcss-loader?sourceMap',
 ]
@@ -108,6 +110,7 @@ const COFFEE_LOADER = {
 const LESS_LOADERS = [
   'style-loader',
   'css-loader?importLoaders=1&sourceMap',
+  'resolve-url-loader',
   'less-loader?sourceMap',
   'postcss-loader?sourceMap',
 ]
@@ -185,7 +188,8 @@ const output = {
   publicPath,
 }
 const RESOLVE = {
-  extensions
+  extensions,
+  
 }
 const node = {
   fs: 'empty',

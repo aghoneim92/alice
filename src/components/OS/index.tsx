@@ -29,6 +29,7 @@ import { WINDOW, FB_APP_ID } from '../../constants'
 import { error } from '../../lib/logging'
 
 import { enhancer } from './enhancer'
+import { PROD } from '../../constants/env'
 
 export const cssPrefix = 'os'
 
@@ -55,22 +56,22 @@ export const getOS: OSGetter = async ({ React, auth }) => {
       componentDidMount() {
         this.handleDocumentResize()
 
-        // tslint:disable:semicolon
-        ; (window as any).fbAsyncInit = () => {
-          FB.init({
-            appId      : FB_APP_ID,
-            xfbml      : true,
-            version    : 'v2.8'
-          });
-          FB.AppEvents.logPageView();
+          // tslint:disable:semicolon
+          ; (window as any).fbAsyncInit = () => {
+            FB.init({
+              appId: FB_APP_ID,
+              xfbml: true,
+              version: 'v2.8'
+            });
+            FB.AppEvents.logPageView();
 
-          this.props.setFB(FB)
-        };
+            this.props.setFB(FB)
+          };
 
-        (function(d, s, id){
+        (function (d, s, id) {
           let js: HTMLScriptElement
           const fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {return; }
+          if (d.getElementById(id)) { return; }
           js = d.createElement(s) as HTMLScriptElement; js.id = id;
           js.src = '//connect.facebook.net/en_US/sdk.js';
           fjs!.parentNode!.insertBefore(js, fjs);
@@ -80,13 +81,13 @@ export const getOS: OSGetter = async ({ React, auth }) => {
 
       handleAppIconClick = (key: string) => () =>
         this.props.onAppIconClick(key)
-    && this.props.toggleSidebarOpen()
+        && this.props.toggleSidebarOpen()
 
       handleLogoClick = () => this.props.toggleMenuOpen()
 
       handleMenuClickOutside = () =>
         this.props.menuOpen
-    && this.props.toggleMenuOpen()
+        && this.props.toggleMenuOpen()
 
       handleTilesRef = (ref: any) => this.tilesRef = ref
 
@@ -119,7 +120,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
         id,
         deltaX,
         deltaY,
-      )
+        )
 
       handleWindowDragStart = (id: string) => this.props.onWindowChange({
         id,
@@ -211,26 +212,26 @@ export const getOS: OSGetter = async ({ React, auth }) => {
             <div
               className={`${
                 cssPrefix
-              }`}
+                }`}
               style={{
                 backgroundImage: WINDOW ?
                   `url('${
-                    background
+                  background
                   }')`
-                : ''
+                  : ''
               }}
             >
-            {
-              idle && <Screensaver onClick={onActive}/>
-            }
-            {
-              IdleTimer
-          && <IdleTimer
-                element={document}
-                idleAction={onIdle}
-                timeout={120000}
-              />
-            }
+              {
+                idle && <Screensaver onClick={onActive} />
+              }
+              {
+                IdleTimer
+                && <IdleTimer
+                  element={document}
+                  idleAction={onIdle}
+                  timeout={120000}
+                />
+              }
               <EventListener
                 target="window"
                 onResize={handleDocumentResize}
@@ -243,26 +244,31 @@ export const getOS: OSGetter = async ({ React, auth }) => {
                 meta={[
                   { name: 'charset', content: 'UTF-8' },
                 ]}
+                link={
+                  PROD ? [{
+                    rel: 'shortcut icon', href: 'favicon.png'
+                  }] : []
+                }
               />
               <Favicon url={[favicon]} />
-              <WallpaperBlur {...{width, height, background}}/>
+              <WallpaperBlur {...{ width, height, background }} />
               <NavBar>
-                <Logo onClick={handleLogoClick}/>
+                <Logo onClick={handleLogoClick} />
                 <Menu
                   FB={FB}
                   open={menuOpen}
                   onClickOutside={handleMenuClickOutside}
                   README={README}
                 />
-                <Camera onCapture={handleCameraCapture}/>
-                <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin'}} />
+                <Camera onCapture={handleCameraCapture} />
+                <Clock config={{ timezone: 'Europe/Berlin', town: 'Berlin' }} />
               </NavBar>
               <Sidebar
                 apps={Apps}
                 onAppClick={handleAppIconClick}
                 open={sidebarOpen}
                 onSetOpen={openSidebar}
-                {...{openSidebar, closeSidebar}}
+                {...{ openSidebar, closeSidebar }}
               />
               <Desktop>
                 <Windows
@@ -273,9 +279,9 @@ export const getOS: OSGetter = async ({ React, auth }) => {
               <div
                 className={`${
                   cssPrefix
-                }_sidebar_capture${
+                  }_sidebar_capture${
                   sidebarOpen ? ` ${cssPrefix}_sidebar_capture-open` : ''
-                }`}
+                  }`}
                 onMouseEnter={openSidebar}
               />
               {children}

@@ -12,7 +12,6 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "isolatedModules": true,
     "sourceMap": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

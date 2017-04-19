@@ -1,7 +1,0 @@
-localhost   # Your site's address
-
-errors {
-    log errors.log    # Error log
-    404 error-404.html   # Custom error page
-}
-fastcgi /blog localhost:8000

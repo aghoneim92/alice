@@ -52,8 +52,9 @@ export const createServer = ([
 
   if (PROD) {
     app.use(serverpush())
-    app.use(serve('.'))
   }
+  
+  app.use(serve('.'))
 
   return app
 }

@@ -59,15 +59,15 @@ declare module './index' {
   }: DerivedProps) => NodeModule
   type WindowToObject = (props: WindowProps) => any
 
-  
-
   interface BaseProps {
     handlers: Map<string, Handler> | DerivedHandlers
+    kernel: any
   }
 
   interface WindowProps extends BaseProps {
     window: ImMap
     handlers: Map<string, Handler>
+    kernel: any
   }
 
   interface DerivedProps extends BaseProps {

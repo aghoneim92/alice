@@ -25,12 +25,9 @@ export const SERVER_CMD = `ttab node_modules/.bin/nodemon --watch ${
 
 const DEFAULT_TITLE = APP_NAME
 
-export const DEFAULT_EMOJI = '👸'
-
 export const INITIAL_STATE: Partial<State> = {
   currentWindowId: null,
   documentTitle: DEFAULT_TITLE,
-  emoji: DEFAULT_EMOJI,
   menuOpen: false,
   windows: Map<string, any>()
 }

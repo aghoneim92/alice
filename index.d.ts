@@ -3,6 +3,8 @@
 
 declare module 'annyang'
 
+declare module 'browsix'
+
 declare module 'browser-cookie-lite'
 
 declare module 'b_'
@@ -19,6 +21,8 @@ declare module 'fbgraph'
 
 declare module 'is-running'
 
+declare var zip: any
+
 declare module 'koa-cookie'
 declare module 'koa-convert'
 declare module 'koa-proxy'
@@ -28,6 +32,7 @@ declare module 'koa-server-push'
 declare module 'navigo'
 
 declare module 'nodemon'
+declare module 'node-tar.gz'
 
 declare module 'offline-plugin/runtime'
 
@@ -35,7 +40,7 @@ declare module 'preload-js'
 
 declare module 'react-async-component'
 declare module 'react-addons-css-transition-group'
-declare module 'react-bash/src/component'
+declare module 'react-bash'
 declare module 'react-click-outside'
 declare module 'react-clockwall'
 declare module 'react-derive'
@@ -54,6 +59,7 @@ declare module 'react-resizable-box'
 declare module 'react-resolver'
 declare module 'react-router'
 declare module 'react-router-server'
+declare module 'react-list'
 declare module 'react-scene'
 declare module 'react-social-button'
 declare module 'react-speech'

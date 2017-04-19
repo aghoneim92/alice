@@ -7,6 +7,7 @@ import { pure } from 'recompose'
 
 import { Editor } from './Editor'
 import { Hackernews } from './Hackernews'
+import { Terminal } from './Terminal'
 
 import { genId } from '../../lib/genId'
 
@@ -122,11 +123,29 @@ const gba = Map({
   title: 'GBA Emulator',
 })
 
+const TerminalIconEnhanced: StatelessComponent<any> = ({ src }) => (
+  <img className="os_sidebar_appLauncher_icon" src={src}/>
+)
+
+const TerminalIcon = resolve({
+  src: () => System.import('./Terminal/logo.svg')
+})(TerminalIconEnhanced)
+
+const terminalId = '4b73b5c737a27688320fc2a6eb17664f48e664d2c081e784d03229684dc0d876b9259f1e50dfa991dfc7a5e7b35c7f63b069013708fb465b3dfdddd1572511b7'
+const terminal = Map({
+  id: terminalId,
+  Component: Terminal,
+  icon: <TerminalIcon/>,
+  title: 'Terminal',
+})
+
+
 export const Apps = Map<ImMap>({
   [editorId]: editor,
   [hackerNewsId]: hackerNews,
   [threeId]: three,
   [hextrisId]: hextris,
   [solitaireId]: solitaire,
+  [terminalId]: terminal,
   [gbaId]: gba,
 })

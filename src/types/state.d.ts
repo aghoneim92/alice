@@ -12,7 +12,6 @@ declare global {
   }
   interface PropsFromState {
     documentTitle: string
-    emoji: string
     firebase: any
     menuOpen: boolean
     sidebarOpen: boolean

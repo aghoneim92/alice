@@ -1,9 +1,9 @@
 import { derive, track } from 'react-derive'
 import { compose } from 'ramda'
 
-// import { pure } from 'recompose'
+import { pure } from 'recompose'
 
-import { WindowsProps } from '.'
+import { WindowsComponent, WindowsProps } from '.'
 
 const convertHandler = (id: string) => (handler: Function) =>
   (...args: any[]) =>
@@ -24,6 +24,7 @@ const handlerDeriver = derive({
 })
 
 export const decorate = compose(
-  // pure,
+  (comp: WindowsComponent) => pure(comp),
   handlerDeriver,
 )
+

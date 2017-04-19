@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const {
-  resolve
+  resolve,
+  join,
 } = require('path')
 const OfflinePlugin = require('offline-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
@@ -43,7 +44,7 @@ const FONT_LOADER = {
   loader: 'url-loader',
 }
 const IMAGE_LOADER = {
-  test: /\.(png|jpg|svg)$/,
+  test: /\.(png|jpg|svg|tar|gz|zip|xz)$/,
   loader: 'file-loader',
 }
 const TYPESCRIPT_LOADER = {
@@ -168,7 +169,7 @@ const WEBPACK_PLUGINS = [
   new webpack.HotModuleReplacementPlugin(),
   new webpack.NamedModulesPlugin(),
   new ProvidePlugin({
-    $: 'jquery'
+    jquery: true,
   })
 ].concat(PROD_PLUGINS)
 

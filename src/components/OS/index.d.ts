@@ -21,12 +21,14 @@ declare module '../OS' {
     }
     idle: boolean
     FB: any
+    kernel: any
   }
 
   interface StateCallbacks {
     setIdle: (idle: boolean) => void
     setFB: (FB: any) => void
     onDimensionsChanged: Function
+    setKernel: (kernel: any) => void
   }
 
   interface OSProps {

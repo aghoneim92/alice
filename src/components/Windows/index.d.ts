@@ -1,3 +1,4 @@
+import { StatelessComponent } from 'react';
 import { Functor } from "@types/ramda"
 
 import { Map } from 'immutable'
@@ -10,9 +11,9 @@ import {
 
 import { SizeDelta, WindowResizeHandler } from '../Window'
 
-import * as Windows from '../Windows'
+import '.'
 
-declare module '../Windows' {
+declare module '.' {
   type WindowDragHandler = (deltaX: number, deltaY: number) => void
 
   interface BaseHandlers extends TitleBaseHandlers {
@@ -48,6 +49,7 @@ declare module '../Windows' {
   interface WindowsProps {
     windows: ImMap
     handlers: Map<string, any>
+    kernel: any
   }
 
   interface DerivedProps extends WindowsProps {
@@ -55,4 +57,6 @@ declare module '../Windows' {
   }
 
   type CombinedProps = DerivedProps
+
+  type WindowsComponent = StatelessComponent<WindowsProps>
 }

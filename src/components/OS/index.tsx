@@ -6,7 +6,6 @@ import { PureComponent } from 'react'
 import Clock from 'react-clockwall'
 import EventListener from 'react-event-listener'
 import * as Helmet from 'react-helmet'
-import * as Favicon from 'react-favicon'
 
 import { HotKeys } from 'react-hotkeys'
 
@@ -18,6 +17,7 @@ import { withProps } from 'recompose'
 
 import { Map } from 'immutable'
 
+import { Windows } from '../Windows'
 import { Desktop } from '../Desktop'
 import { Logo } from '../Logo'
 import { WallpaperBlur } from '../WallpaperBlur'
@@ -33,13 +33,25 @@ import { PROD } from '../../constants/env'
 
 export const cssPrefix = 'os'
 
+
+import { FileFlag } from 'browserfs/dist/node/core/file_flag'
+
+const initBootFS = () => {
+  const BrowsixFSes = (window as any).BrowsixFSes
+
+  const FileSystem: any = BrowsixFSes()
+
+  return new FileSystem.XmlHttpRequest(
+    'index.json', '/node_modules/browsix/dist/fs'
+  )
+}
+
 export const getOS: OSGetter = async ({ React, auth }) => {
   try {
     const { Apps } = await System.import(__dirname + '/../Apps')
     const { NavBar } = await System.import(__dirname + '/../NavBar')
     const { Menu } = await System.import(__dirname + '/../Menu')
     const { Sidebar } = await System.import(__dirname + '/../Sidebar')
-    const { Windows } = await System.import(__dirname + '/../Windows')
     const { Screensaver } = await System.import(__dirname + '/../Screensaver')
     const { Camera } = await System.import(__dirname + '/../Camera')
 
@@ -47,13 +59,15 @@ export const getOS: OSGetter = async ({ React, auth }) => {
 
     class OS extends PureComponent<CombinedProps, undefined> {
       tilesRef?: any
+      kernel: any
 
       componentWillMount() {
         System.import('./index.scss')
-        System.import('firebaseui/dist/firebaseui.css')
       }
 
       componentDidMount() {
+        this.boot()
+
         this.handleDocumentResize()
 
           // tslint:disable:semicolon
@@ -78,6 +92,119 @@ export const getOS: OSGetter = async ({ React, auth }) => {
         }(document, 'script', 'facebook-jssdk'));
       }
       // tslint:enable:semicolon
+
+      initFS = async (userFS: any) => {
+        try {
+          const bootFS: any = await initBootFS()
+          const readdir = (path: string) => new Promise<string[]>(
+            (resolve, reject) =>
+              bootFS.readdir(path, (err: Error, dir: string[]) => {
+                if (err) {
+                  reject(err)
+                }
+
+                resolve(dir)
+              })
+          )
+
+          const readFile = (path: string) => new Promise(
+            (resolve, reject) =>
+              bootFS.readFile(path, 'utf8', FileFlag.getFileFlag('r'), (err: Error, contents: any) => {
+                if (err) {
+                  reject(err)
+                }
+
+                resolve(contents)
+              })
+          )
+
+          const mkdir = (path: string) => new Promise(
+            (resolve, reject) =>
+              userFS.mkdir(path, (err: Error) => {
+                if (err) {
+                  reject(err)
+                }
+
+                resolve()
+              })
+          )
+
+          const writeFile = (path: string, contents: any) => new Promise(
+            (resolve, reject) =>
+              userFS.writeFile(path, contents, (err: Error) => {
+                if (err) {
+                  reject(err)
+                }
+
+                resolve()
+              })
+          )
+
+          const exists: any = (path: string) => new Promise(
+            (resolve) => userFS.exists(path, (exists: boolean) => resolve(exists))
+          )
+
+          const files: string[] = await readdir('/')
+
+          async function copyFile(file: string) {
+            if (!userFS.existsSync(file)) {
+              const stats = bootFS.statSync(`/${file}`)
+
+              if (stats.isDirectory()) {
+                const path = file.split('/')
+
+                for (let i = 0; i < path.length; i++) {
+                  const joinedPath = path.slice(0, i + 1).join('/')
+                  const doesExist = await exists(`/${joinedPath}`)
+                  if (!doesExist) {
+                    await mkdir(`/${joinedPath}`)
+                  }
+                }
+
+                const children: string[] = await readdir(`/${file}`)
+
+                children.forEach(
+                  async child => {
+                    await copyFile(`${file}/${child}`)
+                  }
+                )
+              } else if (stats.isFile()) {
+                const path = `/${file}`
+
+                const doesExist = await exists(path)
+
+                if (!doesExist) {
+                  const contents = await readFile(path)
+
+                  writeFile(`/${file}`, contents)
+                }
+              }
+            }
+          }
+
+          files.forEach(copyFile)
+
+          await mkdir('/home')
+        } catch (e) {
+          error(e)
+        }
+      }
+
+      boot = async () => {
+        const { setKernel } = this.props;
+
+        (window as any).Boot(
+          'IndexedDB',
+          [() =>
+            this.initFS(this.kernel.fs)
+          ],
+          async () => {
+            this.kernel = (window as any).kernel
+            
+            setKernel(this.kernel)
+          }
+        )
+      }
 
       handleAppIconClick = (key: string) => () =>
         this.props.onAppIconClick(key)
@@ -180,6 +307,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
           handleDocumentResize,
           handleLogoClick,
           handleMenuClickOutside,
+          kernel,
           windowHandlersMap,
           openSidebar,
           closeSidebar,
@@ -235,9 +363,6 @@ export const getOS: OSGetter = async ({ React, auth }) => {
               <EventListener
                 target="window"
                 onResize={handleDocumentResize}
-                onKeyPress={
-                  (key) => console.log(key)
-                }
               />
               <Helmet
                 title={documentTitle}
@@ -250,7 +375,6 @@ export const getOS: OSGetter = async ({ React, auth }) => {
                   }] : []
                 }
               />
-              <Favicon url={[favicon]} />
               <WallpaperBlur {...{ width, height, background }} />
               <NavBar>
                 <Logo onClick={handleLogoClick} src={favicon}/>
@@ -272,6 +396,7 @@ export const getOS: OSGetter = async ({ React, auth }) => {
               />
               <Desktop>
                 <Windows
+                  kernel={kernel}
                   windows={windows}
                   handlers={windowHandlersMap}
                 />
@@ -293,7 +418,13 @@ export const getOS: OSGetter = async ({ React, auth }) => {
 
     const enhanced = enhancer(OS)
     const firebaseConn = firebaseConnect([
-      '/'
+      // {
+      //   path: '/terminals',
+      //   populates: {
+      //     child: 'owner',
+      //   }
+      // }
+      '/public'
     ])
 
     return WINDOW ? firebaseConn(enhanced) : withProps(

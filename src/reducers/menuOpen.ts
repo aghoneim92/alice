@@ -4,7 +4,7 @@ export const menuOpen: IdReducer<boolean> = (
   state = false,
   action: Action<boolean>,
 ) => {
-  if(action.type === MENU_TOGGLE) {
+  if (action.type === MENU_TOGGLE) {
     return !state
   }
 

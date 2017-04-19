@@ -4,7 +4,7 @@ import { Map } from 'immutable'
 
 import { APP_ICON_CLICK } from './../constants/ActionTypes'
 import { mergeImmutable } from './../lib/immutableHelpers'
-import { error } from './../lib/logging';
+import { error } from './../lib/logging'
 import { Apps } from '../components/Apps'
 import {
   WINDOW_DELETE_SUCCESS,
@@ -31,7 +31,7 @@ const createOrUpdate: CreateOrUpdate = (
 ) => {
   const from: ImMap = options.from
 
-  if(from) {
+  if (from) {
     const fromIdField: string = options.fromIdField
 
     const fromId: string = from.get(fromIdField)
@@ -42,7 +42,7 @@ const createOrUpdate: CreateOrUpdate = (
       window => window.get(fromIdField) === fromId
     )
 
-    if(oldDatum) {
+    if (oldDatum) {
       return windows.update(oldDatum.get('id'), window => window.merge(fromSansId))
     }
 
@@ -66,7 +66,7 @@ const handleAppIconClick: ActionHandler = (windows, data) => {
   const x = 0.05 * window.innerWidth
   const y = 0.05 * (window.innerHeight - 20)
 
-  if(app) {
+  if (app) {
     const from = app.merge(
       Map({
         id,
@@ -92,9 +92,9 @@ const handleWindowDelete = (state: ImMap, { id } : WindowConfig) =>
 
 const handleWindowFullScreen = (
   state: ImMap,
-  { id } : WindowConfig
+  { id }: WindowConfig
 ) => {
-  let window: ImMap = state.get(id)
+  const window: ImMap = state.get(id)
   const fullScreen: boolean = !window.get('fullScreen')
   const titlebarFocused = fullScreen ? false : window.get('titlebarFocused')
 
@@ -133,13 +133,12 @@ const actionHandlers: ({ [key: string]: ActionHandler }) = {
 
 export const windows: IdReducer<ImMap> = (
   state = Map<string, any>(),
-  action,
+  { type, payload },
 ) => {
-  const { type, payload } = action
   const data = payload && payload.data
 
   const handler: ActionHandler = actionHandlers[type]
-  if(handler && data) {
+  if (handler && data) {
     return handler(state, data)
   }
 

@@ -10,12 +10,9 @@ import { sidebarOpen } from './sidebarOpen'
 import { windows } from './windows'
 import { documentTitle } from './documentTitle'
 
-import { emoji } from './emoji'
-
 export const rootReducer = combineReducers({
   currentWindowId,
   documentTitle,
-  emoji,
   firebase: firebaseStateReducer,
   menuOpen,
   sidebarOpen,

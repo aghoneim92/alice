@@ -27,6 +27,7 @@ export const Container: StatelessComponent<any> = ({
         <script dangerouslySetInnerHTML={{ __html:
           `window.__REACT_RESOLVER_PAYLOAD__ = JSON.parse('${JSON.stringify(data)}')`
         }}/>
+        <script src="node_modules/browsix/dist/fs/boot/kernel.js"/>
         <script src={mainjs} async={true} defer={true}/>
       </body>
     </html>

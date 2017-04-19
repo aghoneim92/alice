@@ -24,6 +24,7 @@ export const WindowComponent: StatelessComponent<DerivedProps> = ({
     TitleBar,
   },
   handlers,
+  kernel,
   window: {
     appId,
     className = '',
@@ -133,7 +134,9 @@ export const WindowComponent: StatelessComponent<DerivedProps> = ({
           />
           <div className={`${cssPrefix}_content`}>
           {
-            React.createElement(Apps.getIn([appId, 'Component'], 'div'))
+            React.createElement(Apps.getIn([appId, 'Component'], 'div'), {
+              kernel,
+            })
           }
           </div>
         </DesktopWindow>

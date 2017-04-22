@@ -446,16 +446,6 @@
   version "2.0.27"
   resolved "https://registry.yarnpkg.com/@types/reselect/-/reselect-2.0.27.tgz#78a53338a99bb1bc4b6aea0e1a9315a0e37e7383"
 
-"@types/whatwg-fetch@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-fetch/-/whatwg-fetch-0.0.33.tgz#19c0d2863c8cb2380f21a1c736b79cbf7895bb13"
-  dependencies:
-    "@types/whatwg-streams" "*"
-
-"@types/whatwg-streams@*":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-streams/-/whatwg-streams-0.0.2.tgz#58eb11cf9ab33a2b55878d568ad7e9b933e67f7d"
-
 JSONSelect@*, JSONSelect@0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/JSONSelect/-/JSONSelect-0.4.0.tgz#a08edcc67eb3fcbe99ed630855344a0cf282bb8d"
